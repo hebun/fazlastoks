@@ -1,0 +1,10 @@
+.searchButton {
+	display: block;
+	margin-left: 5px;
+	margin-top: 5px;
+	padding-bottom: 5px;
+	float: left;
+	background: white url('../_images/arama-ikon.png') no-repeat top;
+	border: none;
+	width: 25px;
+}
