@@ -1,0 +1,152 @@
+.ustSayfa{
+width:990px;
+height:95px;
+margin-left:auto;
+margin-right:auto;
+}
+
+.logo{
+	width: 215px;
+	height: 75px;
+	margin-left: 15px;
+	margin-top: 11px;
+	float: left;
+	background-image: url(../_images/logoBG.png);
+	background-repeat: no-repeat;
+	background-position: left center;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 24px;
+	font-weight: bold;
+	color: #003;
+	text-decoration: none;
+	text-align: center;
+	line-height: 70px;
+
+}
+
+.urunArama{
+	width: 498px;
+	float: left;
+	margin-top: 36px;
+	margin-left: 10px;
+	height: 35px;
+	padding:5px;
+	border: 2px solid #eaeaea;
+	position: relative;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	z-index: 1;
+	behavior: url(_css/ie-css3.htc);
+	background-color: #FFF;
+	
+	
+}
+.uyeAlan{
+width:231px;
+margin-top:10px;
+float:left;
+	
+	
+}
+
+.saticiBaslik{
+	width: 221px;
+	margin-left: auto;
+	margin-right: auto;
+	background-image: url(../_images/saticilarBG.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: 35px;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: bold;
+	color: #003;
+	text-decoration: none;
+	text-align: center;
+	line-height: 35px;
+}
+
+.uyeGiris{
+	width: 180px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+.hesabaGiris{
+	width: 85px;
+	height: 29px;
+	float: left;
+	background-image: url(../_images/hesabaGirisBG.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-align: center;
+}
+
+.hesabaGiris a:link{
+	text-decoration: none;
+	color: #671D03;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 20px;
+}
+
+.hesabaGiris a:visited{
+	text-decoration: none;
+	color: #671D03;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 20px;
+}
+
+.hesabaGiris a:hover{
+	text-decoration: none;
+	color: #a92d01;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 20px;
+}
+
+.uyeGirisi{
+	width: 85px;
+	height: 29px;
+	float: left;
+	margin-left: 10px;
+	background-image: url(../_images/yeniUyeOlBG.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-align: center;
+}
+
+.uyeGirisi a:link{
+	text-decoration: none;
+	color: #003;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	line-height: 20px;
+	font-weight: bold;
+}
+
+.uyeGirisi a:visited{
+	text-decoration: none;
+	color: #003;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	line-height: 20px;
+	font-weight: bold;
+}
+
+.uyeGirisi a:hover{
+	text-decoration: none;
+	color: #0000B9;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	line-height: 20px;
+	font-weight: bold;
+}

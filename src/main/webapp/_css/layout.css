@@ -1,0 +1,46 @@
+body{
+	margin: 0px;
+	padding: 0px;	
+}
+
+.header{
+width:100%;
+	
+}
+
+.contentSablon{
+width:100%;	
+
+}
+
+.altSayfa{
+	
+}
+
+.menuAlan{
+	width: 100%;
+	background-image: url(../_images/menuBG.png);
+	background-repeat: repeat-x;
+	background-position: left center;
+	margin: 0px;
+	height: 40px;
+	padding-top: 5px;
+	padding-right: 0px;
+	padding-bottom: 5px;
+	padding-left: 0px;
+}
+
+.clearLeft{
+	clear: left;
+}
+.clearBoth{
+clear:both;
+}
+.clearRight{
+clear:right;
+}
+
+.imageLeft{
+float:left;
+	
+}

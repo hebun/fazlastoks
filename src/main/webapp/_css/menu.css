@@ -1,0 +1,60 @@
+.menuKutu{
+	width: 990px;
+	margin-left: auto;
+	margin-right: auto;
+
+}.menuKutu ul {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+.menuKutu ul li {
+	float: left;
+}
+.menuKutu ul li a {
+	display: block;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	margin-right: 22px;
+	margin-left: 22px;
+}
+.menuKutu ul li a:link {
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: bold;
+	color: #003;
+	text-decoration: none;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+.menuKutu ul li a:visited {
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: bold;
+	color: #003;
+	text-decoration: none;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+.menuKutu ul li a:hover {
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-decoration: none;
+	padding-right: 5px;
+	padding-left: 5px;
+	background-image: url(../_images/menuHoverBG.jpg);
+	background-repeat: repeat-x;
+	background-position: left center;
+	position: relative;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	z-index: 1;
+	behavior: url(_css/ie-css3.htc);
+	background-color: #FFF;
+}
