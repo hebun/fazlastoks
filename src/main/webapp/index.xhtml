@@ -1,189 +1,77 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="_css/site-styles.css" />
-<script type="text/javascript" src="_js/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" media="all"
-	href="_css/slidercss.css" />
-<script type="text/javascript" src="_js/sliderscripts.js"></script>
-<script type="text/javascript" src="_js/slidercustom.js"></script>
-<title>Untitled Document</title>
-</head>
-
-<body>
-	<div class="header">
-		<div class="ustSayfa">
-			<div class="logo">LOGO</div>
-			<div class="urunArama">
-				<form action="#" method="post" enctype="multipart/form-data">
-					<span class="urunAraBaslik">Ürün Arama </span> <input
-						name="UrunAra" type="text" class="urunAra"
-						value="Arama Kelimesi Giriniz..." /> <input name="Ara"
-						type="image" src="_images/arama-ikon.png" align="middle"
-						class="aramaYap" />
-				</form>
+<ui:composition template="/master.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+		<div class="sliderDestek">
+			<div class="sliderAlan">
+				<ul id="gallery2">
+					<li><img src="_resimler/_slider/slider1.jpg" alt=""
+						width="575" height="252" /></li>
+					<li><img src="_resimler/_slider/slider2.jpg" alt=""
+						width="575" height="252" /></li>
+					<li><img src="_resimler/_slider/slider3.jpg" alt=""
+						width="575" height="252" /></li>
+					<li><img src="_resimler/_slider/slider4.jpg" alt="" /></li>
+				</ul>
 			</div>
-			<div class="uyeAlan">
-				<div class="saticiBaslik">Satıcılar İçin</div>
-				<div class="uyeGiris">
-					<span class="hesabaGiris"><a href="#">Hesap Girişi</a></span> <span
-						class="uyeGirisi"><a href="#">Yeni Üyelik</a></span>
-					<div class="clearLeft"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="menuAlan">
-		<div class="menuKutu">
-			<ul>
-				<li><a href="index.html">Anasayfa</a></li>
-				<li><a href="sistem-hakkinda.xhtml">Sistem Hakkında</a></li>
-				<li><a href="#">Stok Fazlası Nedir?</a></li>
-				<li><a href="#">İletişim</a></li>
-				<li><a href="#">SSS</a></li>
-				<li><a href="#">Ücretsiz Katalog</a></li>
-		
-			</ul>
-			<div class="clearLeft"></div>
-		</div>
-	</div>
-	<div class="contentSablon">
-		<div class="contentAlan">
-			<div class="solContentAlan">
-				<div class="ustKategori">
-					<span class="solKategoriCubuk"></span> <span
-						class="ortaKategoriCubuk"> KATEGORİLER</span> <span
-						class="sagKategoriCubuk"></span>
-					<div class="clearLeft"></div>
-					<span class="kategoriKutu">
-						<ul>
-							<li><a href="#">Kategori</a></li>
-							<li><a href="#">Kategori</a></li>
-							<li><a href="#">Kategori</a></li>
-							<li><a href="#">Kategori</a></li>
-							<li><a href="#">Kategori</a></li>
-							<li><a href="#">Kategori</a></li>
-							<li><a href="#">Kategori</a></li>
-						</ul>
-					</span>
-				</div>
-			</div>
-			<div class="sagContentAlan">
-				<div class="sliderDestek">
-					<div class="sliderAlan">
-						<ul id="gallery2">
-							<li><img src="_resimler/_slider/slider1.jpg" alt=""
-								width="575" height="252" /></li>
-							<li><img src="_resimler/_slider/slider2.jpg" alt=""
-								width="575" height="252" /></li>
-							<li><img src="_resimler/_slider/slider3.jpg" alt=""
-								width="575" height="252" /></li>
-							<li><img src="_resimler/_slider/slider4.jpg" alt="" /></li>
-						</ul>
-					</div>
-					<div class="onlineDestek">
-						<span class="onlineDestekImage"><img
-							src="_images/onlineDestek.jpg" width="172" height="141" /></span> <span
-							class="emailUyelikBaslik"><img
-							src="_images/email-icon.png" width="32" height="30"
-							class="imageLeft" /> &nbsp;&nbsp;Ücretsiz Bülten İçin</span> <span
-							class="emailUyelik">
-							<form action="#" method="get">
-								<input name="emailKayit" type="text" class="emailText"
-									value="E-Mail adresinizi giriniz..." /> <input type="submit"
-									name="Gonder" value="Gönder" class="emailGonder" />
-							</form>
-						</span>
-						<div class="clearLeft"></div>
-					</div>
-				</div>
-				<div class="anaUrunKutu">
-					<div class="anaUrunBaslik">
-						<span class="solAnaBaslikUrunListe"></span> <span
-							class="ortaAnaBaslikUrunListe">HAFTANIN STOK FAZLASI
-							FIRSAT PAKETLERİ</span> <span class="sagAnaBaslikUrunListe"></span>
-						<div class="clearLeft"></div>
-					</div>
-					<div class="anaUrunListe">
-						<div class="urunKutu">
-							<div class="urunAnaResim">
-								<img src="_resimler/_urunResim/fs-(42).jpg" width="200"
-									height="100" />
-							</div>
-							<div class="paketTanim">New 200 series pillow block
-								bearing. Cast iron construction with self-aligning ball bearing
-								insert and grease zerk.</div>
-							<div class="paketFiyat">
-								<span class="baslik1">Piyasa Fiyatı</span> <span class="baslik3">1000
-									TL</span>
-								<div class="clearLeft"></div>
-							</div>
-							<div class="firsatFiyat">
-								<span class="baslik4">Fırsat Fiyatı</span> <span class="baslik3">800
-									TL</span>
-								<div class="clearLeft"></div>
-							</div>
-							<div class="paketDetay">
-								<a href="#">Paket Detayı </a>
-							</div>
-						</div>
-						<div class="urunKutu"></div>
-						<div class="urunKutu"></div>
-						<div class="urunKutu"></div>
-						<div class="urunKutu"></div>
-						<div class="urunKutu"></div>
-						<div class="urunKutu"></div>
-						<div class="urunKutu"></div>
-						<div class="urunKutu"></div>
-					</div>
-				</div>
-			</div>
-			<div class="clearLeft"></div>
-		</div>
-		</div>
-		<div class="clearLeft"></div>
-		<div class="altSayfa">
-			<div class="altFooter">
-				<div class="altHakkimizda">Fazla stoklar uygulamamız
-					Türkiye'deki firmaların ve şahısların ellerinde bulunan stok
-					fazlası ürünleri arayan, fazla stokları satın almak isteyen kişi ve
-					kuruluşlara sunmak üzere hazırlanmıştır.</div>
-
-				<div class="sosyalMedya">
-					<a href="#"><img src="_images/blog-ikon.png" title="Blogspot"
-						alt="Blogspot" width="27" height="27" /></a> <a href="#"><img
-						src="_images/slideshare-icon.png" alt="Slideshare"
-						title="Slideshare" width="27" height="26" /></a> <a href="#"><img
-						src="_images/foursquare-icon.png" alt="Foursquare"
-						title="Foursquare" width="27" height="27" /></a> <a href="#"><img
-						src="_images/youtube-icon.png" alt="Youtube" title="Youtube"
-						width="27" height="27" /></a> <a href="#"><img
-						src="_images/google-icon.png" alt="Google" title="Google"
-						width="27" height="27" /></a> <a href="#"><img
-						src="_images/linkedin-ikon.png" alt="Linkeed in"
-						title="Linkeed in" width="27" height="27" /></a> <a href="#"><img
-						src="_images/twitter-icon.png" alt="Twitter" title="Twitter"
-						width="27" height="27" /></a> <a href="#"><img
-						src="_images/faceboo-icon.png" alt="Facebook" title="Facebook"
-						width="27" height="27" /></a>
-				</div>
-				<div class="clearLeft"></div>
-				<div class="quarCode">
-					<img src="_images/qr-code.png" width="70" />
-				</div>
-				<div class="gizliBilgi">
-					<ul>
-						<li><a href="#">Gizlilik Sözleşmesi</a></li>
-						<li><a href="#">Kullanıcı Hakları </a></li>
-					</ul>
-				</div>
-
-				<div class="clearRight"></div>
-				<div class="copyRgiht">Copyright &copy; 2014 All rights
-					reserved Fazlastoklar.com</div>
+			<div class="onlineDestek">
+				<span class="onlineDestekImage"><img
+					src="_images/onlineDestek.jpg" width="172" height="141" /></span> <span
+					class="emailUyelikBaslik"><img src="_images/email-icon.png"
+					width="32" height="30" class="imageLeft" /> &#160;&#160;Ücretsiz
+					Bülten İçin</span> <span class="emailUyelik">
+					<form action="#" method="get">
+						<input name="emailKayit" type="text" class="emailText"
+							value="E-Mail adresinizi giriniz..." /> <input type="submit"
+							name="Gonder" value="Gönder" class="emailGonder" />
+					</form>
+				</span>
 				<div class="clearLeft"></div>
 			</div>
 		</div>
-</body>
-</html>
+		<div class="anaUrunKutu">
+			<div class="anaUrunBaslik">
+				<span class="solAnaBaslikUrunListe"></span> <span
+					class="ortaAnaBaslikUrunListe">HAFTANIN STOK FAZLASI FIRSAT
+					PAKETLERİ</span> <span class="sagAnaBaslikUrunListe"></span>
+				<div class="clearLeft"></div>
+			</div>
+			<div class="anaUrunListe">
+				<div class="urunKutu">
+					<div class="urunAnaResim">
+						<img src="_resimler/_urunResim/fs-(42).jpg" width="200"
+							height="100" />
+					</div>
+					<div class="paketTanim">New 200 series pillow block bearing.
+						Cast iron construction with self-aligning ball bearing insert and
+						grease zerk.</div>
+					<div class="paketFiyat">
+						<span class="baslik1">Piyasa Fiyatı</span> <span class="baslik3">1000
+							TL</span>
+						<div class="clearLeft"></div>
+					</div>
+					<div class="firsatFiyat">
+						<span class="baslik4">Fırsat Fiyatı</span> <span class="baslik3">800
+							TL</span>
+						<div class="clearLeft"></div>
+					</div>
+					<div class="paketDetay">
+						<a href="#">Paket Detayı </a>
+					</div>
+				</div>
+				<div class="urunKutu"></div>
+				<div class="urunKutu"></div>
+				<div class="urunKutu"></div>
+				<div class="urunKutu"></div>
+				<div class="urunKutu"></div>
+				<div class="urunKutu"></div>
+				<div class="urunKutu"></div>
+				<div class="urunKutu"></div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
