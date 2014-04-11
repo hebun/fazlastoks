@@ -1,0 +1,97 @@
+<ui:composition template="/master.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:define name="head">
+		<f:metadata>
+			<f:viewParam name="pid" value="#{pro.pro}"
+				converter="#{proConvertor}"  />
+			<f:event listener="#{pro.preRenderView()}" type="preRenderView" />
+		</f:metadata>
+
+	</ui:define>
+	<ui:define name="content"> 
+		<div class="form">
+			<h:form id="contactform">
+				<ui:param name="reqMessage" value="Lutfen bu alani doldurun."></ui:param>
+				<p class="contact">
+					<label for="pname">Paket Ismi</label>
+				</p>
+				<h:inputText id="pname" pt:placeholder="Paket ismi girin"
+					required="true" requiredMessage="#{reqMessage}" tabindex="1"
+					value="#{pro.pro.pname}">
+				</h:inputText>
+				<h:message for="pname" styleClass="error"></h:message>
+
+				<p class="contact">
+					<label for="content">Paket icerigi</label>
+				</p>
+
+				<h:inputTextarea id="content" pt:placeholder="Paket icerigi"
+					value="#{pro.pro.content}" required="true"
+					requiredMessage="#{reqMessage}" tabindex="2"></h:inputTextarea>
+				<h:message for="content" styleClass="error"></h:message>
+
+
+				<p class="contact">
+					<label for="pstate">Urun Durumunu Girin</label>
+				</p>
+				<h:inputText id="pstate" pt:placeholder="Or:yeni,2.el, hurda vb.."
+					required="true" value="#{pro.pro.pstate}" requiredMessage="#{reqMessage}" tabindex="3" type="text">
+				</h:inputText>
+
+				<h:message for="pstate" styleClass="error"></h:message>
+
+
+				<p class="contact">
+					<label for="quantity">Miktar Girin</label>
+				</p>
+				<h:inputText id="quantity"
+					pt:placeholder="Or:1.5 ton , 240 adet vb .." 
+					tabindex="4" value="#{pro.pro.quantity}" required="true" requiredMessage="#{reqMessage}" >
+				</h:inputText>
+
+				<h:message for="quantity" styleClass="error"></h:message>
+
+				<p class="contact">
+					<label for="price">Paket Toplam Fiyati</label>
+				</p>
+				<h:inputText id="price"  pt:placeholder="En az 1000TL degerin olmalidir "
+					required="true" requiredMessage="#{reqMessage}" tabindex="5"
+					value="#{pro.pro.price}">
+				</h:inputText>
+
+				<h:message for="price" styleClass="error"></h:message>
+
+				<p class="contact">
+					<label for="expiredate">Paket Geçerlik Tarihi</label>
+				</p>
+				<h:inputText id="expiredate" styleClass="datepicker" pt:placeholder="Son satış tarihi "
+					required="true" requiredMessage="#{reqMessage}" tabindex="6"
+					value="#{pro.pro.expiredate}" converterMessage="Tarih uygun degil">
+					<f:convertDateTime pattern="dd/M/yyy" ></f:convertDateTime>
+				</h:inputText>
+
+				<h:message for="expiredate" styleClass="error"></h:message>
+				
+				<p class="contact">
+					<label for="pstate">Anahtar Kelimeler</label>
+				</p>
+				<h:inputTextarea id="keywords"
+					pt:placeholder="Virgul ile ayrilmis 10 anahtar kelime girin"
+					tabindex="7" value="#{pro.pro.keywords}">
+				</h:inputTextarea>
+
+				<h:message for="keywords" styleClass="error"></h:message>
+
+				<br />
+				<h:commandButton styleClass="buttom" id="submit" tabindex="8" value="Kaydet"
+					action="#{pro.save}"></h:commandButton>
+			
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
