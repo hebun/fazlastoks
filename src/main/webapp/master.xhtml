@@ -3,8 +3,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-	>
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <f:view contentType="text/html">
 	<h:head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -12,12 +11,13 @@
 		<script type="text/javascript" src="_js/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" media="all"
 			href="_css/slidercss.css" />
-			<link rel="stylesheet" type="text/css" media="all"
+		<link rel="stylesheet" type="text/css" media="all"
 			href="_css/faces.css" />
 		<script type="text/javascript" src="_js/sliderscripts.js"></script>
 		<script type="text/javascript" src="_js/slidercustom.js"></script>
 		<script type="text/javascript" src="_js/client.js"></script>
 		<title>Untitled Document</title>
+
 	</h:head>
 
 	<h:body>
@@ -25,13 +25,14 @@
 			<div class="ustSayfa">
 				<div class="logo">LOGO</div>
 				<div class="urunArama">
-					<form action="#" method="post" enctype="multipart/form-data">
+					<h:form id="searchForm">
 						<span class="urunAraBaslik">Ürün Arama </span>
 						<h:inputText id="urunAra" name="UrunAra" type="text"
-							class="urunAra" pt:placeholder="Arama Kelimesi Giriniz..." value=""></h:inputText>
-						
-						<h:commandButton styleClass="searchButton" value="" ></h:commandButton>
-					</form>
+							class="urunAra" pt:placeholder="Arama Kelimesi Giriniz..."
+							value=""></h:inputText>
+
+						<h:commandButton styleClass="searchButton" value="" action="#{login.test}"></h:commandButton>
+					</h:form>
 				</div>
 				<div class="uyeAlan">
 					<div class="saticiBaslik">Satıcılar İçin</div>
@@ -60,6 +61,23 @@
 		<div class="contentSablon">
 			<div class="contentAlan">
 				<div class="solContentAlan">
+
+					<h:panelGroup styleClass="ustKategori" rendered="true">
+						<span class="solKategoriCubuk"></span>
+						<span class="ortaKategoriCubuk"> Menu</span>
+						<span class="sagKategoriCubuk"></span>
+						<div class="clearLeft"></div>
+						<div class="kategoriKutu">
+							<ul>
+								<li><a href="#">Paketlerim</a></li>
+								<li><h:outputLink value="product">Yeni Paket Ekle</h:outputLink>
+								</li>
+								<li><a href="#">Cikis Yap</a></li>
+
+							</ul>
+						</div>
+					</h:panelGroup>
+					<br />
 					<div class="ustKategori">
 						<span class="solKategoriCubuk"></span> <span
 							class="ortaKategoriCubuk"> KATEGORİLER</span> <span
