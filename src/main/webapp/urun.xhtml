@@ -8,17 +8,17 @@
 	<ui:define name="head">
 		<f:metadata>
 			<f:viewParam name="pid" value="#{pro.pro}"
-				converter="#{proConvertor}"  />
+				converter="#{proConvertor}" />
 			<f:event listener="#{pro.preRenderView()}" type="preRenderView" />
 		</f:metadata>
 
 	</ui:define>
-	<ui:define name="content"> 
+	<ui:define name="content">
 		<div class="form">
 			<h:form id="contactform">
 				<ui:param name="reqMessage" value="Lutfen bu alani doldurun."></ui:param>
 				<p class="contact">
-					<label for="pname">Paket Ismi</label>
+					<label for="pname">Paket Ismi*</label>
 				</p>
 				<h:inputText id="pname" pt:placeholder="Paket ismi girin"
 					required="true" requiredMessage="#{reqMessage}" tabindex="1"
@@ -27,7 +27,7 @@
 				<h:message for="pname" styleClass="error"></h:message>
 
 				<p class="contact">
-					<label for="content">Paket icerigi</label>
+					<label for="content">Paket icerigi*</label>
 				</p>
 
 				<h:inputTextarea id="content" pt:placeholder="Paket icerigi"
@@ -37,46 +37,54 @@
 
 
 				<p class="contact">
-					<label for="pstate">Urun Durumunu Girin</label>
+					<label for="pstate">Urun Durumunu Girin*</label>
 				</p>
 				<h:inputText id="pstate" pt:placeholder="Or:yeni,2.el, hurda vb.."
-					required="true" value="#{pro.pro.pstate}" requiredMessage="#{reqMessage}" tabindex="3" type="text">
+					required="true" value="#{pro.pro.pstate}"
+					requiredMessage="#{reqMessage}" tabindex="3" type="text">
 				</h:inputText>
 
 				<h:message for="pstate" styleClass="error"></h:message>
 
 
 				<p class="contact">
-					<label for="quantity">Miktar Girin</label>
+					<label for="quantity">Miktar Girin*</label>
 				</p>
 				<h:inputText id="quantity"
-					pt:placeholder="Or:1.5 ton , 240 adet vb .." 
-					tabindex="4" value="#{pro.pro.quantity}" required="true" requiredMessage="#{reqMessage}" >
+					pt:placeholder="Or:1.5 ton , 240 adet vb .." tabindex="4"
+					value="#{pro.pro.quantity}" required="true"
+					requiredMessage="#{reqMessage}">
 				</h:inputText>
 
 				<h:message for="quantity" styleClass="error"></h:message>
 
 				<p class="contact">
-					<label for="price">Paket Toplam Fiyati</label>
+					<label for="price">Paket Toplam Fiyati(TL)*</label>
 				</p>
-				<h:inputText id="price"  pt:placeholder="En az 1000TL degerin olmalidir "
+				<h:inputText id="price"
+					pt:placeholder="Sadece rakam giriniz(En az 1000 TL) "
 					required="true" requiredMessage="#{reqMessage}" tabindex="5"
-					value="#{pro.pro.price}">
+					value="#{pro.pro.price}"
+					validatorMessage="Lutfen 1000+ bir sayi girin"
+					converterMessage="Lutfen bir sayi giriniz">
+					<f:convertNumber integerOnly="true"></f:convertNumber>
+					<f:validateLongRange minimum="1000" maximum="999999" />
 				</h:inputText>
 
 				<h:message for="price" styleClass="error"></h:message>
 
 				<p class="contact">
-					<label for="expiredate">Paket Geçerlik Tarihi</label>
+					<label for="expiredate">Paket Geçerlik Tarihi*</label>
 				</p>
-				<h:inputText id="expiredate" styleClass="datepicker" pt:placeholder="Son satış tarihi "
-					required="true" requiredMessage="#{reqMessage}" tabindex="6"
+				<h:inputText id="expiredate" styleClass="datepicker"
+					pt:placeholder="Son satış tarihi " required="true"
+					requiredMessage="#{reqMessage}" tabindex="6"
 					value="#{pro.pro.expiredate}" converterMessage="Tarih uygun degil">
-					<f:convertDateTime pattern="dd/M/yyy" ></f:convertDateTime>
+					<f:convertDateTime pattern="dd/M/yyy"></f:convertDateTime>
 				</h:inputText>
 
 				<h:message for="expiredate" styleClass="error"></h:message>
-				
+
 				<p class="contact">
 					<label for="pstate">Anahtar Kelimeler</label>
 				</p>
@@ -88,9 +96,9 @@
 				<h:message for="keywords" styleClass="error"></h:message>
 
 				<br />
-				<h:commandButton styleClass="buttom" id="submit" tabindex="8" value="Kaydet"
-					action="#{pro.save}"></h:commandButton>
-			
+				<h:commandButton styleClass="buttom" id="submit" tabindex="8"
+					value="Kaydet" action="#{pro.save}"></h:commandButton>
+
 			</h:form>
 		</div>
 	</ui:define>
