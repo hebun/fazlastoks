@@ -1,7 +1,5 @@
 package fazlastoks;
 
-import static org.junit.Assert.*;
-
 import java.util.Date;
 
 import org.junit.Test;
@@ -9,19 +7,21 @@ import org.junit.Test;
 public class TestPro {
 
 	/**
-	 * TEST CASES:
-	 * tab indexes,validations{max fiyat,past time),turkce karakter
+	 * TEST CASES: 
+	 * tab indexes,validations{max fiyat,past time),turkce
+	 * karakter{urunlarim.xhmtl,urun.xhtml,master.xhtml}, authfilter for member
+	 * and acess(session attr status needed)
 	 * 
-	 * ISSUES:
-	 * datepicker language and format,url resetin on invalidation
-	 *  
+	 * ISSUES: 
+	 * datepicker language and format,url reseting on
+	 * invalidation,product filter in urunlerim,
+	 * 
 	 */
-	
-	
+
 	@Test
 	public void testPro() {
-		Pro p=new Pro();
-		
+		Pro p = new Pro();
+
 		p.preRenderView();
 		p.getPro().setExpiredate(new Date());
 		p.validateInput();
