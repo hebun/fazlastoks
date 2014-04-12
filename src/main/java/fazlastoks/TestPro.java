@@ -2,13 +2,15 @@ package fazlastoks;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
+
 import org.junit.Test;
 
 public class TestPro {
 
 	/**
 	 * TEST CASES:
-	 * tab indexes,validations{max fiyat,past time)
+	 * tab indexes,validations{max fiyat,past time),turkce karakter
 	 * 
 	 * ISSUES:
 	 * datepicker language and format,url resetin on invalidation
@@ -17,8 +19,12 @@ public class TestPro {
 	
 	
 	@Test
-	public void test() {
+	public void testPro() {
+		Pro p=new Pro();
 		
+		p.preRenderView();
+		p.getPro().setExpiredate(new Date());
+		p.validateInput();
 	}
 
 }

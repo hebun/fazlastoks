@@ -14,9 +14,10 @@
 
 	</ui:define>
 	<ui:define name="content">
-		<div class="form">
+		<div class="form" id="formtop">
 			<h:form id="contactform">
 				<ui:param name="reqMessage" value="Lutfen bu alani doldurun."></ui:param>
+				<h:messages globalOnly="true" styleClass="error"></h:messages>
 				<p class="contact">
 					<label for="pname">Paket Ismi*</label>
 				</p>
@@ -62,8 +63,8 @@
 					<label for="price">Paket Toplam Fiyati(TL)*</label>
 				</p>
 				<h:inputText id="price"
-					pt:placeholder="Sadece rakam giriniz(En az 1000 TL) "
-					required="true" requiredMessage="#{reqMessage}" tabindex="5"
+					pt:placeholder="Sadece rakam giriniz(En az 1000) " required="true"
+					requiredMessage="#{reqMessage}" tabindex="5"
 					value="#{pro.pro.price}"
 					validatorMessage="Lutfen 1000+ bir sayi girin"
 					converterMessage="Lutfen bir sayi giriniz">
@@ -80,7 +81,8 @@
 					pt:placeholder="Son satış tarihi " required="true"
 					requiredMessage="#{reqMessage}" tabindex="6"
 					value="#{pro.pro.expiredate}" converterMessage="Tarih uygun degil">
-					<f:convertDateTime pattern="dd/M/yyy"></f:convertDateTime>
+					<f:convertDateTime pattern="dd.mm.yy"></f:convertDateTime>
+
 				</h:inputText>
 
 				<h:message for="expiredate" styleClass="error"></h:message>
@@ -97,7 +99,8 @@
 
 				<br />
 				<h:commandButton styleClass="buttom" id="submit" tabindex="8"
-					value="Kaydet" action="#{pro.save}"></h:commandButton>
+					value="Kaydet" action="#{pro.save}"
+				></h:commandButton>
 
 			</h:form>
 		</div>

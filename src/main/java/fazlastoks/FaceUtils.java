@@ -3,6 +3,9 @@ package fazlastoks;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Logger;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -39,5 +42,11 @@ public class FaceUtils {
 			FaceUtils.log.severe(e.getMessage());
 			return false;
 		}
+	}
+	public  static void addError(String msg) {
+		FacesMessage message = new FacesMessage(
+				FacesMessage.SEVERITY_ERROR,
+				msg, "");
+		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 }
