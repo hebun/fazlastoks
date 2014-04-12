@@ -17,12 +17,13 @@ public class Products implements Serializable {
 	private List<Product> list;
 	private Session ss;
 
+	@SuppressWarnings("unchecked")
 	public Products() {
 		this.ss = FaceUtils.openHibernateSession();
-	
-		list=ss.createCriteria(Product.class).list();
+		ss.getTransaction().begin();
+		list = ss.createCriteria(Product.class).list();
 		
-		
+
 	}
 
 	public List<Product> getList() {
@@ -31,6 +32,14 @@ public class Products implements Serializable {
 
 	public void setList(List<Product> list) {
 		this.list = list;
+	}
+
+	public String delete(Product pro) {
+		FaceUtils.log.finest("delete pro.id" + pro.getId());
+
+		FaceUtils.hibernateDelete(this.ss, pro);
+		list.remove(pro);
+		return null;
 	}
 
 	/**

@@ -14,13 +14,14 @@
 
 	</ui:define>
 	<ui:define name="content">
-	 	<div class="anaUrunBaslik">
-				<span class="solAnaBaslikUrunListe"></span> <span
-					class="ortaAnaBaslikUrunListe">Yeni Urun Paketi  Ekle</span> <span class="sagAnaBaslikUrunListe"></span>
-				<div class="clearLeft"></div>
-			</div>
+		<div class="anaUrunBaslik">
+			<span class="solAnaBaslikUrunListe"></span> <span
+				class="ortaAnaBaslikUrunListe">Yeni Urun Paketi Ekle</span> <span
+				class="sagAnaBaslikUrunListe"></span>
+			<div class="clearLeft"></div>
+		</div>
 		<div class="form" id="formtop">
-		
+
 			<h:form id="contactform">
 				<ui:param name="reqMessage" value="Lutfen bu alani doldurun."></ui:param>
 				<h:messages globalOnly="true" styleClass="error"></h:messages>
@@ -87,7 +88,7 @@
 					pt:placeholder="Son satış tarihi " required="true"
 					requiredMessage="#{reqMessage}" tabindex="6"
 					value="#{pro.pro.expiredate}" converterMessage="Tarih uygun degil">
-					<f:convertDateTime pattern="dd.mm.yy"></f:convertDateTime>
+					<f:convertDateTime pattern="dd.MM.yyyy"></f:convertDateTime>
 
 				</h:inputText>
 
@@ -105,8 +106,7 @@
 
 				<br />
 				<h:commandButton styleClass="buttom" id="submit" tabindex="8"
-					value="Kaydet" action="#{pro.save}"
-				></h:commandButton>
+					value="Kaydet" action="#{pro.save}"></h:commandButton>
 
 			</h:form>
 		</div>

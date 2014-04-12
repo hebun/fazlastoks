@@ -26,7 +26,7 @@ public class Pro implements Serializable {
 	}
 
 	public String save() {
-		FaceUtils.log.info("save called pro.id" + pro.getId());
+		FaceUtils.log.finest("save called pro.id" + pro.getId());
 
 		return validateInput() && FaceUtils.hibernateSave(this.ss, this.pro) ? "urunlerim"
 				: null;
@@ -35,16 +35,16 @@ public class Pro implements Serializable {
 
 	public boolean validateInput() {
 
-		if(pro.getExpiredate().compareTo(new Date())<=0){
+		if (pro.getExpiredate().compareTo(new Date()) <= 0) {
+			System.out.println(pro.getExpiredate().toString() + "---"
+					+ new Date().toString());
 			String msg = "Lütfen ileri bir tarih seçin.";
 			FaceUtils.addError(msg);
-		
+
 			return false;
 		}
 		return true;
 	}
-
-	
 
 	public void preRenderView() {
 		if (pro == null) {
@@ -53,6 +53,7 @@ public class Pro implements Serializable {
 	}
 
 	private static final long serialVersionUID = -2018425860394584424L;
+
 	public Product getPro() {
 		return pro;
 	}

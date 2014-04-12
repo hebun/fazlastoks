@@ -7,14 +7,17 @@ import org.junit.Test;
 public class TestPro {
 
 	/**
+	 * CURRENT:
+	 * hibernate session and transactions.
+	 * 
 	 * TEST CASES: 
 	 * tab indexes,validations{max fiyat,past time),turkce
 	 * karakter{urunlarim.xhmtl,urun.xhtml,master.xhtml}, authfilter for member
-	 * and acess(session attr status needed)
+	 *  acess(session attr status needed)
 	 * 
 	 * ISSUES: 
 	 * datepicker language and format,url reseting on
-	 * invalidation,product filter in urunlerim,
+	 * invalidation,product filter in urunlerim, or true state in authfilter
 	 * 
 	 */
 

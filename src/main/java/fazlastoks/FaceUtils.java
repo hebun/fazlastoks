@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import model.Product;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -26,7 +28,7 @@ public class FaceUtils {
 		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
 				.applySettings(cfg.getProperties());
 		SessionFactory factory = cfg.buildSessionFactory(builder.build());
-		return factory.openSession();
+		return factory.getCurrentSession();
 	}
 
 	public static boolean hibernateSave(Session ss, Object obj) {
@@ -34,7 +36,7 @@ public class FaceUtils {
 
 			ss.getTransaction().begin();
 
-			ss.save(obj);
+			ss.saveOrUpdate(obj);
 			ss.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
@@ -43,10 +45,26 @@ public class FaceUtils {
 			return false;
 		}
 	}
-	public  static void addError(String msg) {
-		FacesMessage message = new FacesMessage(
-				FacesMessage.SEVERITY_ERROR,
+
+	public static void addError(String msg) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 				msg, "");
 		FacesContext.getCurrentInstance().addMessage(null, message);
+	}
+
+	public static boolean hibernateDelete(Session ss, Object obj) {
+		try {
+
+			ss.getTransaction().begin();
+
+			ss.delete(obj);
+			ss.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			ss.getTransaction().rollback();
+			FaceUtils.log.severe(e.getMessage());
+			return false;
+		}
+
 	}
 }
