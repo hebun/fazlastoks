@@ -2,7 +2,6 @@ package fazlastoks;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.logging.Level;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -16,17 +15,16 @@ import org.hibernate.Session;
 public class Pro implements Serializable {
 
 	private Product pro;
-	private Session ss;
+	private transient Session ss;
 
 	public Pro() {
-		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-
+		System.out.println("pro constructor");
 		this.ss = FaceUtils.openHibernateSession();
 
 	}
 
 	public String save() {
-		FaceUtils.log.finest("save called pro.id" + pro.getId());
+		FaceUtils.log.info("save called pro.id" + pro.getId());
 
 		return validateInput() && FaceUtils.hibernateSave(this.ss, this.pro) ? "urunlerim"
 				: null;

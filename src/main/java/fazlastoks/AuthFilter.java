@@ -1,6 +1,7 @@
 package fazlastoks;
 
 import java.io.IOException;
+import java.util.logging.Level;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -28,7 +29,7 @@ public class AuthFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		try {
-
+			java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 			HttpServletRequest req = (HttpServletRequest) request;
 			HttpServletResponse res = (HttpServletResponse) response;
 			HttpSession ses = req.getSession(false);

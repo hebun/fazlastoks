@@ -4,25 +4,27 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 import org.hibernate.Session;
 
 import model.Product;
 
-@ViewScoped
+@RequestScoped
 @ManagedBean
 public class Products implements Serializable {
 
 	private List<Product> list;
-	private Session ss;
+	private transient Session ss;
 
 	@SuppressWarnings("unchecked")
 	public Products() {
 		this.ss = FaceUtils.openHibernateSession();
+		System.out.println("products consturctor called");
 		ss.getTransaction().begin();
 		list = ss.createCriteria(Product.class).list();
-		
+		this.ss.getTransaction().commit();
 
 	}
 

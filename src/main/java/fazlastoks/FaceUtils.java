@@ -6,8 +6,6 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import model.Product;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -23,6 +21,15 @@ public class FaceUtils {
 	}
 
 	public static Session openHibernateSession() {
+		Configuration configuration = new Configuration();
+		Configuration cfg = configuration.configure();
+		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
+				.applySettings(cfg.getProperties());
+		SessionFactory factory = cfg.buildSessionFactory(builder.build());
+		return factory.openSession();
+	}
+
+	public static Session getHibernateSession() {
 		Configuration configuration = new Configuration();
 		Configuration cfg = configuration.configure();
 		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()

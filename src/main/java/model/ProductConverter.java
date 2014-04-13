@@ -16,14 +16,15 @@ import fazlastoks.FaceUtils;
 @FacesConverter(forClass = model.Product.class, value = "proConverter")
 public class ProductConverter implements Converter {
 
-	private Session ss;
+	private transient Session ss;
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String value) throws ConverterException {
 
-		this.ss = FaceUtils.openHibernateSession();
+		this.ss = FaceUtils.getHibernateSession();
+		System.out.println("getting for converter");
 		ss.getTransaction().begin();
 		List<Product> list = ss.createCriteria(Product.class)
 				.add(Restrictions.eq("id", Integer.parseInt(value))).list();

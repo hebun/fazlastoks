@@ -1,10 +1,17 @@
-<ui:composition template="/master.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
-	<ui:define name="content">
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	>
+<f:view contentType="text/html">
+	<h:head>
+
+
+	</h:head>
+
+	<h:body>
 		<h:form>
 
 			<div class="anaUrunBaslik">
@@ -16,7 +23,7 @@
 
 			<h:dataTable value="#{products.list}" var="p" id="betDt1"
 				styleClass="tableSorter">
-
+ 
 				<h:column>
 					<f:facet name="header">Paket Ismi </f:facet>
 					#{p.pname}
@@ -24,17 +31,15 @@
 				<h:column>
 					<f:facet name="header">Paket Icerigi </f:facet>
 					#{p.content}
-    			</h:column>
+    			</h:column> 
 				<h:column>
 					<f:facet name="header">Fiyat </f:facet>
 					#{p.price} 
     			</h:column>
 				<h:column>
 					<f:facet name="header">Son Tarih </f:facet>
-					<h:outputText value="#{p.expiredate}">
-						<f:convertDateTime pattern="dd.MM.yyyy" />
-					</h:outputText>
-				</h:column>
+					#{p.expiredate}
+    			</h:column>
 				<h:column>
 					<f:facet name="header">Islemler </f:facet>
 					<h:outputLink value="urun?pid=#{p.id}">Duzenle </h:outputLink>
@@ -43,5 +48,6 @@
 				</h:column>
 			</h:dataTable>
 		</h:form>
-	</ui:define>
-</ui:composition>
+	</h:body>
+	</f:view>
+	</html>
