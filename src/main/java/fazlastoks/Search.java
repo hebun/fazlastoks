@@ -1,12 +1,15 @@
 package fazlastoks;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+import freela.util.Db;
 import freela.util.FaceUtils;
+import freela.util.Sql;
 import model.Product;
 
 @RequestScoped
@@ -27,11 +30,17 @@ public class Search implements Serializable {
 
 	@SuppressWarnings("unchecked")
 	public Search() {
-		System.out.println("products consturctor called");
-
+		
+	
 	}
 
 	public void init() {
+		String sql = new Sql.Select().from("product").where("pname like ", "%"+key+"%").
+				or("content like ", "%"+key+"%").get();
+		
+		list=Db.select(sql,Product.class);
+		
+		FaceUtils.log.info(sql);
 
 	}
 

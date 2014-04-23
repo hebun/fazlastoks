@@ -18,11 +18,11 @@ import java.util.Map;
 public class Db {
 
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost:3306/fazlastoklar";
+	static final String DB_URL = "jdbc:mysql://localhost:3306/freelaj_fazlastoklar";
 
 	// Database credentials
-	static final String USER = "root";
-	static final String PASS = "2882";
+	static final String USER = "freelaj_fazla";
+	static final String PASS = "2882jh";
 	public static boolean started = false;
 	static Connection conn = null;
 	static Statement stmt = null;
@@ -302,25 +302,4 @@ public class Db {
 		public void callback(String[] columns, List<List<String>> data);
 	}
 
-	public static class Datatable {
-		String[] columns;
-		List<List<String>> data;
-
-	}
-
-	public static enum category {
-		id, cname,
-	}
-
-	public static enum product {
-		id, pname, content, pstate, quantity, price, expiredate, keywords, file,
-	}
-
-	public static enum productcategory {
-		id, productId, categoryId,
-	}
-
-	public static enum productphoto {
-		id, productId, file,
-	}
 }
