@@ -8,26 +8,24 @@ import javax.faces.bean.ViewScoped;
 
 import model.Product;
 
-import org.hibernate.Session;
 
 @ViewScoped
 @ManagedBean
 public class Pro implements Serializable {
 
 	private Product pro;
-	private transient Session ss;
+
 
 	public Pro() {
 		System.out.println("pro constructor");
-		this.ss = FaceUtils.openHibernateSession();
+	
 
 	}
 
 	public String save() {
 		FaceUtils.log.info("save called pro.id" + pro.getId());
 
-		return validateInput() && FaceUtils.hibernateSave(this.ss, this.pro) ? "urunlerim"
-				: null;
+		return  null;
 
 	}
 
