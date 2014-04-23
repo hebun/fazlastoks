@@ -1,5 +1,9 @@
 package freela.util;
 
+import java.beans.BeanInfo;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -26,7 +30,6 @@ public class Db {
 	static Connection conn = null;
 	static Statement stmt = null;
 	static int say = 0;
-
 
 	public static void start(String caller) {
 		try {
@@ -69,6 +72,58 @@ public class Db {
 		} catch (Exception e) {
 			System.out.println("e in select");
 			e.printStackTrace();
+		} finally {
+			close("");
+		}
+
+	}
+
+	public static <T> List<T> select(String sql, Class<T> type) {
+		start("");
+
+		try {
+
+			ResultSet rs = stmt.executeQuery(sql);
+			ResultSetMetaData metaData = rs.getMetaData();
+			int colCount = metaData.getColumnCount();
+
+			String[] columns = new String[colCount];
+
+			for (int i = 0; i < colCount; i++) {
+				columns[i] = new String(metaData.getColumnLabel(i + 1));
+			}
+			List<T> list = new ArrayList<T>();
+
+			while (rs.next()) {
+				T obj = type.newInstance();
+				for (Field f : type.getDeclaredFields()) {
+					if (Modifier.isPrivate(f.getModifiers())) {
+						String input = f.getName();
+						input = input.substring(0, 1).toUpperCase()
+								+ input.substring(1);
+						try {
+							Method met = type.getMethod("set" + input,
+									f.getType());
+
+							met.invoke(obj, rs.getObject(f.getName()));
+						} catch (NoSuchMethodException e) {
+
+							e.printStackTrace();
+						} catch (Exception e) {
+						}
+					}
+				}
+				list.add(obj);
+			}
+			return list;
+		} catch (SQLException se) {
+			System.out.println("se in select<T" + sql);
+			se.printStackTrace();
+			return new ArrayList<T>();
+		} catch (Exception e) {
+			System.out.println("e in select");
+			e.printStackTrace();
+			return new ArrayList<T>();
 		} finally {
 			close("");
 		}

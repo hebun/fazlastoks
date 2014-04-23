@@ -15,9 +15,14 @@ public class FaceUtils {
 	public static final Logger log = Logger.getLogger("FazlaStoklar");
 	static {
 		log.setUseParentHandlers(false);
-		ConsoleHandler consoleHandler = new ConsoleHandler();
+		ConsoleHandler consoleHandler = new ConsoleHandler(){
+			{
+				setOutputStream(System.out);
+			}
+		};
 		consoleHandler.setFormatter(new LogFormatter());
 		consoleHandler.setLevel(Level.ALL);
+		
 		log.addHandler(consoleHandler);
 		log.setLevel(Level.ALL);
 		

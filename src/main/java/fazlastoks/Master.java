@@ -17,7 +17,7 @@ public class Master implements Serializable {
 	public Master() {
 		
 		username = "username blabla";
-		FaceUtils.log.info(username);
+	
 	}
 
 	public void Login() {
