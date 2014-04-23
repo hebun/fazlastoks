@@ -11,6 +11,7 @@ import javax.faces.bean.ViewScoped;
 
 import freela.util.Db;
 import freela.util.Db.SelectCallback;
+import freela.util.FaceUtils;
 import freela.util.Sql;
 import freela.util.Sql.Select;
 import model.Product;
@@ -25,18 +26,6 @@ public class Products implements Serializable {
 		Sql.Select select = new Select().from("product");
 		list = Db.select(select.get(), Product.class);
 
-		/*
-		 * Db.select(select.get(), new SelectCallback() {
-		 * 
-		 * @Override public void callback(ResultSet rs, String[] columns) throws
-		 * SQLException {
-		 * 
-		 * while (rs.next()) { Product p = new Product();
-		 * p.setId(rs.getInt("id")); p.setPname(rs.getString("pname"));
-		 * p.setContent(rs.getString("content"));
-		 * p.setPrice(rs.getInt("price"));
-		 * p.setExpiredate(rs.getDate("expiredate")); list.add(p); } } });
-		 */
 
 	}
 

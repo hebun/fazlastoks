@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import freela.util.FaceUtils;
+
 @ViewScoped
 @ManagedBean
 public class Master implements Serializable {

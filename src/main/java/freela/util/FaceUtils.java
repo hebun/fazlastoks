@@ -1,4 +1,4 @@
-package fazlastoks;
+package freela.util;
 
 import java.io.IOException;
 import java.util.logging.ConsoleHandler;

@@ -8,7 +8,7 @@ public class TestPro {
 
 	/**
 	 * CURRENT:
-	 * hibernate session and transactions.
+	 *
 	 * 
 	 * TEST CASES: 
 	 * tab indexes,validations{max fiyat,past time),turkce

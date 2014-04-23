@@ -1,4 +1,4 @@
-package fazlastoks;
+package freela.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

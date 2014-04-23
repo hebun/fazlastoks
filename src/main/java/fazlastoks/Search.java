@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+import freela.util.FaceUtils;
 import model.Product;
 
 @RequestScoped
@@ -30,9 +31,7 @@ public class Search implements Serializable {
 
 	}
 
-
 	public void init() {
-	
 
 	}
 

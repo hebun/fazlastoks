@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import freela.util.Db;
+import freela.util.FaceUtils;
 import freela.util.Sql;
 import model.Product;
 
@@ -23,7 +24,7 @@ public class Pro implements Serializable {
 	}
 
 	public String save() {
-		FaceUtils.log.info("save called pro.id" + pro.getId());
+		FaceUtils.log.info("save called pro.id:" + pro.getId());
 
 		if (!validateInput())
 			return null;
@@ -53,7 +54,7 @@ public class Pro implements Serializable {
 		if (pro.getExpiredate().compareTo(new Date()) <= 0) {
 			System.out.println(pro.getExpiredate().toString() + "---"
 					+ new Date().toString());
-			String msg = "Lütfen ileri bir tarih seçin.";
+			String msg = "Lütfen ileri bir tarih seçin!";
 			FaceUtils.addError(msg);
 
 			return false;

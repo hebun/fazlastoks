@@ -1,6 +1,5 @@
 package freela.util;
 
-import java.beans.BeanInfo;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -11,17 +10,15 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class Db {
 
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost/fazlastoklar";
+	static final String DB_URL = "jdbc:mysql://localhost:3306/fazlastoklar";
 
 	// Database credentials
 	static final String USER = "root";
@@ -31,29 +28,22 @@ public class Db {
 	static Statement stmt = null;
 	static int say = 0;
 
-	public static void start(String caller) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
+	public static void start(String caller) throws ClassNotFoundException,
+			SQLException {
 
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		Class.forName("com.mysql.jdbc.Driver");
 
-			stmt = conn.createStatement();
+		conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-		} catch (ClassNotFoundException e) {
+		stmt = conn.createStatement();
 
-			e.printStackTrace();
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
 		started = true;
 	}
 
 	public static void select(String sql, SelectCallback callback) {
-		start("");
 
 		try {
-
+			start("");
 			ResultSet rs = stmt.executeQuery(sql);
 			ResultSetMetaData metaData = rs.getMetaData();
 			int colCount = metaData.getColumnCount();
@@ -79,10 +69,9 @@ public class Db {
 	}
 
 	public static <T> List<T> select(String sql, Class<T> type) {
-		start("");
 
 		try {
-
+			start("");
 			ResultSet rs = stmt.executeQuery(sql);
 			ResultSetMetaData metaData = rs.getMetaData();
 			int colCount = metaData.getColumnCount();
@@ -131,11 +120,11 @@ public class Db {
 	}
 
 	public static void select(String sql, SelectCallbackTable callback) {
-		start("");
+
 		String[] columns = null;
 		List<List<String>> data = null;
 		try {
-
+			start("");
 			ResultSet rs = stmt.executeQuery(sql);
 			ResultSetMetaData metaData = rs.getMetaData();
 			int colCount = metaData.getColumnCount();
@@ -171,10 +160,9 @@ public class Db {
 	}
 
 	public static void select(String sql, SelectCallbackLoop callback) {
-		start("");
 
 		try {
-
+			start("");
 			ResultSet rs = stmt.executeQuery(sql);
 			ResultSetMetaData metaData = rs.getMetaData();
 			int colCount = metaData.getColumnCount();
@@ -213,12 +201,11 @@ public class Db {
 	}
 
 	public static List<Map<String, String>> selectTable(String sql) {
-		start("");
 
 		List<Map<String, String>> list = null;
 
 		try {
-
+			start("");
 			ResultSet rs = stmt.executeQuery(sql);
 
 			ResultSetMetaData data = rs.getMetaData();
@@ -252,8 +239,9 @@ public class Db {
 	}
 
 	public static int insert(String sql) {
-		start("query not started");
+
 		try {
+			start("query not started");
 			say++;
 			if (say % 100 == 0)
 				System.out.print(say + ".");

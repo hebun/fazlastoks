@@ -1,4 +1,4 @@
-package fazlastoks;
+package freela.util;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -13,6 +13,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import freela.util.FaceUtils;
 
 @WebFilter(filterName = "AuthFilter", urlPatterns = { "*" })
 public class AuthFilter implements Filter {
