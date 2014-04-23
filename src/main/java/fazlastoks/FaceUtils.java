@@ -1,10 +1,14 @@
 package fazlastoks;
 
+import java.io.IOException;
 import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,7 +21,10 @@ public class FaceUtils {
 		log.setUseParentHandlers(false);
 		ConsoleHandler consoleHandler = new ConsoleHandler();
 		consoleHandler.setFormatter(new LogFormatter());
+		consoleHandler.setLevel(Level.ALL);
 		log.addHandler(consoleHandler);
+		log.setLevel(Level.ALL);
+		
 	}
 
 	public static Session openHibernateSession() {
@@ -57,6 +64,20 @@ public class FaceUtils {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 				msg, "");
 		FacesContext.getCurrentInstance().addMessage(null, message);
+	}
+
+	public static void redirectTo(String url) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext context = facesContext.getExternalContext();
+		HttpServletResponse response = (HttpServletResponse) context
+				.getResponse();
+
+		try {
+			response.sendRedirect(url);
+		} catch (IOException e) {
+			log.warning(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	public static boolean hibernateDelete(Session ss, Object obj) {

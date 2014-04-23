@@ -3,15 +3,14 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-	>
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <f:view contentType="text/html">
 	<h:head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="_css/site-styles.css" />
-		<link rel="stylesheet" type="text/css" 
+		<link rel="stylesheet" type="text/css"
 			href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
-		
+
 		<script type="text/javascript" src="_js/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" media="all"
 			href="_css/slidercss.css" />
@@ -19,8 +18,8 @@
 			href="_css/faces.css" />
 		<script type="text/javascript" src="_js/sliderscripts.js"></script>
 		<script type="text/javascript" src="_js/slidercustom.js"></script>
-		
-			<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 		<script type="text/javascript" src="_js/client.js"></script>
 		<title>Untitled Document</title>
 
@@ -35,10 +34,12 @@
 						<span class="urunAraBaslik">Ürün Arama </span>
 						<h:inputText id="urunAra" name="UrunAra" type="text"
 							class="urunAra" pt:placeholder="Arama Kelimesi Giriniz..."
-							value=""></h:inputText>
-
+							value="#{master.searchText}"></h:inputText>
+					
 						<h:commandButton styleClass="searchButton" value=""
-							action="#{login.test}"></h:commandButton>
+							action="#{master.search}">
+							<f:param name="key" value="#{master.searchText}" ></f:param>
+							</h:commandButton>
 					</h:form>
 				</div>
 				<div class="uyeAlan">

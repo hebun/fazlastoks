@@ -1,7 +1,6 @@
 package fazlastoks;
 
 import java.io.Serializable;
-import java.util.Hashtable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -9,28 +8,48 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import model.Product;
 
-@ViewScoped
+@RequestScoped
 @ManagedBean
-public class Products implements Serializable {
+public class Search implements Serializable {
 
 	private List<Product> list;
 	private transient Session ss;
+	private String key;
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
 
 	@SuppressWarnings("unchecked")
-	public Products() {
-		this.ss = FaceUtils.openHibernateSession();
+	public Search() {
 		System.out.println("products consturctor called");
-		ss.getTransaction().begin();
-		list = ss.createCriteria(Product.class).list();
-		this.ss.getTransaction().commit();
 
 	}
 
+	@SuppressWarnings("unchecked")
+	public void init() {
+		this.ss = FaceUtils.openHibernateSession();
+
+		ss.getTransaction().begin();
+		String value = "%" + key + "%";
+		list = ss
+				.createCriteria(Product.class)
+				.add(Restrictions.disjunction()
+						.add(Restrictions.like("pname", value))
+						.add(Restrictions.like("content", value))).list();
+
+		this.ss.getTransaction().commit();
+	}
+
 	public List<Product> getList() {
-		
 		return list;
 	}
 
