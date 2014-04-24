@@ -19,6 +19,8 @@ import freela.util.FaceUtils;
 @WebFilter(filterName = "AuthFilter", urlPatterns = { "*" })
 public class AuthFilter implements Filter {
 
+	static boolean devStage = true;
+
 	public AuthFilter() {
 	}
 
@@ -31,18 +33,24 @@ public class AuthFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		try {
-			java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+			java.util.logging.Logger.getLogger("org.hibernate").setLevel(
+					Level.OFF);
 			HttpServletRequest req = (HttpServletRequest) request;
 			HttpServletResponse res = (HttpServletResponse) response;
 			HttpSession ses = req.getSession(false);
 
 			String reqURI = req.getRequestURI();
-			
-			if (adminControle(req, res, ses, reqURI)) {
-				
-				if (memberControle(req, res, ses, reqURI)) {
-					
-					chain.doFilter(request, response);
+
+			if (devStage) {
+				chain.doFilter(request, response);
+			} else {
+
+				if (adminControle(req, res, ses, reqURI)) {
+
+					if (memberControle(req, res, ses, reqURI)) {
+
+						chain.doFilter(request, response);
+					}
 				}
 			}
 
@@ -61,7 +69,7 @@ public class AuthFilter implements Filter {
 		for (String string : memberPages) {
 
 			if (reqURI.indexOf(string) >= 0) {
-				if (ses != null && ses.getAttribute("username") != null ||true) {
+				if (ses != null && ses.getAttribute("username") != null) {
 				} else {
 
 					res.sendRedirect(req.getContextPath() + "/login");
@@ -79,7 +87,7 @@ public class AuthFilter implements Filter {
 		/**
 		 * admin access only
 		 */
-		if (reqURI.indexOf("/admin/") >= 0) {
+		if (reqURI.indexOf("/admin") >= 0) {
 
 			if (ses == null || ses.getAttribute("username") == null
 					|| !ses.getAttribute("status").toString().equals("ADMIN")) {

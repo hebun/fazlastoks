@@ -7,7 +7,7 @@ import org.junit.Test;
 public class TestPro {
 
 	/**
-	 * CURRENT:search.cons 
+	 * CURRENT:Admin panel
 	 *
 	 * 
 	 * TEST CASES: 
@@ -15,7 +15,7 @@ public class TestPro {
 	 * karakter{urunlarim.xhmtl,urun.xhtml,master.xhtml}, authfilter for member
 	 *  acess(session attr status needed)
 	 * 
-	 * ISSUES: 
+	 * ISSUES: own product control, 
 	 * datepicker language and format,url reseting on
 	 * invalidation,product filter in urunlerim, or true state in authfilter
 	 * 

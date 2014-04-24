@@ -17,12 +17,11 @@ import java.util.Map;
 
 public class Db {
 
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost:3306/freelaj_fazlastoklar";
+	public static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
-	// Database credentials
-	static final String USER = "freelaj_fazla";
-	static final String PASS = "2882jh";
+	public static String DB_URL = "jdbc:mysql://localhost:3306/fazlastoklar";
+	public static String USER = "root";
+	public static String PASS = "2882";
 	public static boolean started = false;
 	static Connection conn = null;
 	static Statement stmt = null;
