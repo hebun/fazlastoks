@@ -1,0 +1,86 @@
+<ui:composition template="/admin/master.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:define name="content">
+
+		<h:form>
+			<h:panelGrid style="width:100%;" rendered="#{categories.hasMessage}">
+				<h4 class="#{categories.messageType}">#{categories.message}</h4>
+			</h:panelGrid>
+			<div style="width:60%;padding-left:30px;" >
+			<fieldset>
+				<label>Yeni Kategori Ekle</label> 
+				<h:inputText value="#{categories.newCat}"></h:inputText>
+				<h:commandButton action="#{categories.addCat}" value="Ekle"></h:commandButton>
+			</fieldset>
+			</div>
+			<article class="module width_3_quarter">
+				<header>
+					<h3 class="tabs_involved">Kategoriler</h3>
+
+				</header>
+
+				<div class="tab_container">
+					<div id="tab1" class="tab_content">
+
+						<h:dataTable value="#{categories.cats}" var="m" id="betDt1"
+							styleClass="tablesorter" columnClasses="column2,column3">
+
+						
+							<h:column>
+								<f:facet name="header">Isim</f:facet>
+    			#{m.cname}
+    			</h:column>
+							<h:column pt:style="width:20%;">
+
+								<f:facet name="header">Eylemler</f:facet>
+								<h:commandButton image="images/icn_trash.png"
+									action="#{categories.delete(m)}" pt:title="Sil"></h:commandButton>
+
+							</h:column>
+
+						</h:dataTable>
+
+					</div>
+				</div>
+			</article>
+
+
+			<div class="clear"></div>
+
+			<div class="spacer"></div>
+			<h:outputScript>
+$(document).ready(function() 
+    	{ 
+      	  $(".tablesorter").tablesorter(); 
+   	 } 
+	);
+	</h:outputScript>
+		</h:form>
+	</ui:define>
+	<ui:define name="head">
+		<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
+		<style type="text/css">
+.column1 {
+	width: 10%;
+}
+
+.column2 {
+	width: 70%;
+}
+
+.column3 {
+	width: 20%;
+}
+
+.delButton {
+	background-image: url(images/icn_trash.png)
+}
+</style>
+	</ui:define>
+</ui:composition>

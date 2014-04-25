@@ -696,7 +696,7 @@ margin: 10px 0;
 fieldset label {
 display: block;
 float: left;
-width: 200px;
+width: 150px;
 height: 25px;
 line-height: 25px;
 text-shadow: 0 1px 0 #fff;
@@ -721,7 +721,7 @@ background-position: 10px 6px;
 margin: 0;
 display: block;
 float: left;
-width: 96%;
+width: 36%;
 margin: 0 10px;
 }
 

@@ -19,9 +19,9 @@ public class Db {
 
 	public static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
-	public static String DB_URL = "jdbc:mysql://localhost:3306/fazlastoklar";
-	public static String USER = "root";
-	public static String PASS = "2882";
+	public static String DB_URL = "jdbc:mysql://locxxalhost:3306cccx/fazxlastoklar?useUnicode=true&characterEncoding=utf8";
+	public static String USER = "roxxxot";
+	public static String PASS = "28xxx82";
 	public static boolean started = false;
 	static Connection conn = null;
 	static Statement stmt = null;

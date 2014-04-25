@@ -7,7 +7,7 @@ import org.junit.Test;
 public class TestPro {
 
 	/**
-	 * CURRENT:Admin panel
+	 * CURRENT:Admin panel,app.java to freela.util, db parameters(set in app, get from web.xml)
 	 *
 	 * 
 	 * TEST CASES: 

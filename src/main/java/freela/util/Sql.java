@@ -231,14 +231,18 @@ public abstract class Sql {
 			if (isBuilt)
 				return currentSql;
 			StringBuilder builder = new StringBuilder("select ");
-			builder.append(fieldList).append(" from `").append(this.tableName)
-					.append("` ");
+			builder.append(fieldList);
 
-			for (Map.Entry<String, Map.Entry<String, String>> en : where
-					.entrySet()) {
-				builder.append(' ').append(en.getKey()).append(' ')
-						.append(en.getValue().getKey()).append("'")
-						.append(en.getValue().getValue()).append("' ");
+			if (tableName != null && tableName != "") {
+
+				builder.append(" from `").append(this.tableName).append("` ");
+
+				for (Map.Entry<String, Map.Entry<String, String>> en : where
+						.entrySet()) {
+					builder.append(' ').append(en.getKey()).append(' ')
+							.append(en.getValue().getKey()).append("'")
+							.append(en.getValue().getValue()).append("' ");
+				}
 			}
 			this.currentSql = builder.toString();
 			this.currentSql += super.getFollowings();
