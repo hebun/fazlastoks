@@ -3,13 +3,16 @@ package freela.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -245,9 +248,14 @@ public class Db {
 			if (say % 100 == 0)
 				System.out.print(say + ".");
 
-			int rs = stmt.executeUpdate(sql);
-			return rs;
-
+			int rs = stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+			if (rs == 0)
+				return rs;
+			ResultSet generatedKeys = stmt.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				return (int) generatedKeys.getLong(1);
+			}
+			return 0;
 		} catch (SQLException se) {
 			System.out.println(sql);
 			se.printStackTrace();
@@ -284,7 +292,39 @@ public class Db {
 		started = false;
 
 	}
+	public static Map<String, String> callProcedure(String sql) {
+		try {
+			start("");
+			Map<String, String> map = new HashMap<String, String>();
 
+			CallableStatement callableStatement = conn.prepareCall("{"+sql+"}");
+			
+			callableStatement.registerOutParameter("pcount", Types.INTEGER);
+			callableStatement.registerOutParameter("ucount", Types.INTEGER);
+			
+
+		    boolean hadResults = callableStatement.execute();
+
+
+		    while (hadResults) {
+		        ResultSet rs = callableStatement.getResultSet();
+
+		        // process result set
+		      
+		        hadResults = callableStatement.getMoreResults();
+		    }
+		    
+		    map.put("pcount", callableStatement.getInt("pcount")+"");
+		    map.put("ucount", callableStatement.getInt("ucount")+"");
+			return map;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return new HashMap<String, String>();
+
+	}
 	public static interface SelectCallback {
 		public void callback(ResultSet rs, String[] columns)
 				throws SQLException;

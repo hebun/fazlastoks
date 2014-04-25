@@ -25,11 +25,11 @@ public class States implements Serializable {
 	public void addState() {
 		State cat = new State(newCat);
 
-		Db.insert(new Sql.Insert(table).add("sname", newCat).get());
+		cat.setId(Db.insert(new Sql.Insert(table).add("sname", newCat).get()));
 		states.add(cat);
 		hasMessage = true;
 		messageType = "alert_success";
-		message = "Yeni kategori başarıyla eklendi.";
+		message = "Yeni kayıt başarıyla eklendi.";
 	}
 
 	public List<State> getStates() {
@@ -49,7 +49,7 @@ public class States implements Serializable {
 		Db.delete(new Sql.Delete(table).where("id=", cat.getId()).get());
 		hasMessage = true;
 		messageType = "alert_success";
-		message = "Kategori başarıyla silindi.";
+		message = "Kayıt başarıyla silindi.";
 	}
 
 	public boolean isHasMessage() {

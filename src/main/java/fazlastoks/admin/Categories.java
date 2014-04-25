@@ -18,18 +18,20 @@ public class Categories implements Serializable {
 	String messageType;
 	String message;
 	String newCat;
+	List<Category> cats;
 
 	public void addCat() {
+
 		Category cat = new Category(newCat);
 
-		Db.insert(new Sql.Insert("category").add("cname", newCat).get());
+		cat.setId(Db.insert(new Sql.Insert("category").add("cname", newCat)
+				.get()));
+
 		cats.add(cat);
 		hasMessage = true;
 		messageType = "alert_success";
 		message = "Yeni kategori başarıyla eklendi.";
 	}
-
-	List<Category> cats;
 
 	public List<Category> getCats() {
 		return cats;
