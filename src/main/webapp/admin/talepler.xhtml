@@ -9,36 +9,27 @@
 
 	<ui:define name="content">
 
-		<free:crud bean="#{ps}" list="#{ps.states}" save="#{ps.addState}"
-			addLabel="Yeni Durum Ekle" header="Ürün Durumları" ></free:crud>
+		<free:crud bean="#{talep}" list="#{talep.taleps}"
+			header="Ürün Alış Talepleri" hasInsert="false" hasToggleRead="true"></free:crud>
 
 		<h:outputScript>
-$(document).ready(function() 
-    	{ 
-      	  $(".tablesorter").tablesorter(); 
-   	 } 
-	);
+		$(document).ready(function() 
+    		{ 
+      	  		$(".tablesorter").tablesorter(); 
+   	 		} 
+		);
 	</h:outputScript>
 
 	</ui:define>
 	<ui:define name="head">
 		<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
 		<style type="text/css">
-.column1 {
-	width: 60%;
-}
-
-.column2 {
-	width: 20%;
-}
-
-.column3 {
-	width: 20%;
-}
-
-.delButton {
-	background-image: url(images/icn_trash.png)
-}
-</style>
+			.column1 {width: 20%;			}
+			.column2 {width: 20%;			}	
+			.column3 {	width: 20%;			}	
+			.column4 {	width: 40%;			}	
+				.column4 {	width: 20%;			}			
+			.delButton {background-image: url(images/icn_trash.png)			}
+		</style>
 	</ui:define>
 </ui:composition>

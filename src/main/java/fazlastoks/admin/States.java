@@ -1,26 +1,29 @@
 package fazlastoks.admin;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import model.Category;
+import model.ColumnModel;
 import model.State;
 import freela.util.Db;
 import freela.util.Sql;
 
 @ViewScoped
 @ManagedBean(name = "ps")
-public class States implements Serializable {
-
-	final static String table = "state";
-	boolean hasMessage;
-	String messageType;
-	String message;
-	String newCat;
+public class States extends CrudBase implements Serializable {
 	List<State> states;
+
+	public States() {
+		this.table = "state";
+		states = Db.select(new Sql.Select().from(table).get(), State.class);
+		columns = Arrays.asList(new ColumnModel("Durum Etiketi", "sname"));
+	}
 
 	public void addState() {
 		State cat = new State(newCat);
@@ -32,18 +35,6 @@ public class States implements Serializable {
 		message = "Yeni kayıt başarıyla eklendi.";
 	}
 
-	public List<State> getStates() {
-		return states;
-	}
-
-	public void setStates(List<State> cats) {
-		this.states = cats;
-	}
-
-	public States() {
-		states = Db.select(new Sql.Select().from(table).get(), State.class);
-	}
-
 	public void delete(State cat) {
 		states.remove(cat);
 		Db.delete(new Sql.Delete(table).where("id=", cat.getId()).get());
@@ -52,36 +43,12 @@ public class States implements Serializable {
 		message = "Kayıt başarıyla silindi.";
 	}
 
-	public boolean isHasMessage() {
-		return hasMessage;
+	public List<State> getStates() {
+		return states;
 	}
 
-	public String getNewCat() {
-		return newCat;
-	}
-
-	public void setNewCat(String newCat) {
-		this.newCat = newCat;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public void setHasMessage(boolean hasMessage) {
-		this.hasMessage = hasMessage;
-	}
-
-	public String getMessageType() {
-		return messageType;
-	}
-
-	public void setMessageType(String messageType) {
-		this.messageType = messageType;
-	}
-
-	public String getMessage() {
-		return message;
+	public void setStates(List<State> cats) {
+		this.states = cats;
 	}
 
 	private static final long serialVersionUID = -474092066100939384L;

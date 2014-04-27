@@ -22,13 +22,14 @@ public class Db {
 
 	public static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
-	public static String DB_URL = "jdbc:mysql://locxxalhost:3306cccx/fazxlastoklar?useUnicode=true&characterEncoding=utf8";
-	public static String USER = "roxxxot";
-	public static String PASS = "28xxx82";
+	public static String DB_URL = "jdbc:mysql://localhost:3306/fazlastoklar?useUnicode=true&characterEncoding=utf8";
+	public static String USER = "root";
+	public static String PASS = "2882";
 	public static boolean started = false;
 	static Connection conn = null;
 	static Statement stmt = null;
 	static int say = 0;
+	public static boolean debug=false;
 
 	public static void start(String caller) throws ClassNotFoundException,
 			SQLException {
@@ -45,6 +46,8 @@ public class Db {
 	public static void select(String sql, SelectCallback callback) {
 
 		try {
+			if(debug) 
+				FaceUtils.log.info(sql);
 			start("");
 			ResultSet rs = stmt.executeQuery(sql);
 			ResultSetMetaData metaData = rs.getMetaData();
@@ -73,6 +76,8 @@ public class Db {
 	public static <T> List<T> select(String sql, Class<T> type) {
 
 		try {
+			if(debug) 
+				FaceUtils.log.info(sql);
 			start("");
 			ResultSet rs = stmt.executeQuery(sql);
 			ResultSetMetaData metaData = rs.getMetaData();
@@ -126,6 +131,8 @@ public class Db {
 		String[] columns = null;
 		List<List<String>> data = null;
 		try {
+			if(debug) 
+				FaceUtils.log.info(sql);
 			start("");
 			ResultSet rs = stmt.executeQuery(sql);
 			ResultSetMetaData metaData = rs.getMetaData();
@@ -164,6 +171,8 @@ public class Db {
 	public static void select(String sql, SelectCallbackLoop callback) {
 
 		try {
+			if(debug) 
+				FaceUtils.log.info(sql);
 			start("");
 			ResultSet rs = stmt.executeQuery(sql);
 			ResultSetMetaData metaData = rs.getMetaData();
@@ -207,6 +216,8 @@ public class Db {
 		List<Map<String, String>> list = null;
 
 		try {
+			if(debug) 
+				FaceUtils.log.info(sql);
 			start("");
 			ResultSet rs = stmt.executeQuery(sql);
 
@@ -243,6 +254,8 @@ public class Db {
 	public static int insert(String sql) {
 
 		try {
+			if(debug) 
+				FaceUtils.log.info(sql);
 			start("query not started");
 			say++;
 			if (say % 100 == 0)
@@ -257,7 +270,7 @@ public class Db {
 			}
 			return 0;
 		} catch (SQLException se) {
-			System.out.println(sql);
+			System.out.println("se in insert"+sql);
 			se.printStackTrace();
 			return 0;
 		} catch (Exception e) {
@@ -292,30 +305,30 @@ public class Db {
 		started = false;
 
 	}
+
 	public static Map<String, String> callProcedure(String sql) {
 		try {
 			start("");
 			Map<String, String> map = new HashMap<String, String>();
 
-			CallableStatement callableStatement = conn.prepareCall("{"+sql+"}");
-			
+			CallableStatement callableStatement = conn.prepareCall("{" + sql
+					+ "}");
+
 			callableStatement.registerOutParameter("pcount", Types.INTEGER);
 			callableStatement.registerOutParameter("ucount", Types.INTEGER);
-			
 
-		    boolean hadResults = callableStatement.execute();
+			boolean hadResults = callableStatement.execute();
 
+			while (hadResults) {
+				ResultSet rs = callableStatement.getResultSet();
 
-		    while (hadResults) {
-		        ResultSet rs = callableStatement.getResultSet();
+				// process result set
 
-		        // process result set
-		      
-		        hadResults = callableStatement.getMoreResults();
-		    }
-		    
-		    map.put("pcount", callableStatement.getInt("pcount")+"");
-		    map.put("ucount", callableStatement.getInt("ucount")+"");
+				hadResults = callableStatement.getMoreResults();
+			}
+
+			map.put("pcount", callableStatement.getInt("pcount") + "");
+			map.put("ucount", callableStatement.getInt("ucount") + "");
 			return map;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -325,6 +338,7 @@ public class Db {
 		return new HashMap<String, String>();
 
 	}
+
 	public static interface SelectCallback {
 		public void callback(ResultSet rs, String[] columns)
 				throws SQLException;

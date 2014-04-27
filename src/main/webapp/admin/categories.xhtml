@@ -11,7 +11,7 @@
 
 		<free:crud bean="#{categories}" addLabel="Yeni Kategori Ekle"
 			header="Kategoriler" save="#{categories.addCat}"
-			list="#{categories.cats}" column1="cname"></free:crud>
+			list="#{categories.cats}"></free:crud>
 		<h:outputScript>
 $(document).ready(function() 
     	{ 
@@ -25,11 +25,11 @@ $(document).ready(function()
 		<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
 		<style type="text/css">
 .column1 {
-	width: 10%;
+	width: 60%;
 }
 
 .column2 {
-	width: 70%;
+	width: 20%;
 }
 
 .column3 {

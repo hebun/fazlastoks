@@ -128,7 +128,12 @@ public abstract class Sql {
 			if (isBuilt)
 				return currentSql;
 			if (where.size() == 0)
-				throw new RuntimeException("cant use update without where");
+				throw new SqlBuilderExeption("cant use update without where");
+			
+			if(fields.size() <=0){
+				throw new SqlBuilderExeption("Sql.Update:there is no column to set  ");
+			}
+			
 			StringBuilder builder = new StringBuilder("update `");
 			builder.append(this.tableName);
 			builder.append("` set ");
