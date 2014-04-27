@@ -15,8 +15,8 @@ import freela.util.App;
 public class TestPro {
 
 	/**
-	 * CURRENT:Admin panel, multi column in crud composite, single managed bean
-	 * for crud,db sycronizer
+	 * CURRENT:Admin panel
+	 * 
 	 *
 	 * 
 	 * TEST CASES: length vb v alidation on all input componenents tab

@@ -25,7 +25,7 @@ public class Home implements Serializable {
 		String pcount = new Sql.Select("count(*)").from("product").get();
 		String ucount = new Sql.Select("count(*)").from("user").get();
 		String tcount = new Sql.Select("count(*)").from("talep")
-				.where("state=", 1).get();
+				.where("state=", 0).get();
 
 		String all = new Sql.Select("(" + pcount + ") as pcount,(" + ucount
 				+ ") as ucount,(" + tcount + ") as tcount").get();

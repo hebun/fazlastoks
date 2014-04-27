@@ -34,11 +34,9 @@ public class Talepler extends CrudBase implements Serializable {
 
 		columns = Arrays.asList(new ColumnModel("Ad Soyad", "name"),
 				new ColumnModel("E-mail", "email"), new ColumnModel("Gsm",
-						"gsm"), new ColumnModel("Notlar", "notes"),new ColumnModel("Okundu mu?", "state"));
+						"gsm"), new ColumnModel("Notlar", "notes"),
+				new ColumnModel("Okundu mu?", "state"));
 
-		
-	
-		
 	}
 
 	public void delete(Talep cat) {

@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
@@ -29,7 +31,7 @@ public class Db {
 	static Connection conn = null;
 	static Statement stmt = null;
 	static int say = 0;
-	public static boolean debug=false;
+	public static boolean debug = false;
 
 	public static void start(String caller) throws ClassNotFoundException,
 			SQLException {
@@ -46,7 +48,7 @@ public class Db {
 	public static void select(String sql, SelectCallback callback) {
 
 		try {
-			if(debug) 
+			if (debug)
 				FaceUtils.log.info(sql);
 			start("");
 			ResultSet rs = stmt.executeQuery(sql);
@@ -76,7 +78,7 @@ public class Db {
 	public static <T> List<T> select(String sql, Class<T> type) {
 
 		try {
-			if(debug) 
+			if (debug)
 				FaceUtils.log.info(sql);
 			start("");
 			ResultSet rs = stmt.executeQuery(sql);
@@ -131,7 +133,7 @@ public class Db {
 		String[] columns = null;
 		List<List<String>> data = null;
 		try {
-			if(debug) 
+			if (debug)
 				FaceUtils.log.info(sql);
 			start("");
 			ResultSet rs = stmt.executeQuery(sql);
@@ -171,7 +173,7 @@ public class Db {
 	public static void select(String sql, SelectCallbackLoop callback) {
 
 		try {
-			if(debug) 
+			if (debug)
 				FaceUtils.log.info(sql);
 			start("");
 			ResultSet rs = stmt.executeQuery(sql);
@@ -216,7 +218,7 @@ public class Db {
 		List<Map<String, String>> list = null;
 
 		try {
-			if(debug) 
+			if (debug)
 				FaceUtils.log.info(sql);
 			start("");
 			ResultSet rs = stmt.executeQuery(sql);
@@ -248,13 +250,14 @@ public class Db {
 		} finally {
 			close("");
 		}// end try
+
 		return list;
 	}
 
 	public static int insert(String sql) {
 
 		try {
-			if(debug) 
+			if (debug)
 				FaceUtils.log.info(sql);
 			start("query not started");
 			say++;
@@ -270,7 +273,7 @@ public class Db {
 			}
 			return 0;
 		} catch (SQLException se) {
-			System.out.println("se in insert"+sql);
+			System.out.println("se in insert" + sql);
 			se.printStackTrace();
 			return 0;
 		} catch (Exception e) {
@@ -337,6 +340,157 @@ public class Db {
 		}
 		return new HashMap<String, String>();
 
+	}
+
+	public static void main(String[] args) {
+		String genSql = "";
+		try {
+			long a = System.currentTimeMillis();
+			start("");
+
+			DatabaseMetaData data = conn.getMetaData();
+			ResultSet res = data.getTables(null, null, null,
+					new String[] { "TABLE" });
+
+			List<String> sourceTables = new ArrayList<String>();
+
+			while (res.next()) {
+				System.out.println("   " + res.getString("TABLE_CAT") + ", "
+						+ res.getString("TABLE_SCHEM") + ", "
+						+ res.getString("TABLE_NAME") + ", "
+						+ res.getString("TABLE_TYPE") + ", "
+						+ res.getString("REMARKS"));
+				sourceTables.add(res.getString("TABLE_NAME"));
+			}
+			long b = System.currentTimeMillis() - a;
+
+			Connection remCon = DriverManager.getConnection(
+					"jdbc:mysql://173.243.120.226:3306/freelaj_fazlastoklar",
+					"freelaj_fazla", "2882jh");
+
+			long c = System.currentTimeMillis() - a;
+
+			DatabaseMetaData dataR = remCon.getMetaData();
+			System.out.println("blbla");
+
+			ResultSet resR = dataR.getTables(null, null, null,
+					new String[] { "TABLE" });
+			List<String> targetTables = new ArrayList<String>();
+
+			long d = System.currentTimeMillis() - a;
+
+			while (resR.next()) {
+				System.out.println("   " + resR.getString("TABLE_CAT") + ", "
+						+ resR.getString("TABLE_SCHEM") + ", "
+						+ resR.getString("TABLE_NAME") + ", "
+						+ resR.getString("TABLE_TYPE") + ", "
+						+ resR.getString("REMARKS"));
+				targetTables.add(resR.getString("TABLE_NAME"));
+			}
+
+			List<String> diffTables = new ArrayList<String>();
+
+			for (String string : sourceTables) {
+				if (targetTables.indexOf(string) >= 0) {
+					ResultSet scols = data.getColumns(null, null, string, null);
+					ResultSet tcols = dataR
+							.getColumns(null, null, string, null);
+
+					List<String> scollist = new ArrayList<String>();
+					List<String> tcollist = new ArrayList<String>();
+
+					while (tcols.next()) {
+						String coldef = tcols.getString(4) + ":"
+								+ tcols.getString(6) + ":" + tcols.getString(7);
+						tcollist.add(coldef);
+					}
+
+					while (scols.next()) {
+						String col = scols.getString(4) + ":"
+								+ scols.getString(6) + ":" + scols.getString(7);
+
+						String colname = scols.getString(4);
+						if (!subContain(tcollist, colname)) {
+							System.out.println("missing column:" + string + "."
+									+ col);
+
+							genSql += "\n alter table " + string
+									+ " add column " + colname + " "
+									+ scols.getString(6) + " ("
+									+ scols.getString(7) + ");";
+
+						} else if (tcollist.indexOf(col) < 0) {
+							System.out.println("altered column:" + string + "."
+									+ col);
+							genSql += "\n alter table " + string + " modify  "
+									+ colname + " " + scols.getString(6) + " ("
+									+ scols.getString(7) + ");";
+						} else {
+
+						}
+						scollist.add(col);
+					}
+
+				} else {
+					System.out.println("missing table:" + string);
+
+					ResultSet scols = data.getColumns(null, null, string, null);
+					genSql += "\n create table " + string + "(\n";
+					while (scols.next()) {
+						genSql += "\n" + scols.getString(4) + " "
+								+ scols.getString(6) + " ("
+								+ scols.getString(7) + "),";
+
+					}
+					genSql += ")";
+
+				}
+			}
+			long e = System.currentTimeMillis() - a;
+			// System.out.println("Missing Tables:");
+
+			for (String table : sourceTables) {
+				ResultSet cols = data.getColumns(null, null, table, null);
+				while (cols.next()) {
+					// System.out.print(cols.getString(2) + " ");
+					// System.out.print(cols.getString(3) + " ");
+					// System.out.print(cols.getString(4) + " ");
+					// System.out.print(cols.getString(6) + " ");
+					// System.out.println(cols.getString(7));
+				}
+
+			}
+
+			System.out.println("================");
+			long f = System.currentTimeMillis() - a;
+
+			System.out.println("\ngot local:" + (b) + " \nconnected to remote:"
+					+ (c - b) + " \ngot remote:" + (d - c)
+					+ " \nsearched diffs:" + (e - d) + "\n last is:" + (f - e)
+					+ " ii:" + ii);
+			System.out.println(genSql);
+		} catch (ClassNotFoundException e) {
+			System.out.println("blbla");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println("blbla");
+			e.printStackTrace();
+		}
+
+	}
+
+	private static int ii = 0;
+
+	private static boolean subContain(List<String> tcollist, String string) {
+
+		for (String string1 : tcollist) {
+			ii++;
+			if (string1.split(":")[0].equals(string)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public static interface SelectCallback {
