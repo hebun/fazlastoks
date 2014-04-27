@@ -1,0 +1,92 @@
+.urunKutu{
+	width: 225px;
+	height: 293px;
+	float: left;
+	margin-right: 14px;
+	margin-bottom: 15px;
+	margin-left: 14px;
+	border: 2px solid #eaeaea;
+	position: relative;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	z-index: 1;
+	behavior: url(_css/ie-css3.htc);
+	background-color: #FFF;
+}
+
+.urunAnaResim{
+	display: block;
+	width: 200px;
+	margin-top: 15px;
+	margin-left: auto;
+	margin-right: auto;
+	height: 100px;
+}
+
+.paketTanim{
+	display: block;
+	text-align: left;
+	padding: 10px;
+	margin-top: 5px;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: normal;
+	color: #000;
+	text-decoration: none;
+}
+
+.paketFiyat{
+	display: block;
+	text-align: left;
+	margin-top: 5px;
+	margin-left:5px;
+	padding:3px;
+}
+
+
+.firsatFiyat{
+	display: block;
+	text-align: left;
+	margin-top: 5px;
+		margin-left:5px;
+	padding:3px;
+}
+
+.paketDetay{
+	width: 95px;
+	height: 30px;
+	float: right;
+	background-image: url(../_images/detay-icon.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-right: -7px;
+	text-align: left;
+	padding-left: 15px;
+}
+.urunKutu .paketDetay a:link {
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	line-height: 25px;
+	font-weight: bold;
+	color: #003;
+	text-decoration: none;
+}
+.urunKutu .paketDetay a:visited {
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	line-height: 25px;
+	font-weight: bold;
+	color: #003;
+	text-decoration: none;
+}
+.urunKutu .paketDetay a:hover {
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	line-height: 25px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-decoration: none;
+}

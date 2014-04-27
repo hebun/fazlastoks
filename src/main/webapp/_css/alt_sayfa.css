@@ -1,0 +1,165 @@
+.altSayfa{
+	width: 100%;
+	background-color: #eaeaea;
+	padding: 10px;
+
+}
+
+.altFooter{
+width:970px;
+margin-left:auto;
+margin-right:auto;
+padding:10px;
+
+}
+
+.altLinkKutu{
+	width: 125px;
+	float: left;
+	margin-left: 10px;
+	padding-right: 5px;
+	padding-bottom: 10px;
+	padding-left: 5px;
+	padding-top: 5px;
+
+}.altFooter .altLinkKutu ul {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+.altSayfa .altFooter .altLinkKutu ul li a {
+	display: block;
+	padding: 3px;
+}
+.altSayfa .altFooter .altLinkKutu ul li a:link {
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: normal;
+	color: #000;
+	text-decoration: none;
+}
+.altSayfa .altFooter .sosyalMedya span {
+	display: block;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+}
+
+.altSayfa .altFooter .altLinkKutu ul li a:hover {
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: normal;
+	color: #000;
+	text-decoration: none;
+}
+
+.altSayfa .altFooter .altLinkKutu ul li a:visited {
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: normal;
+	color: #000;
+	text-decoration: none;
+}
+
+
+
+
+.gizliBilgi{
+	width: 140px;
+	float: right;
+	margin-left: 10px;
+	padding: 10px;
+}
+
+.sosyalMedya{
+	width: 400px;
+	float: left;
+	margin-left: 10px;
+	padding: 10px;
+	text-align: right;
+
+}
+.altFooter .gizliBilgi ul {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+.altFooter .gizliBilgi ul li a {
+	display: block;
+	padding: 3px;
+}
+.altFooter .gizliBilgi ul li a:link, a:visited {
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: normal;
+	color: #B1B1B1;
+	text-decoration: none;
+}
+.altFooter .gizliBilgi ul li a:hover {
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: normal;
+	color: #A2A2A2;
+	text-decoration: none;
+}
+
+
+
+
+
+.emailKayit{
+	width: 410px;
+	float: left;
+	margin-left: 10px;
+	height: 80px;
+	position: relative;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	z-index: 1;
+	behavior: url(_css/ie-css3.htc);
+	padding: 10px;
+	color: #000;
+	font-family: Arial, Tahoma, Verdana;
+	text-decoration: none;
+}
+.altSayfa .altFooter .emailKayit span {
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: normal;
+	color: #FFF;
+	text-decoration: none;
+	display: block;
+}
+
+
+.copyRgiht{
+	width: 950px;
+	display: block;
+	text-align: center;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: normal;
+	padding: 10px;
+}
+
+.quarCode{
+width: 70px;
+float: right;
+margin-left: 10px;
+padding: 10px;
+text-align: right;
+}
+
+.altHakkimizda{
+	width: 510px;
+	float: left;
+	margin-left: 10px;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: normal;
+	color: #000;
+	text-decoration: none;
+	padding: 10px;
+	text-align: justify;
+	
+}

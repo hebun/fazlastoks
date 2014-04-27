@@ -1,0 +1,77 @@
+<ui:composition template="/master.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+		<div class="sliderDestek">
+			<div class="sliderAlan">
+				<ul id="gallery2">
+					<li><img src="_resimler/_slider/slider1.jpg" alt=""
+						width="575" height="252" /></li>
+					<li><img src="_resimler/_slider/slider2.jpg" alt=""
+						width="575" height="252" /></li>
+					<li><img src="_resimler/_slider/slider3.jpg" alt=""
+						width="575" height="252" /></li>
+					<li><img src="_resimler/_slider/slider4.jpg" alt="" /></li>
+				</ul>
+			</div>
+			<div class="onlineDestek">
+				<span class="onlineDestekImage"><img
+					src="_images/onlineDestek.jpg" width="172" height="141" /></span> <span
+					class="emailUyelikBaslik"><img src="_images/email-icon.png"
+					width="32" height="30" class="imageLeft" /> &#160;&#160;Ücretsiz
+					Bülten İçin</span> <span class="emailUyelik">
+					<form action="#" method="get">
+						<input name="emailKayit" type="text" class="emailText"
+							value="E-Mail adresinizi giriniz..." /> <input type="submit"
+							name="Gonder" value="Gönder" class="emailGonder" />
+					</form>
+				</span>
+				<div class="clearLeft"></div>
+			</div>
+		</div>
+		<div class="anaUrunKutu">
+			<div class="anaUrunBaslik">
+				<span class="solAnaBaslikUrunListe"></span> <span
+					class="ortaAnaBaslikUrunListe">HAFTANIN STOK FAZLASI FIRSAT
+					PAKETLERİ</span> <span class="sagAnaBaslikUrunListe"></span>
+				<div class="clearLeft"></div>
+			</div>
+			<div class="anaUrunListe">
+				<div class="urunKutu">
+					<div class="urunAnaResim">
+						<img src="_resimler/_urunResim/fs-(42).jpg" width="200"
+							height="100" />
+					</div>
+					<div class="paketTanim">New 200 series pillow block bearing.
+						Cast iron construction with self-aligning ball bearing insert and
+						grease zerk.</div>
+					<div class="paketFiyat">
+						<span class="baslik1">Piyasa Fiyatı</span> <span class="baslik3">1000
+							TL</span>
+						<div class="clearLeft"></div>
+					</div>
+					<div class="firsatFiyat">
+						<span class="baslik4">Fırsat Fiyatı</span> <span class="baslik3">800
+							TL</span>
+						<div class="clearLeft"></div>
+					</div>
+					<div class="paketDetay">
+						<a href="#">Paket Detayı </a>
+					</div>
+				</div>
+				<div class="urunKutu"></div>
+				<div class="urunKutu"></div>
+				<div class="urunKutu"></div>
+				<div class="urunKutu"></div>
+				<div class="urunKutu"></div>
+				<div class="urunKutu"></div>
+				<div class="urunKutu"></div>
+				<div class="urunKutu"></div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

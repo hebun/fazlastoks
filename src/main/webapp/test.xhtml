@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	>
+<f:view contentType="text/html">
+	<h:head>
+
+
+	</h:head>
+
+	<h:body>
+		<h:form>
+
+			<div class="anaUrunBaslik">
+				<span class="solAnaBaslikUrunListe"></span> <span
+					class="ortaAnaBaslikUrunListe">Urunlerim</span> <span
+					class="sagAnaBaslikUrunListe"></span>
+				<div class="clearLeft"></div>
+			</div>
+
+			<h:dataTable value="#{products.list}" var="p" id="betDt1"
+				styleClass="tableSorter">
+ 
+				<h:column>
+					<f:facet name="header">Paket Ismi </f:facet>
+					#{p.pname}
+    			</h:column>
+				<h:column>
+					<f:facet name="header">Paket Icerigi </f:facet>
+					#{p.content}
+    			</h:column> 
+				<h:column>
+					<f:facet name="header">Fiyat </f:facet>
+					#{p.price} 
+    			</h:column>
+				<h:column>
+					<f:facet name="header">Son Tarih </f:facet>
+					#{p.expiredate}
+    			</h:column>
+				<h:column>
+					<f:facet name="header">Islemler </f:facet>
+					<h:outputLink value="urun?pid=#{p.id}">Duzenle </h:outputLink>
+					<h:commandLink action="#{products.delete(p)}" value="Sil">
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</h:body>
+	</f:view>
+	</html>

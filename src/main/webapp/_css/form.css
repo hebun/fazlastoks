@@ -1,0 +1,46 @@
+.urunAra{
+	width: 370px;
+	height: 23px;
+	line-height: 23px;
+	padding: 5px;
+	float: left;
+	border: 1px solid #eaeaea;
+	color:#cecece;
+}
+
+.aramaYap{
+display:block;
+margin-left:10px;
+padding-top:5px;
+padding-bottom:5px;
+float:left;
+
+}
+
+.emailKayitGonder{
+width:405px;
+margin-top:10px;
+
+}
+
+.butonSubmit{
+
+margin:10px;
+text-align:right;
+float:right;
+display:block;
+	
+
+}
+
+.emailText{
+	width: 173px;
+	border: 1px solid #eaeaea;
+	padding:3px;
+	color:#cecece;	
+}
+
+.emailGonder{
+display:block;
+float:right;
+}
