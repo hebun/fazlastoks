@@ -15,8 +15,7 @@ import freela.util.App;
 public class TestPro {
 
 	/**
-	 * CURRENT:Admin panel, remote git (git cloning with directory hierarchy,
-	 * init git in webapp instead of root)
+	 * CURRENT:Admin panel, users
 	 * 
 	 *
 	 * 
