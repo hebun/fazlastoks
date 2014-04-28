@@ -22,7 +22,9 @@ public class Categories extends CrudBase implements Serializable {
 		this.table="category";
 		cats = Db.select(new Sql.Select().from(table).get(),
 				Category.class);
+
 		columns = Arrays.asList(new ColumnModel("Kategori İsmi", "cname"));
+
 	}
 
 	public void addCat() {
