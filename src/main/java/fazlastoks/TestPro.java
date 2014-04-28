@@ -15,7 +15,8 @@ import freela.util.App;
 public class TestPro {
 
 	/**
-	 * CURRENT:Admin panel
+	 * CURRENT:Admin panel, remote git (git cloning with directory hierarchy,
+	 * init git in webapp instead of root)
 	 * 
 	 *
 	 * 
@@ -55,7 +56,7 @@ public class TestPro {
 					t.getNotes(), t.getProductid() + "" };
 		}
 		List<ColumnModel> columns2 = talepler.getColumns();
-		
+
 		String[] cols = getHeader(columns2);
 
 		table.printTable(cols, data);
