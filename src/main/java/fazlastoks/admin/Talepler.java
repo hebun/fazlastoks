@@ -1,16 +1,13 @@
 package fazlastoks.admin;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import model.ColumnModel;
 import model.Talep;
 import freela.util.Db;
-import freela.util.FaceUtils;
 import freela.util.Sql;
 
 @ViewScoped

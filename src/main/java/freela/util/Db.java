@@ -100,14 +100,19 @@ public class Db {
 						input = input.substring(0, 1).toUpperCase()
 								+ input.substring(1);
 						try {
+
 							Method met = type.getMethod("set" + input,
-									f.getType());
-
+									f.getType());							
+							
+							
 							met.invoke(obj, rs.getObject(f.getName()));
-						} catch (NoSuchMethodException e) {
 
+						} catch (NoSuchMethodException e) {
+							FaceUtils.log.info(e.getMessage());
 							e.printStackTrace();
 						} catch (Exception e) {
+							FaceUtils.log.info(e.toString());
+							e.printStackTrace();
 						}
 					}
 				}

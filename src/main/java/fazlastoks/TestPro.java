@@ -2,6 +2,7 @@ package fazlastoks;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import model.ColumnModel;
 import model.Talep;
@@ -9,19 +10,20 @@ import model.Talep;
 import org.junit.Test;
 
 import fazlastoks.admin.Talepler;
+import fazlastoks.admin.Users;
 import freela.util.ASCIITable;
 
 public class TestPro {
 
 	/**
-
-	 * CURRENT:Admin panel, dynamic column(add columns to db), users
-
-	 *
 	 * 
-	 * TEST CASES: length vb v alidation on all input componenents tab
+	 * CURRENT:Admin panel, dynamic column(add columns to db), users
+	 * 
+	 *TODO: products,url filter products, link to products from users,column editing module
+	 * 
+	 * TEST CASES: length vb v alidation on all input componenents ,tab
 	 * indexes,validations{max fiyat,past time),turkce
-	 * karakter{urunlarim.xhmtl,urun.xhtml,master.xhtml}, authfilter for member
+	 * karakter{*.xhtml, db.gridfield}, authfilter for member
 	 * acess(session attr status needed)
 	 * 
 	 * ISSUES: user's own product control, datepicker language and format,url
@@ -40,10 +42,34 @@ public class TestPro {
 	}
 
 	@Test
-	public void users(){
-		
+	public void users() {
+		Users user = new Users();
+		ASCIITable table = new ASCIITable();
+
+		List<Map<String, String>> users = user.getUsers();
+		String[][] data = new String[users.size()][];
+
+		int k = 0;
+		for (Map<String, String> t : users) {
+
+			String[] dizi = new String[t.values().size()];
+			int i = 0;
+			for (String m : t.values()) {
+				dizi[i++] = m;
+			
+			}
+			data[k++] = dizi;
+		}
+
+		List<ColumnModel> columns2 =  user.getColumns();
+
+		String[] cols = getHeader(columns2);
+
+		table.printTable(cols, data);
+
 	}
-	@Test
+
+	// @Test
 	public void talepler() {
 
 		Talepler talepler = new Talepler();
@@ -51,6 +77,7 @@ public class TestPro {
 		ASCIITable table = new ASCIITable();
 
 		List<Talep> taleps = talepler.getTaleps();
+
 		String[][] data = new String[taleps.size()][];
 
 		int k = 0;
