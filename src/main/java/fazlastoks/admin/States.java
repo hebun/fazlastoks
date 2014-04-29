@@ -22,7 +22,7 @@ public class States extends CrudBase implements Serializable {
 	public States() {
 		this.table = "state";
 		states = Db.select(new Sql.Select().from(table).get(), State.class);
-		columns = Arrays.asList(new ColumnModel("Durum Etiketi", "sname"));
+		initColumns();
 	}
 
 	public void addState() {

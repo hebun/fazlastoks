@@ -5,6 +5,9 @@ import java.io.Serializable;
 public class ColumnModel implements Serializable{
 	private String header;
 	private String name;
+	public ColumnModel(){
+		
+	}
 	public ColumnModel(String h,String n){
 		this.header=h;
 		this.name=n;

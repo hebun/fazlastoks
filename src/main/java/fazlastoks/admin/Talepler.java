@@ -29,14 +29,13 @@ public class Talepler extends CrudBase implements Serializable {
 
 	public Talepler() {
 		this.table = "talep";
-		taleps = Db.select(new Sql.Select().from(table).order("id").desc()
-				.get(), Talep.class);
+		taleps = Db.select(
+				new Sql.Select().from(table).as("t").innerJoin("product")
+						.as("p").on("p.id", "t.productid").innerJoin("user")
+						.as("u").on("u.id", "p.userid").order("t.id").desc()
+						.get(), Talep.class);
 
-		columns = Arrays.asList(new ColumnModel("Ad Soyad", "name"),
-				new ColumnModel("E-mail", "email"), new ColumnModel("Gsm",
-						"gsm"), new ColumnModel("Notlar", "notes"),
-				new ColumnModel("Okundu mu?", "state"));
-
+		super.initColumns();
 	}
 
 	public void delete(Talep cat) {

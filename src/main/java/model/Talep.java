@@ -3,6 +3,7 @@ package model;
 
 public class Talep implements java.io.Serializable {
 
+	
 	public Talep() {
 	}
 
@@ -14,6 +15,33 @@ public class Talep implements java.io.Serializable {
 	private String gsm;
 	private String notes;
 	private int state;
+	private String firmaname;
+	private String pname;
+	private String uname;
+
+	public String getFirmaname() {
+		return firmaname;
+	}
+
+	public void setFirmaname(String firmaname) {
+		this.firmaname = firmaname;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	public String getUname() {
+		return uname;
+	}
+
+	public void setUname(String uname) {
+		this.uname = uname;
+	}
 
 	public int getId() {
 		return id;
@@ -78,4 +106,5 @@ public class Talep implements java.io.Serializable {
 	public void setState(int value) {
 		state = value;
 	}
+
 }

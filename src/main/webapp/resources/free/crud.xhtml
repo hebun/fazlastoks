@@ -15,6 +15,8 @@
 		default="true"></composite:attribute>
 	<composite:attribute name="hasToggleRead" default="false"
 		type="java.lang.Boolean"></composite:attribute>
+<composite:attribute name="width" default="66"
+		type="java.lang.Integer"></composite:attribute>
 
 </composite:interface>
 <composite:implementation>
@@ -38,7 +40,7 @@
 			</div>
 		</ui:fragment>
 
-		<article class="module width_3_quarter">
+		<article class="module width_3_quarter" style="width:#{cc.attrs.width}%;">
 
 			<header>
 				<h3 class="tabs_involved">#{cc.attrs.header}</h3>

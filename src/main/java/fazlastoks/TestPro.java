@@ -10,13 +10,12 @@ import org.junit.Test;
 
 import fazlastoks.admin.Talepler;
 import freela.util.ASCIITable;
-import freela.util.App;
 
 public class TestPro {
 
 	/**
 
-	 * CURRENT:Admin panel, users
+	 * CURRENT:Admin panel, dynamic column(add columns to db), users
 
 	 *
 	 * 
@@ -40,6 +39,10 @@ public class TestPro {
 		p.validateInput();
 	}
 
+	@Test
+	public void users(){
+		
+	}
 	@Test
 	public void talepler() {
 

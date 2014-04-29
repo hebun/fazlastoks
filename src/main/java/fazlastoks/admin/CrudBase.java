@@ -3,7 +3,9 @@ package fazlastoks.admin;
 import java.util.List;
 
 import model.ColumnModel;
-import model.State;
+import freela.util.Db;
+import freela.util.FaceUtils;
+import freela.util.Sql;
 
 public class CrudBase {
 	String table;
@@ -13,6 +15,19 @@ public class CrudBase {
 	String newCat;
 
 	List<ColumnModel> columns;
+
+	public CrudBase() {
+
+		// initColumns();
+	}
+
+	public void initColumns() {
+		columns = Db.select(new Sql.Select("header,name").from("gridfield")
+				.where("tableName=", this.table).and("state=", "0").get(),
+				ColumnModel.class);
+		
+		FaceUtils.log.info("initcolumns called");
+	}
 
 	public List<ColumnModel> getColumns() {
 		return columns;

@@ -129,11 +129,12 @@ public abstract class Sql {
 				return currentSql;
 			if (where.size() == 0)
 				throw new SqlBuilderExeption("cant use update without where");
-			
-			if(fields.size() <=0){
-				throw new SqlBuilderExeption("Sql.Update:there is no column to set  ");
+
+			if (fields.size() <= 0) {
+				throw new SqlBuilderExeption(
+						"Sql.Update:there is no column to set  ");
 			}
-			
+
 			StringBuilder builder = new StringBuilder("update `");
 			builder.append(this.tableName);
 			builder.append("` set ");
@@ -208,9 +209,107 @@ public abstract class Sql {
 
 	public static class Select extends Sql {
 
+		String secondTable, thirdTable;
+		String secondAlias, firstAlias, thirdAlias;
+		boolean isJoin = false, isSecondJoin = false;
+
+		String lastTable;
+		String onKey, onValue, onKey2, onValue2;
+		String joinType, secondJoinType;
+
 		public Select(String params) {
 			setFields(params);
 
+		}
+
+		public Select join(String table) {
+			if (isJoin) {
+				isSecondJoin = true;
+				thirdTable = table;
+				secondJoinType = "join";
+			} else {
+
+				isJoin = true;
+				secondTable = table;
+				joinType = "join";
+
+			}
+
+			return this;
+		}
+
+		public Select innerJoin(String table) {
+
+			if (isJoin) {
+				isSecondJoin = true;
+				thirdTable = table;
+				secondJoinType = "inner join";
+			} else {
+
+				isJoin = true;
+				secondTable = table;
+				joinType = "inner join";
+			}
+
+			return this;
+		}
+
+		public Select rightJoin(String table) {
+			if (isJoin) {
+				isSecondJoin = true;
+				thirdTable = table;
+				secondJoinType = "right join";
+			} else {
+
+				isJoin = true;
+				secondTable = table;
+				joinType = "right join";
+			}
+
+			return this;
+		}
+
+		public Select leftJoin(String table) {
+			if (isJoin) {
+				isSecondJoin = true;
+				thirdTable = table;
+				secondJoinType = "left join";
+			} else {
+
+				isJoin = true;
+				secondTable = table;
+				joinType = "left join";
+			}
+
+			return this;
+		}
+
+		public Select on(String key, String value) {
+			if (isSecondJoin) {
+				onKey2 = key;
+				onValue2 = value;
+			} else {
+				onKey = key;
+				onValue = value;
+			}
+			return this;
+		}
+
+		public Select as(String alias) {
+
+			if (secondTable == null) {
+				if (tableName == null) {
+					throw new SqlBuilderExeption("table name is null");
+				}
+				firstAlias = alias;
+			} else {
+				if (thirdTable == null) {
+					secondAlias = alias;
+				} else {
+					thirdAlias = alias;
+				}
+			}
+			return this;
 		}
 
 		public Select() {
@@ -228,6 +327,7 @@ public abstract class Sql {
 		public Select from(String table) {
 			this.isBuilt = false;
 			tableName = table;
+
 			return this;
 		}
 
@@ -242,6 +342,34 @@ public abstract class Sql {
 
 				builder.append(" from `").append(this.tableName).append("` ");
 
+				if (firstAlias != null) {
+					builder.append("as ").append(firstAlias);
+				}
+				if (isJoin) {
+					builder.append(" " + joinType + " ").append(secondTable);
+					if (secondAlias != null) {
+						builder.append(" as ").append(secondAlias);
+					}
+					if (onKey == null || onValue == null) {
+						throw new SqlBuilderExeption(
+								"cant use join without on ");
+					}
+					builder.append(" on ").append(onKey).append("=")
+							.append(onValue);
+				}
+				if (isSecondJoin) {
+					builder.append(" " + secondJoinType + " ").append(
+							thirdTable);
+					if (thirdAlias != null) {
+						builder.append(" as ").append(thirdAlias);
+					}
+					if (onKey2 == null || onValue2 == null) {
+						throw new SqlBuilderExeption(
+								"cant use join without on ");
+					}
+					builder.append(" on ").append(onKey2).append("=")
+							.append(onValue2);
+				}
 				for (Map.Entry<String, Map.Entry<String, String>> en : where
 						.entrySet()) {
 					builder.append(' ').append(en.getKey()).append(' ')
