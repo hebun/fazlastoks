@@ -9,23 +9,70 @@
 
 	<ui:define name="content">
 
-		Yapim asamasinda..
+
+		<h4 class="alert_info">Sütun başlıklarına tıklayarak sıralama
+			yapabilirsiniz. Sıralama yönünü değiştirmek için tekrar tıklayın.</h4>
+
+		<h:form>
+			<h:panelGrid style="width:100%;" rendered="#{product.hasMessage}">
+				<h4 class="#{product.messageType}">#{product.message}</h4>
+			</h:panelGrid>
+
+
+			<article class="module width_3_quarter" style="width: 80%;">
+
+				<header>
+					<h3 class="tabs_involved">Urunler</h3>
+
+				</header>
+
+				<div class="tab_container">
+
+					<div id="tab1" class="tab_content">
+						<h:dataTable value="#{product.products}" var="m" id="betDt1"
+							styleClass="tablesorter"
+							columnClasses="column1,column2,column3,column4,column5">
+							<c:forEach items="#{product.columns}" var="c">
+
+								<h:column>
+									<f:facet name="header">#{c.header}</f:facet>
+									
+									<h:outputLink rendered="#{c.name=='pname'}"
+										value="proDetal?id=#{m.id}">#{m[c.name]}</h:outputLink>
+									
+									<h:outputText rendered="#{c.name!='pname'}">#{m[c.name]}</h:outputText>
+
+								</h:column>
+							</c:forEach>
+							<h:column pt:style="width:20%;">
+
+								<f:facet name="header">Eylemler</f:facet>
+								<h:commandButton image="images/icn_trash.png"
+									action="#{product.delete(m)}" pt:title="Sil"></h:commandButton>
+
+
+							</h:column>
+
+						</h:dataTable>
+
+					</div>
+				</div>
+			</article>
+
+		</h:form>
+
+		<h:outputScript>
+$(document).ready(function() 
+    	{ 
+      	  $(".tablesorter").tablesorter(); 
+   	 } 
+	);
+	</h:outputScript>
+
 	</ui:define>
 	<ui:define name="head">
 		<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
 		<style type="text/css">
-.column1 {
-	width: 10%;
-}
-
-.column2 {
-	width: 70%;
-}
-
-.column3 {
-	width: 20%;
-}
-
 .delButton {
 	background-image: url(images/icn_trash.png)
 }

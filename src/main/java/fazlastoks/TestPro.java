@@ -19,12 +19,13 @@ public class TestPro {
 	 * 
 	 * CURRENT:Admin panel, dynamic column(add columns to db), users
 	 * 
-	 *TODO: products,url filter products, link to products from users,column editing module
+	 * TODO: products,products master-detail, in
+	 * detail(prophotso,prokates,prokeyword etc.) url filter products, link to
+	 * products from users,column editing module
 	 * 
 	 * TEST CASES: length vb v alidation on all input componenents ,tab
-	 * indexes,validations{max fiyat,past time),turkce
-	 * karakter{*.xhtml, db.gridfield}, authfilter for member
-	 * acess(session attr status needed)
+	 * indexes,validations{max fiyat,past time),turkce karakter{*.xhtml,
+	 * db.gridfield}, authfilter for member acess(session attr status needed)
 	 * 
 	 * ISSUES: user's own product control, datepicker language and format,url
 	 * reseting on invalidation,product filter in urunlerim, or true state in
@@ -42,6 +43,32 @@ public class TestPro {
 	}
 
 	@Test
+	public void products() {
+		fazlastoks.admin.Products user = new fazlastoks.admin.Products();
+		ASCIITable table = new ASCIITable();
+
+		List<Map<String, String>> users = user.getProducts();
+		String[][] data = new String[users.size()][];
+
+		int k = 0;
+		for (Map<String, String> t : users) {
+
+			String[] dizi = new String[t.values().size()];
+			int i = 0;
+			for (String m : t.values()) {
+				dizi[i++] = m;
+
+			}
+			data[k++] = dizi;
+		}
+
+		String[] cols = users.get(0).keySet().toArray(new String[] {});
+
+		table.printTable(cols, data);
+
+	}
+
+	// @Test
 	public void users() {
 		Users user = new Users();
 		ASCIITable table = new ASCIITable();
@@ -56,12 +83,12 @@ public class TestPro {
 			int i = 0;
 			for (String m : t.values()) {
 				dizi[i++] = m;
-			
+
 			}
 			data[k++] = dizi;
 		}
 
-		List<ColumnModel> columns2 =  user.getColumns();
+		List<ColumnModel> columns2 = user.getColumns();
 
 		String[] cols = getHeader(columns2);
 

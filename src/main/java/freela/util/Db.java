@@ -102,9 +102,8 @@ public class Db {
 						try {
 
 							Method met = type.getMethod("set" + input,
-									f.getType());							
-							
-							
+									f.getType());
+
 							met.invoke(obj, rs.getObject(f.getName()));
 
 						} catch (NoSuchMethodException e) {
@@ -236,12 +235,17 @@ public class Db {
 
 			while (rs.next()) {
 
-				Map<String, String> hash = new Hashtable<String, String>();
+				Map<String, String> hash = new HashMap<String, String>();
 				for (int i = 1; i <= colCount; i++) {
 
 					String value = rs.getString(i) == null ? "NULL" : rs
 							.getString(i);
-					hash.put(data.getColumnLabel(i), value);
+					String columnLabel = data.getColumnLabel(i);
+					if (hash.containsKey(columnLabel)) {
+						columnLabel += "_1";
+					}
+
+					hash.put(columnLabel, value);
 				}
 				list.add(hash);
 

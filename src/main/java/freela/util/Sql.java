@@ -216,10 +216,16 @@ public abstract class Sql {
 		String lastTable;
 		String onKey, onValue, onKey2, onValue2;
 		String joinType, secondJoinType;
+		String groupBy;
 
 		public Select(String params) {
 			setFields(params);
 
+		}
+
+		public Select groupBy(String f) {
+			this.groupBy = f;
+			return this;
 		}
 
 		public Select join(String table) {
@@ -375,6 +381,9 @@ public abstract class Sql {
 					builder.append(' ').append(en.getKey()).append(' ')
 							.append(en.getValue().getKey()).append("'")
 							.append(en.getValue().getValue()).append("' ");
+				}
+				if(groupBy!=null){
+					builder.append(" group by ").append(this.groupBy).append("");
 				}
 			}
 			this.currentSql = builder.toString();

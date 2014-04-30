@@ -4,7 +4,6 @@ import java.util.List;
 
 import model.ColumnModel;
 import freela.util.Db;
-import freela.util.FaceUtils;
 import freela.util.Sql;
 
 public class CrudBase {
@@ -26,7 +25,6 @@ public class CrudBase {
 				.where("tableName=", this.table).and("state=", "0").get(),
 				ColumnModel.class);
 		
-		FaceUtils.log.info("initcolumns called");
 	}
 
 	public List<ColumnModel> getColumns() {

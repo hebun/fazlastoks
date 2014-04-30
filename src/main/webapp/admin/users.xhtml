@@ -59,7 +59,13 @@
 
 	</h:form>
 
-
+		<h:outputScript>
+$(document).ready(function() 
+    	{ 
+      	  $(".tablesorter").tablesorter(); 
+   	 } 
+	);
+	</h:outputScript>
 
 	</ui:define>
 	<ui:define name="head">
