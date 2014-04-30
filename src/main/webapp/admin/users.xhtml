@@ -36,22 +36,10 @@
 						<c:forEach items="#{user.columns}" var="c">
 
 							<h:column>
-								<f:facet name="header">#{c.header}</f:facet>
-								<ui:fragment rendered="#{c.name=='state'}">
-
-									<ui:fragment rendered="#{m[c.name]=='1'}">
-
-										Evet
-									</ui:fragment>
-									<ui:fragment rendered="#{m[c.name]!='1'}">
-
-										Hayir
-									</ui:fragment>
+								<f:facet name="header">#{c.header}</f:facet>	
 									
-								</ui:fragment>
-									<ui:fragment rendered="#{c.name!='state'}">
 								#{m[c.name]}
-								</ui:fragment>
+						
 							</h:column>
 						</c:forEach>
 						<h:column pt:style="width:20%;">
