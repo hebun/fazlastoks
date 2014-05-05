@@ -15,6 +15,15 @@ public class App implements Serializable {
 	int callerCount = 0;
 	public String siteUrl = "";
 	public Map parameters;
+	String cunrrentInfoMessage;
+
+	public String getCunrrentInfoMessage() {
+		return cunrrentInfoMessage;
+	}
+
+	public void setCunrrentInfoMessage(String cunrrentInfoMessage) {
+		this.cunrrentInfoMessage = cunrrentInfoMessage;
+	}
 
 	public App() {
 		try {

@@ -6,43 +6,69 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="content">
-<div class="sagContentAlan">
- <div class="baslikKutu">KAYIT OL</div>
-  <form action="#" method="post" enctype="multipart/form-data"> 
- <div class="kayitOlKutu">
- <span class="kayitAlanBaslik">Firma Adı :</span>
-<input name="FirmaAd" type="text" class="kayitText"  />
- <div class="clearLeft"></div>
-  <span class="kayitAlanBaslik">Şifre :</span>
+<!-- ğüşçöÖÇŞĞÜİı -->
+		<div class="sagContentAlan">
+			<div class="baslikKutu">KAYIT OL</div>
+			<h:form id="registerForm">
+				<h:messages globalOnly="true" styleClass="error"></h:messages>
+				<ui:param name="reqMessage" value="Lutfen bu alanı doldurun."></ui:param>
+				<div class="kayitOlKutu">
+					<span class="kayitAlanBaslik">E-Mail* :</span>
+					<h:inputText id="Email" label="E-Mail" styleClass="kayitText"
+						value="#{register.user.email}" required="true"
+						requiredMessage="#{reqMessage}"
+						pt:placeholder="Aynı zamanda kullanıcı adınız "></h:inputText>
+					<h:message for="Email" styleClass="error"></h:message>
+					<div class="clearLeft"></div>
 
- <input name="Parola" type="text" class="kayitText"  />
- <div class="clearLeft"></div>
-  <span class="kayitAlanBaslik">Şifre Tekrar :</span>
- 
- <input name="ParolaTekrar" type="text" class="kayitText"  />
- <div class="clearLeft"></div>
-  <span class="kayitAlanBaslik">Ad Soyad :</span>
+					<span class="kayitAlanBaslik">Şifre* :</span>
+					<h:inputSecret label="Şifre" id="Parola" value="#{register.user.password}"
+						styleClass="kayitText" required="true" pt:placeholder="En az 4 basamaklı olmalı"
+						requiredMessage="#{reqMessage}">				
+						</h:inputSecret>
+						<h:message for="Parola" styleClass="error"></h:message>
+					<div class="clearLeft"></div>
 
- <input name="AdSoyad" type="text" class="kayitText"  />
- <div class="clearLeft"></div>
-  <span class="kayitAlanBaslik">E-Mail  :</span>
+					<span class="kayitAlanBaslik">Şifre Tekrar* :</span>
+					<h:inputSecret id="ParolaTekrar" value="#{register.rePassword}"
+						styleClass="kayitText" required="true"
+						requiredMessage="#{reqMessage}"></h:inputSecret>
+						<h:message for="ParolaTekrar" styleClass="error"></h:message>
+					<div class="clearLeft"></div>
 
- <input name="Email" type="text" class="kayitText"  />
- <div class="clearLeft"></div>
-   <span class="kayitAlanBaslik">Sabit Tel  :</span>
+					<span class="kayitAlanBaslik">Ad Soyad* :</span>
+					<h:inputText id="AdSoyad" value="#{register.user.uname}"
+						styleClass="kayitText" required="true"
+						requiredMessage="#{reqMessage}"></h:inputText>
+						<h:message for="AdSoyad" styleClass="error"></h:message>
+					<div class="clearLeft"></div>
 
- <input name="SabitTel" type="text" class="kayitText" />
- <div class="clearLeft"></div>
-   <span class="kayitAlanBaslik">Cep Tel  :</span>
+					<span class="kayitAlanBaslik">Firma Adı :</span>
+					<h:inputText pt:placeholder="Firmalar Icin"
+						value="#{register.user.firmaname}" id="FirmaAd"
+						styleClass="kayitText">
+					</h:inputText>
+					
+					<div class="clearLeft"></div>
 
- <input name="CepTel" type="text" class="kayitText"  />
- <div class="clearLeft"></div>
-   <span class="kayitAlanBaslik"></span>
+					<span class="kayitAlanBaslik">Sabit Tel :</span>
+					<h:inputText id="SabitTel" value="#{register.user.sabitno}"
+						styleClass="kayitText" />
+					<div class="clearLeft"></div>
 
- <input type="submit" name="Gonder" value="Gönder" />
- <div class="clearLeft"></div>
- </div>
-  </form>
-</div>
-</ui:define>
+					<span class="kayitAlanBaslik">Cep Tel* :</span>
+					<h:inputText id="CepTel" value="#{register.user.cepno}"
+						styleClass="kayitText" required="true"
+						requiredMessage="#{reqMessage}"></h:inputText>
+						<h:message for="CepTel" styleClass="error"></h:message>
+					<div class="clearLeft"></div>
+
+					<span class="kayitAlanBaslik"></span>
+					<h:commandButton id="Gonder" action="#{register.save()}"
+						value="Kayıt Ol"></h:commandButton>
+					<div class="clearLeft"></div>
+				</div>
+			</h:form>
+		</div>
+	</ui:define>
 </ui:composition>
