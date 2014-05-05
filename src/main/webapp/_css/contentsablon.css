@@ -22,7 +22,7 @@ float:left;
 
 .ustKategori{
 	width: 192px;
-	height: 200px;
+	height: 300px;
 
 }
 
@@ -334,4 +334,153 @@ display:block;
 	font-weight: normal;
 	color: #000;
 	text-decoration: none;
+}
+
+.baslikKutu{
+	display: block;
+	padding: 5px;
+	height: 20px;
+	font-family: Arial, Tahoma, Verdana;
+	color: #003;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #003;
+	font-size: 14px;
+	line-height: 20px;
+	font-weight: bold;
+	text-decoration: none;
+
+}
+
+.uyeProfilBaslikKutu{
+width:630px;
+margin-left:auto;
+margin-right:auto;
+display: block;
+padding: 5px;
+height: 20px;
+font-family: Arial, Tahoma, Verdana;
+color: #003;
+border-bottom-width: 1px;
+border-bottom-style: solid;
+border-bottom-color: #003;
+font-size: 14px;
+line-height: 20px;
+font-weight: bold;
+text-decoration: none;
+	
+
+}
+
+.kayitOlKutu{
+	width: 600px;
+	margin-top: 20px;
+	margin-left: 20px;
+	padding: 10px;
+
+	
+}
+
+.kayitAlanBaslik{
+	width: 80px;
+	float: left;
+	padding: 5px;
+	line-height: 30px;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: bold;
+	color: #333;
+	text-decoration: none;
+}
+
+
+.kayitText  {
+	padding: 5px;
+	border: 2px solid #eaeaea;
+	position: relative;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	z-index: 1;
+	behavior: url(_css/ie-css3.htc);
+	background-color: #FFF;
+	width: 265px;
+	margin-left: 5px;
+	
+}
+
+.kullaniciGirisKutu{
+width:100%;
+padding:10px;
+
+}
+
+.kullaniciGirisAlan{
+	width: 410px;
+	height: 170px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	padding-left: 40px;
+
+}
+
+.urunAramaListe{
+width:100%;
+padding:10px;
+	
+}
+
+.urunTalepAlan{
+	width: 450px;
+	padding:5px;
+	margin-left: 300px;
+	margin-top: 10px;
+	border: 1px solid #eaeaea;
+	position: relative;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	z-index: 1;
+	behavior: url(_css/ie-css3.htc);
+	background-color: #FFF;
+}
+
+.uyeProfilAlan{
+	width: 620px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	border: 1px solid #eaeaea;
+	position: relative;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	z-index: 1;
+	behavior: url(_css/ie-css3.htc);
+	background-color: #FFF;
+	margin-bottom: 10px;
+	padding-top: 15px;
+	padding-right: 10px;
+	padding-bottom: 15px;
+	padding-left: 10px;
+}
+
+
+.uyeProfilBilgi{
+	width: 500px;
+	float: left;
+	text-align: left;
+	padding: 5px;
+	float: left;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: normal;
+	text-decoration: none;
+	border-bottom-width: 1px;
+	border-bottom-style: dashed;
+	border-bottom-color: #CCC;
 }

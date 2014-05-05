@@ -90,3 +90,50 @@
 	color: #FFFFFF;
 	text-decoration: none;
 }
+
+.urunDetayResim{
+width:250px;
+padding:10px;
+margin:10px;
+float:left;
+text-align:center;
+
+}
+
+.urunDetayAlan{
+width:460px;
+margin:10px;
+float:left;
+
+}
+
+.paketBaslikKutu{
+width:450px;
+padding:5px;
+margin-top:5px;
+
+}
+
+.detayKutuBaslik{
+font-family:Arial, Tahoma, Verdana;
+font-size:12px;
+color:#333;
+text-align:left;
+text-decoration:none;
+font-weight:bold;
+width:100px;
+float:left;
+	
+}
+.detayKutuYazi{
+font-family:Arial, Tahoma, Verdana;
+font-size:12px;
+color:#333;
+text-decoration:none;
+text-align:lef;
+font-weight:normal;
+width:345px;
+float:left;	
+margin-left:5px;
+
+}

@@ -17,13 +17,16 @@ public class TestPro {
 
 	/**
 	 * 
-	 * CURRENT:Admin panel, dynamic column(add columns to db), users
+	 * CURRENT: register with test driven.
 	 * 
-	 * TODO: products,products master-detail, in
+	 * admin CURRENT:{dynamic column(add columns to db), users}
+	 * 
+	 * TODO: register,login,search results,make talep
+	 * Admin( products,products master-detail, in
 	 * detail(prophotso,prokates,prokeyword etc.) url filter products, link to
-	 * products from users,column editing module
+	 * products from users,column editing module)
 	 * 
-	 * TEST CASES: length vb v alidation on all input componenents ,tab
+	 * TEST CASES: length vb validation on all input componenents ,tab
 	 * indexes,validations{max fiyat,past time),turkce karakter{*.xhtml,
 	 * db.gridfield}, authfilter for member acess(session attr status needed)
 	 * 
@@ -42,7 +45,7 @@ public class TestPro {
 		p.validateInput();
 	}
 
-	@Test
+	//@Test
 	public void products() {
 		fazlastoks.admin.Products user = new fazlastoks.admin.Products();
 		ASCIITable table = new ASCIITable();

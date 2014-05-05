@@ -1,0 +1,48 @@
+<ui:composition template="/master.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:define name="content">
+<div class="sagContentAlan">
+ <div class="baslikKutu">KAYIT OL</div>
+  <form action="#" method="post" enctype="multipart/form-data"> 
+ <div class="kayitOlKutu">
+ <span class="kayitAlanBaslik">Firma Adı :</span>
+<input name="FirmaAd" type="text" class="kayitText"  />
+ <div class="clearLeft"></div>
+  <span class="kayitAlanBaslik">Şifre :</span>
+
+ <input name="Parola" type="text" class="kayitText"  />
+ <div class="clearLeft"></div>
+  <span class="kayitAlanBaslik">Şifre Tekrar :</span>
+ 
+ <input name="ParolaTekrar" type="text" class="kayitText"  />
+ <div class="clearLeft"></div>
+  <span class="kayitAlanBaslik">Ad Soyad :</span>
+
+ <input name="AdSoyad" type="text" class="kayitText"  />
+ <div class="clearLeft"></div>
+  <span class="kayitAlanBaslik">E-Mail  :</span>
+
+ <input name="Email" type="text" class="kayitText"  />
+ <div class="clearLeft"></div>
+   <span class="kayitAlanBaslik">Sabit Tel  :</span>
+
+ <input name="SabitTel" type="text" class="kayitText" />
+ <div class="clearLeft"></div>
+   <span class="kayitAlanBaslik">Cep Tel  :</span>
+
+ <input name="CepTel" type="text" class="kayitText"  />
+ <div class="clearLeft"></div>
+   <span class="kayitAlanBaslik"></span>
+
+ <input type="submit" name="Gonder" value="Gönder" />
+ <div class="clearLeft"></div>
+ </div>
+  </form>
+</div>
+</ui:define>
+</ui:composition>

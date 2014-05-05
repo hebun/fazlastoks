@@ -35,18 +35,19 @@
 						<h:inputText id="urunAra" name="UrunAra" type="text"
 							class="urunAra" pt:placeholder="Arama Kelimesi Giriniz..."
 							value="#{master.searchText}"></h:inputText>
-					
+
 						<h:commandButton styleClass="searchButton" value=""
 							action="#{master.search}">
-							<f:param name="key" value="#{master.searchText}" ></f:param>
-							</h:commandButton>
+							<f:param name="key" value="#{master.searchText}"></f:param>
+						</h:commandButton>
 					</h:form>
 				</div>
 				<div class="uyeAlan">
 					<div class="saticiBaslik">Satıcılar İçin</div>
 					<div class="uyeGiris">
-						<span class="hesabaGiris"><a href="#">Hesap Girişi</a></span> <span
-							class="uyeGirisi"><a href="#">Yeni Üyelik</a></span>
+						<span class="hesabaGiris"><a href="kullanici-giris">Hesap
+								Girişi</a></span> <span class="uyeGirisi"><a href="kayit-ol">Yeni
+								Üyelik</a></span>
 						<div class="clearLeft"></div>
 					</div>
 				</div>
@@ -68,9 +69,12 @@
 		</div>
 		<div class="contentSablon">
 			<div class="contentAlan">
+			<ui:fragment
+						rendered="#{not view.viewId.contains('kullanici-giris')}">
 				<div class="solContentAlan">
 
-					<h:panelGroup styleClass="ustKategori" rendered="true">
+					<h:panelGroup styleClass="ustKategori" 
+						rendered="true">
 						<span class="solKategoriCubuk"></span>
 						<span class="ortaKategoriCubuk"> Menu</span>
 						<span class="sagKategoriCubuk"></span>
@@ -86,24 +90,27 @@
 						</div>
 					</h:panelGroup>
 					<br />
-					<div class="ustKategori">
-						<span class="solKategoriCubuk"></span> <span
-							class="ortaKategoriCubuk"> KATEGORİLER</span> <span
-							class="sagKategoriCubuk"></span>
-						<div class="clearLeft"></div>
-						<div class="kategoriKutu">
-							<ul>
-								<li><a href="#">Kategori</a></li>
-								<li><a href="#">Kategori</a></li>
-								<li><a href="#">Kategori</a></li>
-								<li><a href="#">Kategori</a></li>
-								<li><a href="#">Kategori</a></li>
-								<li><a href="#">Kategori</a></li>
-								<li><a href="#">Kategori</a></li>
-							</ul>
+					
+						<div class="ustKategori">
+							<span class="solKategoriCubuk"></span> <span
+								class="ortaKategoriCubuk"> KATEGORİLER</span> <span
+								class="sagKategoriCubuk"></span>
+							<div class="clearLeft"></div>
+							<div class="kategoriKutu">
+								<ul>
+									<li><a href="#">Kategori</a></li>
+									<li><a href="#">Kategori</a></li>
+									<li><a href="#">Kategori</a></li>
+									<li><a href="#">Kategori</a></li>
+									<li><a href="#">Kategori</a></li>
+									<li><a href="#">Kategori</a></li>
+									<li><a href="#">Kategori</a></li>
+								</ul>
+							</div>
 						</div>
-					</div>
+					
 				</div>
+				</ui:fragment>
 				<div class="sagContentAlan">
 					<ui:insert name="content">Default content</ui:insert>
 				</div>

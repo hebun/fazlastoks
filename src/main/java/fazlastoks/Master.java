@@ -17,9 +17,15 @@ public class Master implements Serializable {
 	boolean loggedIn;
 
 	public Master() {
-		
+
 		username = "username blabla";
-	
+
+	}
+
+	public String search() {
+		FaceUtils.log.fine("searchtext:" + searchText);
+		return "urun-arama?faces-redirect=true&key=" + searchText;
+
 	}
 
 	public void Login() {
@@ -60,12 +66,6 @@ public class Master implements Serializable {
 
 	public String test() {
 		return "";
-	}
-
-	public String search() {
-		FaceUtils.log.fine("searchtext:" + searchText);
-		return "search?faces-redirect=true&key=" + searchText;
-
 	}
 
 	private static final long serialVersionUID = 4790738744214962785L;

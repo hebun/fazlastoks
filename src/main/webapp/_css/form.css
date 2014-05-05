@@ -44,3 +44,22 @@ display:block;
 display:block;
 float:right;
 }
+
+.formTalepText{
+	width: 250px;
+	float: left;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	margin-left: 5px;
+	padding: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border: 1px solid #eaeaea;
+	position: relative;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	z-index: 1;
+	behavior: url(_css/ie-css3.htc);
+	background-color: #FFF;
+}

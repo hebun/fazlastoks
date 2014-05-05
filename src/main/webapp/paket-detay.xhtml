@@ -1,0 +1,75 @@
+<ui:composition template="/master.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:define name="content">
+		<div class="sagContentAlan">
+			<div class="urunDetayResim">
+				<img src="_resimler/_urunResim/fs-(42).jpg" width="200" height="100" />
+			</div>
+			<div class="urunDetayAlan">
+				<div class="paketBaslikKutu">
+					<span class="detayKutuBaslik">Satıcı :</span> <span
+						class="detayKutuYazi">Firma yada Şahıs Adı</span>
+					<div class="clearLeft"></div>
+				</div>
+				<div class="paketBaslikKutu">
+					<span class="detayKutuBaslik">Kategori :</span><span
+						class="detayKutuYazi">Kategori</span>
+					<div class="clearLeft"></div>
+				</div>
+				<div class="paketBaslikKutu">
+					<span class="detayKutuBaslik">Paket Adı :</span><span
+						class="detayKutuYazi">Paket Adı</span>
+					<div class="clearLeft"></div>
+				</div>
+				<div class="paketBaslikKutu">
+					<span class="detayKutuBaslik">Piyasa Fiyatı :</span><span
+						class="detayKutuYazi">1000 TL</span>
+					<div class="clearLeft"></div>
+				</div>
+
+				<div class="paketBaslikKutu">
+					<span class="detayKutuBaslik">Fırsat Fiyat :</span><span
+						class="detayKutuYazi">800 TL</span>
+					<div class="clearLeft"></div>
+				</div>
+				<div class="paketBaslikKutu">
+					<span class="detayKutuBaslik">Paket Tanımı :</span><span
+						class="detayKutuYazi">Paket Tanımı</span>
+					<div class="clearLeft"></div>
+				</div>
+			</div>
+			<div class="clearLeft"></div>
+			<div class="urunTalepAlan">
+				<span class="talepFormBaslik">Paket İsmi :</span> <input type="text"
+					name="adSoyad" class="formTalepText" />
+				<div class="clearLeft"></div>
+				<span class="talepFormBaslik">Firma Kodu :</span> <input type="text"
+					name="adSoyad" class="formTalepText" />
+				<div class="clearLeft"></div>
+				<span class="talepFormBaslik">Ad Soyad :</span> <input type="text"
+					name="adSoyad" class="formTalepText" />
+				<div class="clearLeft"></div>
+				<span class="talepFormBaslik">E-Mail :</span> <input type="text"
+					name="adSoyad" class="formTalepText" />
+				<div class="clearLeft"></div>
+				<span class="talepFormBaslik">Gsm :</span> <input type="text"
+					name="adSoyad" class="formTalepText" />
+				<div class="clearLeft"></div>
+				<span class="talepFormBaslik">Mesaj :</span>
+				<textarea name="adSoyad" rows="6" class="formTalepText"></textarea>
+				<div class="clearLeft"></div>
+				<span class="talepFormBaslik"></span> <input type="submit"
+					name="Gonder" value="Gönder" />
+				<div class="clearLeft"></div>
+				<div></div>
+				<div></div>
+			</div>
+			<div class="clearLeft"></div>
+		</div>
+	</ui:define>
+</ui:composition>
