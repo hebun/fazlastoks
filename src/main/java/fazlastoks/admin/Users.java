@@ -24,14 +24,16 @@ public class Users extends CrudBase implements Serializable {
 	public void setUsers(List<Map<String, String>> users) {
 		this.users = users;
 	}
-static int insCount=0;
+
+	static int insCount = 0;
+
 	public Users() {
-		
+
 		this.table = "user";
 		String sql = new Sql.Select("u.*,count(p.id) as productCount")
-				.from(table).as("u").innerJoin("product").as("p")
+				.from(table).as("u").leftJoin("product").as("p")
 				.on("u.id", "p.userid").groupBy("u.id").get();
-		FaceUtils.log.info(insCount++ +"");
+		FaceUtils.log.info(insCount++ + "");
 		;
 		users = Db.selectTable(sql);
 

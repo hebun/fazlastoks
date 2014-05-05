@@ -11,17 +11,26 @@
 	<composite:attribute name="list"></composite:attribute>
 	<composite:attribute name="addLabel"></composite:attribute>
 	<composite:attribute name="header"></composite:attribute>
+
 	<composite:attribute name="hasInsert" type="java.lang.Boolean"
 		default="true"></composite:attribute>
+
 	<composite:attribute name="hasToggleRead" default="false"
 		type="java.lang.Boolean"></composite:attribute>
-<composite:attribute name="width" default="66"
-		type="java.lang.Integer"></composite:attribute>
+
+	<composite:attribute name="width" default="66" type="java.lang.Integer">
+	
+	</composite:attribute>
+
+	<composite:attribute name="showOrderInfo" default="true"
+		type="java.lang.Boolean"></composite:attribute>
 
 </composite:interface>
 <composite:implementation>
-	<h4 class="alert_info">Sütun başlıklarına tıklayarak sıralama
-		yapabilirsiniz. Sıralama yönünü değiştirmek için tekrar tıklayın.</h4>
+	<ui:fragment rendered="#{cc.attrs.showOrderInfo}">
+		<h4 class="alert_info">Sütun başlıklarına tıklayarak sıralama
+			yapabilirsiniz. Sıralama yönünü değiştirmek için tekrar tıklayın.</h4>
+	</ui:fragment>
 
 	<h:form>
 		<h:panelGrid style="width:100%;"
@@ -40,7 +49,8 @@
 			</div>
 		</ui:fragment>
 
-		<article class="module width_3_quarter" style="width:#{cc.attrs.width}%;">
+		<article class="module width_3_quarter"
+			style="width:#{cc.attrs.width}%">
 
 			<header>
 				<h3 class="tabs_involved">#{cc.attrs.header}</h3>
@@ -67,9 +77,9 @@
 
 										Hayir
 									</ui:fragment>
-									
+
 								</ui:fragment>
-									<ui:fragment rendered="#{c.name!='state'}">
+								<ui:fragment rendered="#{c.name!='state'}">
 								#{m[c.name]}
 								</ui:fragment>
 							</h:column>

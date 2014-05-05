@@ -11,11 +11,12 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
 import freela.util.Db;
+import freela.util.FaceUtils;
 import freela.util.Sql;
 import freela.util.Db.SelectCallback;
 import freela.util.Sql.Select;
 
-@FacesConverter(forClass = model.Product.class, value = "proConverter")
+@FacesConverter(forClass = model.Product.class, value = "proConv")
 public class ProductConverter implements Converter {
 
 	@Override
@@ -33,6 +34,7 @@ public class ProductConverter implements Converter {
 				while (rs.next()) {
 					
 					p.setId(rs.getInt("id"));
+					FaceUtils.log.info(rs.getString("pname"));
 					p.setPname(rs.getString("pname"));
 					p.setContent(rs.getString("content"));
 					p.setPrice(rs.getInt("price"));
@@ -50,7 +52,9 @@ public class ProductConverter implements Converter {
 	@Override
 	public String getAsString(FacesContext context, UIComponent component,
 			Object value) throws ConverterException {
-
+		
+		FaceUtils.log.info(value.toString());
+		
 		if (value == null)
 			return null;
 

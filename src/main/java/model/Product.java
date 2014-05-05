@@ -27,9 +27,7 @@ public class Product implements java.io.Serializable {
 	private Date expiredate;
 	private String keywords;
 	private String file;
-	private Set<Productphoto> productphotos = new HashSet<Productphoto>(0);
-	private Set<Productcategory> productcategories = new HashSet<Productcategory>(
-			0);
+
 
 	public Product() {
 	}
@@ -46,8 +44,7 @@ public class Product implements java.io.Serializable {
 		this.expiredate = expiredate;
 		this.keywords = keywords;
 		this.file = file;
-		this.productphotos = productphotos;
-		this.productcategories = productcategories;
+	
 	}
 
 	public Integer getId() {
@@ -124,20 +121,5 @@ public class Product implements java.io.Serializable {
 		this.file = file;
 	}
 
-	public Set<Productphoto> getProductphotos() {
-		return this.productphotos;
-	}
-
-	public void setProductphotos(Set<Productphoto> productphotos) {
-		this.productphotos = productphotos;
-	}
-
-	public Set<Productcategory> getProductcategories() {
-		return this.productcategories;
-	}
-
-	public void setProductcategories(Set<Productcategory> productcategories) {
-		this.productcategories = productcategories;
-	}
 
 }

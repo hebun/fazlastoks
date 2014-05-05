@@ -10,8 +10,7 @@
 	<ui:define name="content">
 
 
-		<h4 class="alert_info">Sütun başlıklarına tıklayarak sıralama
-			yapabilirsiniz. Sıralama yönünü değiştirmek için tekrar tıklayın.</h4>
+		<h4 class="alert_info">Detay sayfasi icin urun ismine tiklayin.</h4>
 
 		<h:form>
 			<h:panelGrid style="width:100%;" rendered="#{product.hasMessage}">
@@ -38,7 +37,7 @@
 									<f:facet name="header">#{c.header}</f:facet>
 									
 									<h:outputLink rendered="#{c.name=='pname'}"
-										value="proDetal?id=#{m.id}">#{m[c.name]}</h:outputLink>
+										value="proDetail?id=#{m.id}">#{m[c.name]}</h:outputLink>
 									
 									<h:outputText rendered="#{c.name!='pname'}">#{m[c.name]}</h:outputText>
 

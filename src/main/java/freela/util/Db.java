@@ -32,6 +32,7 @@ public class Db {
 	static Statement stmt = null;
 	static int say = 0;
 	public static boolean debug = false;
+	public static boolean dumpTime = false;
 
 	public static void start(String caller) throws ClassNotFoundException,
 			SQLException {
@@ -219,11 +220,12 @@ public class Db {
 
 	public static List<Map<String, String>> selectTable(String sql) {
 
+		long start=System.currentTimeMillis();
+		
 		List<Map<String, String>> list = null;
 
 		try {
-			if (debug)
-				FaceUtils.log.info(sql);
+		
 			start("");
 			ResultSet rs = stmt.executeQuery(sql);
 
@@ -259,7 +261,9 @@ public class Db {
 		} finally {
 			close("");
 		}// end try
-
+		if (debug){
+			FaceUtils.log.info(sql+" time:"+(System.currentTimeMillis()-start));
+		}
 		return list;
 	}
 
