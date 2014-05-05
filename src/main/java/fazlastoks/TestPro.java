@@ -17,6 +17,8 @@ import fazlastoks.admin.Users;
 import freela.util.ASCIITable;
 import freela.util.Db;
 import freela.util.Sql;
+import freela.util.Sql.Insert;
+import freela.util.Sql.Select;
 
 public class TestPro {
 
@@ -43,6 +45,28 @@ public class TestPro {
 	 * 
 	 */
 	@Test
+	public void prepareStatement() {
+
+		Sql.Select select = (Select) new Select().from("user")
+				.where("email", "fff@fff.dff").and("password", "' or ''='").prepare();
+		System.out.println(select.get());
+
+		for (String str : select.params()) {
+			System.out.println(str);
+		}
+
+		List<Map<String, String>> table = Db.preparedSelect(select.get(),
+				select.params());
+
+		for (Map<String, String> map : table) {
+			for (Map.Entry<String, String> entry : map.entrySet()) {
+				System.out.println(entry.getKey() + ":" + entry.getValue());
+			}
+			System.out.println();
+		}
+	}
+
+	// @Test
 	public void testRegister() {
 		int insertedId = 3;
 		Date time = Calendar.getInstance().getTime();
@@ -50,8 +74,7 @@ public class TestPro {
 		String insertAct = new Sql.Insert("activation")
 				.add("code", UUID.randomUUID()).add("userid", insertedId)
 				.add("tarih", dateFormat.format(time)).get();
-		Db.insert(insertAct)
-		;
+		Db.insert(insertAct);
 	}
 
 	// @Test

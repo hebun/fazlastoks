@@ -7,6 +7,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -220,12 +221,12 @@ public class Db {
 
 	public static List<Map<String, String>> selectTable(String sql) {
 
-		long start=System.currentTimeMillis();
-		
+		long start = System.currentTimeMillis();
+
 		List<Map<String, String>> list = null;
 
 		try {
-		
+
 			start("");
 			ResultSet rs = stmt.executeQuery(sql);
 
@@ -261,8 +262,9 @@ public class Db {
 		} finally {
 			close("");
 		}// end try
-		if (debug){
-			FaceUtils.log.info(sql+" time:"+(System.currentTimeMillis()-start));
+		if (debug) {
+			FaceUtils.log.info(sql + " time:"
+					+ (System.currentTimeMillis() - start));
 		}
 		return list;
 	}
@@ -520,6 +522,57 @@ public class Db {
 	public static interface SelectCallbackTable {
 
 		public void callback(String[] columns, List<List<String>> data);
+	}
+
+	public static List<Map<String, String>> preparedSelect(String sql,
+			List<String> params) {
+		PreparedStatement statement = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			started = true;
+			statement = conn.prepareStatement(sql);
+			for (int i = 1; i <= params.size(); i++) {
+				statement.setString(i, params.get(i - 1));
+			}
+
+			ResultSet rs = statement.executeQuery();
+
+			ResultSetMetaData data = rs.getMetaData();
+
+			int colCount = data.getColumnCount();
+
+			ArrayList<Map<String, String>> list = new ArrayList<Map<String, String>>();
+
+			while (rs.next()) {
+
+				Map<String, String> hash = new HashMap<String, String>();
+				for (int i = 1; i <= colCount; i++) {
+
+					String value = rs.getString(i) == null ? "NULL" : rs
+							.getString(i);
+					String columnLabel = data.getColumnLabel(i);
+					if (hash.containsKey(columnLabel)) {
+						columnLabel += "_1";
+					}
+
+					hash.put(columnLabel, value);
+				}
+				list.add(hash);
+
+			}
+			return list;
+
+		} catch (ClassNotFoundException e) {e.printStackTrace();
+			return null;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+			
+		}
+
 	}
 
 }

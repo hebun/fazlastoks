@@ -5,19 +5,29 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import model.User;
+
 @SessionScoped
 @ManagedBean
 public class Login implements Serializable {
 	// TODO: db design,managed bean design,
-	private static final long serialVersionUID = -8938217548612577279L;
+
 	String username;
 	String password;
 	boolean loggedIn;
+	User user;
 
 	public Login() {
 		loggedIn = true;
-		username = "kullanici adi:";
-		System.out.println("cons called");
+
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public boolean isLoggedIn() {
@@ -35,6 +45,8 @@ public class Login implements Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+	private static final long serialVersionUID = -8938217548612577279L;
 
 	public String getPassword() {
 		return password;

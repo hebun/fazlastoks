@@ -1,6 +1,8 @@
 package freela.util;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 public abstract class Sql {
@@ -13,13 +15,22 @@ public abstract class Sql {
 	protected String orderWay = "asc";
 	protected int start = 0, count = 0;
 	protected Map<String, Map.Entry<String, String>> where = new Hashtable<String, Map.Entry<String, String>>();
+	protected boolean isPrepared = false;
 
-	public Sql whereEntry(String type, final String key, final Object value) {
+	public abstract Sql prepare();
+
+	public Sql whereEntry(String type, String key, final Object value) {
+
+		char charAt = key.charAt(key.length() - 1);
+		if (charAt != ' ' && charAt != '<' && charAt != '>' && charAt != '=') {
+			key = key + "=";
+		}
+		final String fkey = key;
 		where.put(type, new Map.Entry<String, String>() {
 
 			@Override
 			public String getKey() {
-				return key;
+				return fkey;
 			}
 
 			@Override
@@ -43,13 +54,13 @@ public abstract class Sql {
 
 	public Sql and(final String key, final String value) {
 		if (where.size() == 0)
-			throw new SqlBuilderExeption("cant use and before where");
+			throw new SqlBuilderExeption("cant use 'and' before 'where'");
 		return whereEntry("and", key, value);
 	}
 
 	public Sql or(final String key, final String value) {
 		if (where.size() == 0)
-			throw new SqlBuilderExeption("cant use or before where");
+			throw new SqlBuilderExeption("cant use 'or' before 'where'");
 
 		return whereEntry("or", key, value);
 	}
@@ -113,6 +124,12 @@ public abstract class Sql {
 			return currentSql;
 		}
 
+		@Override
+		public Delete prepare() {
+			this.isPrepared = true;
+			return this;
+		}
+
 	}
 
 	public static class Update extends Sql {
@@ -162,6 +179,12 @@ public abstract class Sql {
 			return this;
 
 		}
+
+		@Override
+		public Update prepare() {
+			this.isPrepared = true;
+			return this;
+		}
 	}
 
 	public static class Insert extends Sql {
@@ -169,6 +192,15 @@ public abstract class Sql {
 
 		public Insert(String table) {
 			this.tableName = table;
+
+		}
+
+		public List<String> params() {
+			List<String> ret = new ArrayList<>();
+			for (Object string : fields.values()) {
+				ret.add(string.toString());
+			}
+			return ret;
 
 		}
 
@@ -194,8 +226,13 @@ public abstract class Sql {
 			builder.append(") values (");
 			for (Map.Entry<String, Object> en : fields.entrySet()) {
 
-				builder.append("'").append(en.getValue().toString())
-						.append("',");
+				if (isPrepared) {
+					builder.append("?,");
+
+				} else {
+					builder.append("'").append(en.getValue().toString())
+							.append("',");
+				}
 			}
 			builder.deleteCharAt(builder.length() - 1);
 			builder.append(")");
@@ -203,6 +240,12 @@ public abstract class Sql {
 			this.currentSql += super.getFollowings();
 			this.isBuilt = true;
 			return currentSql;
+		}
+
+		@Override
+		public Insert prepare() {
+			this.isPrepared = true;
+			return this;
 		}
 
 	}
@@ -337,6 +380,18 @@ public abstract class Sql {
 			return this;
 		}
 
+		public List<String> params() {
+			if (!isPrepared) {
+				throw new SqlBuilderExeption("you didn't call prepare");
+			}
+			List<String> ret = new ArrayList<>();
+			for (Map.Entry<String, String> entry : where.values()) {
+				ret.add(entry.getValue());
+			}
+			return ret;
+
+		}
+
 		@Override
 		public String get() {
 			if (isBuilt)
@@ -379,11 +434,17 @@ public abstract class Sql {
 				for (Map.Entry<String, Map.Entry<String, String>> en : where
 						.entrySet()) {
 					builder.append(' ').append(en.getKey()).append(' ')
-							.append(en.getValue().getKey()).append("'")
-							.append(en.getValue().getValue()).append("' ");
+							.append(en.getValue().getKey());
+					if (isPrepared) {
+						builder.append("? ");
+					} else {
+						builder.append("'").append(en.getValue().getValue())
+								.append("' ");
+					}
 				}
-				if(groupBy!=null){
-					builder.append(" group by ").append(this.groupBy).append("");
+				if (groupBy != null) {
+					builder.append(" group by ").append(this.groupBy)
+							.append("");
 				}
 			}
 			this.currentSql = builder.toString();
@@ -395,6 +456,12 @@ public abstract class Sql {
 		public Select order(String order) {
 
 			this.orderColumn = order;
+			return this;
+		}
+
+		@Override
+		public Select prepare() {
+			this.isPrepared = true;
 			return this;
 		}
 	}
