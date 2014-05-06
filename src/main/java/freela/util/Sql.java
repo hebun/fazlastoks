@@ -394,8 +394,7 @@ public abstract class Sql {
 
 		@Override
 		public String get() {
-			if (isBuilt)
-				return currentSql;
+		
 			StringBuilder builder = new StringBuilder("select ");
 			builder.append(fieldList);
 

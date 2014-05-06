@@ -78,10 +78,10 @@ public class Db {
 	}
 
 	public static <T> List<T> select(String sql, Class<T> type) {
+		long start = System.currentTimeMillis();
 
 		try {
-			if (debug)
-				FaceUtils.log.info(sql);
+			
 			start("");
 			ResultSet rs = stmt.executeQuery(sql);
 			ResultSetMetaData metaData = rs.getMetaData();
@@ -112,7 +112,7 @@ public class Db {
 							FaceUtils.log.info(e.getMessage());
 							e.printStackTrace();
 						} catch (Exception e) {
-							FaceUtils.log.info(e.toString());
+							FaceUtils.log.fine(e.toString());
 							e.printStackTrace();
 						}
 					}
@@ -121,7 +121,7 @@ public class Db {
 			}
 			return list;
 		} catch (SQLException se) {
-			System.out.println("se in select<T" + sql);
+			System.out.println("se in select<T>:" + sql);
 			se.printStackTrace();
 			return new ArrayList<T>();
 		} catch (Exception e) {
@@ -129,6 +129,8 @@ public class Db {
 			e.printStackTrace();
 			return new ArrayList<T>();
 		} finally {
+			if (debug)
+				FaceUtils.log.info(sql+" time:"+(System.currentTimeMillis()-start));
 			close("");
 		}
 

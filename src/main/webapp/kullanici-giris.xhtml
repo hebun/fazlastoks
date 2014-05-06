@@ -6,26 +6,35 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="content">
-<div class="contentAlan">
-  <div class="kullaniciGirisKutu">
-    <div class="kullaniciBaslikKutu">KULLANICI GİRİŞİ</div>
-  <form action="#" method="post" enctype="multipart/form-data"> 
- <div class="kullaniciGirisAlan">
- <span class="kayitAlanBaslik">Kullanıcı Adı :</span>
- <input name="Kullanici" type="text" class="kayitText" />
- <div class="clearLeft"></div>
-  <span class="kayitAlanBaslik">Şifre :</span>
+		<div class="contentAlan">
+			<ui:param name="reqMessage" value="Lütfen bu alanı doldurun."></ui:param>
+			<div class="kullaniciGirisKutu">
+				<div class="kullaniciBaslikKutu">KULLANICI GİRİŞİ</div>
+				<h:form>
+					<div class="kullaniciGirisAlan">
+						<h:messages globalOnly="true" styleClass="error"></h:messages>
+						<span class="kayitAlanBaslik">Kullanıcı Adı :</span>
+						<h:inputText id="Kullanici" value="#{login.username}"
+							required="true" requiredMessage="#{reqMessage}"
+							styleClass="kayitText"></h:inputText>
+						<h:message for="Kullanici" styleClass="error"></h:message>
+						<div class="clearLeft"></div>
 
- <input name="Kullanici" type="text" class="kayitText" />
- <div class="clearLeft"></div>
-   <span class="kayitAlanBaslik"></span>
+						<span class="kayitAlanBaslik">Şifre :</span>
+						<h:inputSecret id="password" styleClass="kayitText"
+							value="#{login.password}" required="true"
+							requiredMessage="#{reqMessage}"></h:inputSecret>
+						<h:message for="password" styleClass="error"></h:message>
+						<div class="clearLeft"></div>
 
-<input name="Gonder" type="submit" value="Gönder" />
- <div class="clearLeft"></div>
- </div>
-  </form>
-</div>
-<div class="clearLeft"></div>
-</div>
-</ui:define>
+						<span class="kayitAlanBaslik"></span>
+						<h:commandButton id="Gonder" action="#{login.login}"
+							value="Giriş Yap"></h:commandButton>
+						<div class="clearLeft"></div>
+					</div>
+				</h:form>
+			</div>
+			<div class="clearLeft"></div>
+		</div>
+	</ui:define>
 </ui:composition>

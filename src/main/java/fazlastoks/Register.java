@@ -58,6 +58,7 @@ public class Register implements Serializable {
 					.add("cepno", user.getCepno())
 					.add("sabitno", user.getSabitno()).get();
 			int insertedId = Db.insert(insertUser);
+			
 			Date time = Calendar.getInstance().getTime();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("Y-m-d H:m:s");
 			String insertAct = new Sql.Insert("activation")

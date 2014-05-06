@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import model.Category;
 import model.ColumnModel;
+import model.Product;
 import model.Talep;
 
 import org.junit.Test;
@@ -17,22 +19,20 @@ import fazlastoks.admin.Users;
 import freela.util.ASCIITable;
 import freela.util.Db;
 import freela.util.Sql;
-import freela.util.Sql.Insert;
 import freela.util.Sql.Select;
 
 public class TestPro {
 
 	/**
 	 * 
-	 * CURRENT: register with test driven
+	 * CURRENT: login
 	 * 
 	 * admin CURRENT:{dynamic column(add columns to db), users}
 	 * 
 	 * TODO: register,activation mail, login,search results,make talep
 	 * 
-	 * 
 	 * Admin( products,products master-detail, in
-	 * detail(prophotso,prokates,prokeyword etc.) url filter products, link to
+	 * detail(prophotso,procates,prokeyword etc.) url filter products, link to
 	 * products from users,column editing module)
 	 * 
 	 * TEST CASES: length vb validation on all input componenents ,tab
@@ -43,12 +43,36 @@ public class TestPro {
 	 * datepicker language and format,url reseting on invalidation,product
 	 * filter in urunlerim, or true state in authfilter
 	 * 
+	 * NOTES: master page edit for logged in user,masterpage bottom
+	 * 
+	 * THOUGHTS: externalize messages. bean dumping for asciitable
 	 */
 	@Test
+	public void testMaster() {
+		Db.debug=true;
+		List<Category> cats;
+		List<Product> firsatPakets;
+
+		cats = Db.select(new Sql.Select().from("catcount").get(),
+				Category.class);
+		for (Category cat : cats) {
+			System.out.println(cat.getCname());
+		}
+		firsatPakets = Db.select(
+				new Sql.Select().from("product").innerJoin("firsatproduct")
+						.on("product.id", "firsatproduct.productid").get(),
+				Product.class);
+		for (Product product : firsatPakets) {
+			System.out.println(product.getId()+":"+product.getPname());
+		}
+	}
+
+	//@Test
 	public void prepareStatement() {
 
 		Sql.Select select = (Select) new Select().from("user")
-				.where("email", "fff@fff.dff").and("password", "' or ''='").prepare();
+				.where("email", "fff@fff.dff").and("password", "' or ''='")
+				.prepare();
 		System.out.println(select.get());
 
 		for (String str : select.params()) {

@@ -1,10 +1,16 @@
 package fazlastoks;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import freela.util.Db;
+import freela.util.FaceUtils;
+import freela.util.Sql;
+import freela.util.Sql.Select;
 import model.User;
 
 @SessionScoped
@@ -18,8 +24,35 @@ public class Login implements Serializable {
 	User user;
 
 	public Login() {
-		loggedIn = true;
+		// loggedIn = true;
 
+	}
+
+	public String login() {
+		Sql.Select select = (Select) new Select().from("user")
+				.where("email", username).and("password", password);
+		String normalSelect = select.get();
+
+		List<Map<String, String>> table = Db.preparedSelect(select.prepare()
+				.get(), select.params());
+
+		if (table.size() > 0) {
+			user = Db.select(normalSelect, User.class).get(0);
+			loggedIn = true;
+			return "index";
+		} else {
+			FaceUtils.addError("Kullanıcı ve/veya şifre yanlış.");
+			loggedIn = false;
+			return null;
+		}
+	}
+
+	public String logout() {
+		username = "";
+		password = "";
+		user = null;
+		loggedIn = false;
+		return "index";
 	}
 
 	public User getUser() {

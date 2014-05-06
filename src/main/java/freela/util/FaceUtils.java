@@ -24,9 +24,11 @@ public class FaceUtils {
 		};
 		consoleHandler.setFormatter(new LogFormatter());
 		consoleHandler.setLevel(Level.ALL);
-		System.out.println("adding handler to logger");
+		System.out.print("adding handler to logger,handlers size:"+log.getHandlers().length);
 		
 		log.addHandler(consoleHandler);
+		System.out.println(" size after:"+log.getHandlers().length);
+		
 		log.setLevel(Level.ALL);
 
 	}
