@@ -6,7 +6,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import model.Category;
-import model.Product;
 import freela.util.Db;
 import freela.util.FaceUtils;
 import freela.util.Sql;

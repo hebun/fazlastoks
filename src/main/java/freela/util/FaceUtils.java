@@ -23,24 +23,25 @@ public class FaceUtils {
 			}
 		};
 		consoleHandler.setFormatter(new LogFormatter());
-		consoleHandler.setLevel(Level.ALL);
-		System.out.print("adding handler to logger,handlers size:"+log.getHandlers().length);
+		consoleHandler.setLevel(Level.ALL);	
 		
-		log.addHandler(consoleHandler);
-		System.out.println(" size after:"+log.getHandlers().length);
-		
-		log.setLevel(Level.ALL);
+		if (log.getHandlers().length == 0) {
+			log.addHandler(consoleHandler);
+		}
+	
+		log.setLevel(Level.WARNING);
 
 	}
 
-	public static <T> T getObjectFromGETParam(String param, Class<T> type, String table) {
+	public static <T> T getObjectFromGETParam(String param, Class<T> type,
+			String table) {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext context = facesContext.getExternalContext();
 		String string = context.getRequestParameterMap().get(param);
 
 		List<T> li = Db.select(
-				new Sql.Select().from("product").where("id=", string).get(),
+				new Sql.Select().from(table).where("id=", string).get(),
 				type);
 		T ret = null;
 		try {

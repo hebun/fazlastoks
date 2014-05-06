@@ -81,7 +81,7 @@ public class Db {
 		long start = System.currentTimeMillis();
 
 		try {
-			
+
 			start("");
 			ResultSet rs = stmt.executeQuery(sql);
 			ResultSetMetaData metaData = rs.getMetaData();
@@ -101,15 +101,20 @@ public class Db {
 						String input = f.getName();
 						input = input.substring(0, 1).toUpperCase()
 								+ input.substring(1);
+						Method met;
+						Class<?> type2 = f.getType();
+				
+						
 						try {
+							Object object = rs.getObject(f.getName());
 
-							Method met = type.getMethod("set" + input,
-									f.getType());
+							met = type.getMethod("set" + input, type2);
+							if (object != null)
 
-							met.invoke(obj, rs.getObject(f.getName()));
+								met.invoke(obj, object);
 
 						} catch (NoSuchMethodException e) {
-							FaceUtils.log.info(e.getMessage());
+							FaceUtils.log.finer(e.getMessage());
 							e.printStackTrace();
 						} catch (Exception e) {
 							FaceUtils.log.fine(e.toString());
@@ -121,7 +126,7 @@ public class Db {
 			}
 			return list;
 		} catch (SQLException se) {
-			System.out.println("se in select<T>:" + sql);
+			FaceUtils.log.warning(se.getMessage()+":"+ sql);
 			se.printStackTrace();
 			return new ArrayList<T>();
 		} catch (Exception e) {
@@ -130,7 +135,8 @@ public class Db {
 			return new ArrayList<T>();
 		} finally {
 			if (debug)
-				FaceUtils.log.info(sql+" time:"+(System.currentTimeMillis()-start));
+				FaceUtils.log.info(sql + " time:"
+						+ (System.currentTimeMillis() - start));
 			close("");
 		}
 
@@ -566,13 +572,14 @@ public class Db {
 			}
 			return list;
 
-		} catch (ClassNotFoundException e) {e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 			return null;
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
-			
+
 		}
 
 	}

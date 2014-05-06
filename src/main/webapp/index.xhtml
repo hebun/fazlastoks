@@ -41,36 +41,29 @@
 				<div class="clearLeft"></div>
 			</div>
 			<div class="anaUrunListe">
+			<c:forEach items="#{hom.firsatPakets}" var="paket">
 				<div class="urunKutu">
 					<div class="urunAnaResim">
 						<img src="_resimler/_urunResim/fs-(42).jpg" width="200"
 							height="100" />
 					</div>
-					<div class="paketTanim">New 200 series pillow block bearing.
-						Cast iron construction with self-aligning ball bearing insert and
-						grease zerk.</div>
+					<div class="paketTanim">#{paket.content}</div>
 					<div class="paketFiyat">
-						<span class="baslik1">Piyasa Fiyatı</span> <span class="baslik3">1000
+						<span class="baslik1">Piyasa Fiyatı</span> <span class="baslik3">#{paket.pprice}
 							TL</span>
 						<div class="clearLeft"></div>
 					</div>
 					<div class="firsatFiyat">
-						<span class="baslik4">Fırsat Fiyatı</span> <span class="baslik3">800
+						<span class="baslik4">Fırsat Fiyatı</span> <span class="baslik3">#{paket.price}
 							TL</span>
 						<div class="clearLeft"></div>
 					</div>
 					<div class="paketDetay">
-						<a href="#">Paket Detayı </a>
+						<a href="paket-detay?id=#{paket.id}">Paket Detayı </a>
 					</div>
 				</div>
-				<div class="urunKutu"></div>
-				<div class="urunKutu"></div>
-				<div class="urunKutu"></div>
-				<div class="urunKutu"></div>
-				<div class="urunKutu"></div>
-				<div class="urunKutu"></div>
-				<div class="urunKutu"></div>
-				<div class="urunKutu"></div>
+				</c:forEach>
+			
 			</div>
 		</div>
 	</ui:define>

@@ -1,8 +1,8 @@
 package fazlastoks;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -29,7 +29,8 @@ public class TestPro {
 	 * 
 	 * admin CURRENT:{dynamic column(add columns to db), users}
 	 * 
-	 * TODO: register,activation mail, login,search results,make talep
+	 * TODO: register,activation mail, login,search results,make talep, uye profil(with update),,
+	 * masterpage bottom
 	 * 
 	 * Admin( products,products master-detail, in
 	 * detail(prophotso,procates,prokeyword etc.) url filter products, link to
@@ -39,13 +40,13 @@ public class TestPro {
 	 * indexes,validations{max fiyat,past time),turkce karakter{*.xhtml,
 	 * db.gridfield}, authfilter for member acess(session attr status needed)
 	 * 
-	 * ISSUES:multiple handler added to logger, user's own product control,
+	 * ISSUES:user's own product control,default picture in product detail and results,
 	 * datepicker language and format,url reseting on invalidation,product
-	 * filter in urunlerim, or true state in authfilter
+	 * filter in urunlerim, or true state in authfilter, Db.slect<T> the fields that is not in db, 
 	 * 
-	 * NOTES: master page edit for logged in user,masterpage bottom
+	 * NOTES: master page edit for logged in user
 	 * 
-	 * THOUGHTS: externalize messages. bean dumping for asciitable
+	 * THOUGHTS: externalize messages. bean dumping for asciitable, make categories in master sessionscoped,
 	 */
 	@Test
 	public void testMaster() {
@@ -93,7 +94,7 @@ public class TestPro {
 	// @Test
 	public void testRegister() {
 		int insertedId = 3;
-		Date time = Calendar.getInstance().getTime();
+		Date time = new Date(System.currentTimeMillis());
 		SimpleDateFormat dateFormat = new SimpleDateFormat("Y-M-d H:m:s");
 		String insertAct = new Sql.Insert("activation")
 				.add("code", UUID.randomUUID()).add("userid", insertedId)
@@ -106,7 +107,7 @@ public class TestPro {
 		Pro p = new Pro();
 
 		p.preRenderView();
-		p.getPro().setExpiredate(new Date());
+		p.getPro().setExpiredate(new Date(System.currentTimeMillis()));
 		p.validateInput();
 	}
 
