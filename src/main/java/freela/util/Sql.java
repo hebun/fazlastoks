@@ -26,6 +26,8 @@ public abstract class Sql {
 			key = key + "=";
 		}
 		final String fkey = key;
+		if (where.containsKey(type))
+			type = type + " ";
 		where.put(type, new Map.Entry<String, String>() {
 
 			@Override
@@ -394,7 +396,7 @@ public abstract class Sql {
 
 		@Override
 		public String get() {
-		
+
 			StringBuilder builder = new StringBuilder("select ");
 			builder.append(fieldList);
 

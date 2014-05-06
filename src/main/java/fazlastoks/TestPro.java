@@ -25,12 +25,12 @@ public class TestPro {
 
 	/**
 	 * 
-	 * CURRENT: login
+	 * CURRENT:
 	 * 
 	 * admin CURRENT:{dynamic column(add columns to db), users}
 	 * 
-	 * TODO: register,activation mail, login,search results,make talep, uye profil(with update),,
-	 * masterpage bottom
+	 * TODO: activation mail, search results,make talep, uye profil(with
+	 * update),, masterpage bottom
 	 * 
 	 * Admin( products,products master-detail, in
 	 * detail(prophotso,procates,prokeyword etc.) url filter products, link to
@@ -40,17 +40,41 @@ public class TestPro {
 	 * indexes,validations{max fiyat,past time),turkce karakter{*.xhtml,
 	 * db.gridfield}, authfilter for member acess(session attr status needed)
 	 * 
-	 * ISSUES:user's own product control,default picture in product detail and results,
-	 * datepicker language and format,url reseting on invalidation,product
-	 * filter in urunlerim, or true state in authfilter, Db.slect<T> the fields that is not in db, 
+	 * ISSUES:user's own product control,default picture in product detail and
+	 * results,product filter in urunlerim, or true state in authfilter,
+	 * Db.slect<T> the fields that is not in db,
 	 * 
-	 * NOTES: master page edit for logged in user
+	 * NOTES:unnecesary file include in master,beter(persist) unit testing,
+	 * activation kontrol on logging(PENDING)
 	 * 
-	 * THOUGHTS: externalize messages. bean dumping for asciitable, make categories in master sessionscoped,
+	 * THOUGHTS: externalize messages, make categories in master sessionscoped,
+	 * build test scenario,
+	 * 
+	 * SCENARIO:cat search, text search, paket-detay, make talep, register,
+	 * login, add product, list product, edit/delete product
 	 */
-	@Test
+
+	// @Test
+	public void search() {
+		Search search = new Search("testing");
+		search.setKey("test");
+		search.init();
+		List<Product> l = search.getList();
+
+		ASCIITable asciiTable = new ASCIITable();
+
+		asciiTable.printTable(l);
+
+	}
+
+	// @Test
 	public void testMaster() {
-		Db.debug=true;
+
+		Master master = new Master();
+		master.setSearchText("  ");
+		System.out.println(master.search());
+
+		Db.debug = true;
 		List<Category> cats;
 		List<Product> firsatPakets;
 
@@ -64,11 +88,11 @@ public class TestPro {
 						.on("product.id", "firsatproduct.productid").get(),
 				Product.class);
 		for (Product product : firsatPakets) {
-			System.out.println(product.getId()+":"+product.getPname());
+			System.out.println(product.getId() + ":" + product.getPname());
 		}
 	}
 
-	//@Test
+	// @Test
 	public void prepareStatement() {
 
 		Sql.Select select = (Select) new Select().from("user")
@@ -165,7 +189,7 @@ public class TestPro {
 
 	}
 
-	// @Test
+	@Test
 	public void talepler() {
 
 		Talepler talepler = new Talepler();
@@ -174,18 +198,7 @@ public class TestPro {
 
 		List<Talep> taleps = talepler.getTaleps();
 
-		String[][] data = new String[taleps.size()][];
-
-		int k = 0;
-		for (Talep t : taleps) {
-			data[k++] = new String[] { t.getName(), t.getEmail(), t.getGsm(),
-					t.getNotes(), t.getProductid() + "" };
-		}
-		List<ColumnModel> columns2 = talepler.getColumns();
-
-		String[] cols = getHeader(columns2);
-
-		table.printTable(cols, data);
+		table.printTable(taleps);
 	}
 
 	private String[] getHeader(List<ColumnModel> columns2) {

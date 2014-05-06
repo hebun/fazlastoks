@@ -23,15 +23,18 @@ public class Master implements Serializable {
 	public Master() {
 		cats = Db.select(new Sql.Select().from("catcount").get(),
 				Category.class);
-		
-		
+
 	}
 
 	public String search() {
 
 		FaceUtils.log.fine("searchtext:" + searchText);
-
-		return "urun-arama?faces-redirect=true&key=" + searchText;
+		if (searchText != null && !searchText.equals("")
+				&& searchText.length() > 2) {
+			return "urun-arama?faces-redirect=true&key=" + searchText;
+		} else {
+			return null;
+		}
 
 	}
 
@@ -42,8 +45,6 @@ public class Master implements Serializable {
 	public void setCats(List<Category> cats) {
 		this.cats = cats;
 	}
-
-
 
 	public void Login() {
 

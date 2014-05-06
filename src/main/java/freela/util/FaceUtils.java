@@ -29,16 +29,14 @@ public class FaceUtils {
 			log.addHandler(consoleHandler);
 		}
 	
-		log.setLevel(Level.WARNING);
+		log.setLevel(Level.ALL);
 
 	}
 
 	public static <T> T getObjectFromGETParam(String param, Class<T> type,
 			String table) {
 
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext context = facesContext.getExternalContext();
-		String string = context.getRequestParameterMap().get(param);
+		String string = getGET(param);
 
 		List<T> li = Db.select(
 				new Sql.Select().from(table).where("id=", string).get(),
@@ -60,6 +58,13 @@ public class FaceUtils {
 
 	}
 
+	public static String getGET(String param) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext context = facesContext.getExternalContext();
+		String string = context.getRequestParameterMap().get(param);
+		return string;
+	}
+
 	public static void addError(String msg) {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 				msg, "");
@@ -79,5 +84,7 @@ public class FaceUtils {
 			e.printStackTrace();
 		}
 	}
+
+
 
 }
