@@ -15,11 +15,16 @@
  */
 package freela.util;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
-
+import model.Product;
 
 /**
  * This implementation builds the header and data rows by considering each
@@ -37,34 +42,31 @@ public class ASCIITable {
 	public static final int ALIGN_LEFT = -1;
 	public static final int ALIGN_CENTER = 0;
 	public static final int ALIGN_RIGHT = 1;
-	
+
 	public static final int DEFAULT_HEADER_ALIGN = ALIGN_CENTER;
 	public static final int DEFAULT_DATA_ALIGN = ALIGN_RIGHT;
-	
 
 	public void printTable(String[] header, String[][] data) {
 		printTable(header, DEFAULT_HEADER_ALIGN, data, DEFAULT_DATA_ALIGN);
 	}
 
-	
 	public void printTable(String[] header, String[][] data, int dataAlign) {
 		printTable(header, DEFAULT_HEADER_ALIGN, data, dataAlign);
 	}
 
-	
 	public void printTable(String[] header, int headerAlign, String[][] data,
 			int dataAlign) {
 		System.out.println(getTable(header, headerAlign, data, dataAlign));
 	}
 
-	public void printTable( String[][] data) {
+	public void printTable(String[][] data) {
 		System.out.println(getTable(null, ALIGN_LEFT, data, ALIGN_CENTER));
 	}
+
 	public String getTable(String[] header, String[][] data) {
 		return getTable(header, DEFAULT_HEADER_ALIGN, data, DEFAULT_DATA_ALIGN);
 	}
 
-	
 	public String getTable(String[] header, String[][] data, int dataAlign) {
 		return getTable(header, DEFAULT_HEADER_ALIGN, data, dataAlign);
 	}
@@ -83,11 +85,58 @@ public class ASCIITable {
 		return getTable(headerObjs, data);
 	}
 
+	public <T> void printTable(List<T> l) {
+		if (l.size() == 0)
+			throw new IllegalArgumentException("Please provide valid data : "
+					+ "list.size is 0");
+
+		int fc = 0;
+		String[] heads = new String[20];
+		for (Method f : l.get(0).getClass().getMethods()) {
+			if (Modifier.isPublic(f.getModifiers())) {
+				String name = f.getName();
+				if (name.startsWith("get") || name.startsWith("is")) {
+
+					heads[fc++] = name.substring(3);
+				}
+			}
+		}
+		heads = Arrays.copyOf(heads, fc);
+
+		String[][] data = new String[l.size()][];
+		int k = 0;
+		for (T t : l) {
+			data[k] = new String[fc];
+			Class<?> type = t.getClass();
+			int i = 0;
+			for (Method f : type.getMethods()) {
+				if (Modifier.isPublic(f.getModifiers())) {
+					String name = f.getName();
+					if (name.startsWith("get") || name.startsWith("is")) {
+
+						try {
+							Object invoke = f.invoke(t);
+							if (invoke == null)
+								invoke = "nul";
+							data[k][i++] = invoke.toString();
+						} catch (IllegalAccessException
+								| IllegalArgumentException
+								| InvocationTargetException e) {
+							e.printStackTrace();
+						}
+					}
+
+				}
+			}
+			k++;
+		}
+		printTable(heads,data);
+		;
+	}
+
 	public void printTable(ASCIITableHeader[] headerObjs, String[][] data) {
 		System.out.println(getTable(headerObjs, data));
 	}
-
-
 
 	public String getTable(ASCIITableHeader[] headerObjs, String[][] data) {
 
@@ -319,6 +368,7 @@ public class ASCIITable {
 
 		return header;
 	}
+
 	public class ASCIITableHeader {
 
 		private String headerName;
@@ -334,7 +384,8 @@ public class ASCIITable {
 			this.dataAlign = dataAlign;
 		}
 
-		public ASCIITableHeader(String headerName, int dataAlign, int headerAlign) {
+		public ASCIITableHeader(String headerName, int dataAlign,
+				int headerAlign) {
 			this.headerName = headerName;
 			this.dataAlign = dataAlign;
 			this.headerAlign = headerAlign;
@@ -343,26 +394,27 @@ public class ASCIITable {
 		public String getHeaderName() {
 			return headerName;
 		}
-		
+
 		public void setHeaderName(String headerName) {
 			this.headerName = headerName;
 		}
-		
+
 		public int getHeaderAlign() {
 			return headerAlign;
 		}
-		
+
 		public void setHeaderAlign(int headerAlign) {
 			this.headerAlign = headerAlign;
 		}
-		
+
 		public int getDataAlign() {
 			return dataAlign;
 		}
-		
+
 		public void setDataAlign(int dataAlign) {
 			this.dataAlign = dataAlign;
 		}
-		
+
 	}
+
 }
