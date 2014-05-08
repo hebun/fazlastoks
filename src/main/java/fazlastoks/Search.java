@@ -26,25 +26,33 @@ public class Search implements Serializable {
 	}
 
 	public Search() {
+		processUrl();
+	}
+
+	public String processUrl() {
 		this.key = FaceUtils.getGET("key");
 		String searchText = this.key;
 		if (searchText != null && !searchText.equals("")
 				&& searchText.length() > 2) {
 			init();
+			return "init";
 		} else {
 			try {
 				this.catId = Integer.parseInt(FaceUtils.getGET("catid"));
 
-				String sql = new Sql.Select().from("product").as("p")
-						.innerJoin("productcategory").as("pc")
-						.on("p.id", "pc.productid")
-						.where("pc.categoryid", catId).get();
-				list = Db.select(sql, Product.class);
+				initWithCat();
+				return "cat";
 			} catch (NumberFormatException nfe) {
-
+				return null;
 			}
-
 		}
+	}
+
+	public void initWithCat() {
+		String sql = new Sql.Select().from("product").as("p")
+				.innerJoin("productcategory").as("pc")
+				.on("p.id", "pc.productid").where("pc.categoryid", catId).get();
+		list = Db.select(sql, Product.class);
 	}
 
 	public void init() {
@@ -81,13 +89,6 @@ public class Search implements Serializable {
 
 	public void setList(List<Product> list) {
 		this.list = list;
-	}
-
-	public String delete(Product pro) {
-		FaceUtils.log.finest("delete pro.id" + pro.getId());
-
-		list.remove(pro);
-		return null;
 	}
 
 	/**

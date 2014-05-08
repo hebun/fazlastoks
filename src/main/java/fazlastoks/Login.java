@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import freela.util.Db;
 import freela.util.FaceUtils;
@@ -20,7 +21,7 @@ public class Login implements Serializable {
 
 	String username;
 	String password;
-	boolean loggedIn;
+	private boolean loggedIn;
 	User user;
 
 	public Login() {
@@ -37,7 +38,15 @@ public class Login implements Serializable {
 				.get(), select.params());
 
 		if (table.size() > 0) {
+
+			if (table.get(0).get("state").toString().equals("PENDING")) {
+				FaceUtils.addError("Hesabınız Aktif Değil!");
+				loggedIn = false;
+				return null;
+			}
+
 			user = Db.select(normalSelect, User.class).get(0);
+
 			loggedIn = true;
 			return "index";
 		} else {
@@ -52,7 +61,8 @@ public class Login implements Serializable {
 		password = "";
 		user = null;
 		loggedIn = false;
-		return "index";
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "index?faces-redirect=true";
 	}
 
 	public User getUser() {

@@ -21,7 +21,7 @@ public class App implements Serializable {
 		return cunrrentInfoMessage;
 	}
 
-	public void setCunrrentInfoMessage(String cunrrentInfoMessage) {
+	public void setCurrentInfoMessage(String cunrrentInfoMessage) {
 		this.cunrrentInfoMessage = cunrrentInfoMessage;
 	}
 

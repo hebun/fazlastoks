@@ -41,12 +41,7 @@ public class Register implements Serializable {
 		}
 
 		try {
-			int size = Db.selectTable(
-					new Sql.Select().from("user")
-							.where("email=", user.getEmail()).get()).size();
-			if (size > 0) {
-				FaceUtils.addError("Bu E-mail adresi daha önce kullanıldı.");
-
+			if(!checkExistingEmail()){
 				return null;
 			}
 
@@ -58,21 +53,35 @@ public class Register implements Serializable {
 					.add("cepno", user.getCepno())
 					.add("sabitno", user.getSabitno()).get();
 			int insertedId = Db.insert(insertUser);
-			
+
 			Date time = Calendar.getInstance().getTime();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("Y-m-d H:m:s");
+			
 			String insertAct = new Sql.Insert("activation")
 					.add("code", UUID.randomUUID()).add("userid", insertedId)
 					.add("tarih", dateFormat.format(time)).get();
 
 			Db.insert(insertAct);
-			app.setCunrrentInfoMessage("Aktivasyon Kodunuz Mail Adresinize Gönderildi. Lütfen E-Mail Adresinizi Ziyaret Ediniz.");
+			app.setCurrentInfoMessage("Aktivasyon Kodunuz Mail Adresinize Gönderildi. "
+					+ "Lütfen E-Mail Adresinizi Ziyaret Ediniz.");
 			return "bilgi";
 		} catch (Exception e) {
 			log.severe(e.getMessage());
-			FaceUtils.addError("Hata olustu");
+			FaceUtils.addError("Hata olustu"); 
 			return null;
 		}
+	}
+
+	public boolean checkExistingEmail() {
+		int size = Db.selectTable(
+				new Sql.Select().from("user")
+						.where("email=", user.getEmail()).get()).size();
+		if (size > 0) {
+			FaceUtils.addError("Bu E-mail adresi daha önce kullanıldı.");
+
+			return false;
+		}
+		return true;
 	}
 
 	public App getApp() {

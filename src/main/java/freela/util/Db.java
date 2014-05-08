@@ -258,7 +258,7 @@ public class Db {
 
 					hash.put(columnLabel, value);
 				}
-				list.add(hash);
+			list.add(hash);
 
 			}
 		} catch (SQLException se) {
