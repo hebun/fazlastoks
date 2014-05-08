@@ -25,30 +25,31 @@ public class TestPro {
 
 	/**
 	 * 
-	 * CURRENT:
+	 * CURRENT: 
 	 * 
 	 * admin CURRENT:{dynamic column(add columns to db), users}
 	 * 
-	 * TODO: activation mail, search results,make talep, uye profil(with
-	 * update),, masterpage bottom
+	 * TODO: lightbox for pictures in talep, uye profil(with
+	 * update),, masterpage bottom activation mail,add product,list/delete/edit product
 	 * 
 	 * Admin( products,products master-detail, in
-	 * detail(prophotso,procates,prokeyword etc.) url filter products, link to
+	 * detail(prophotos,procates,prokeyword etc.) url filter products, link to
 	 * products from users,column editing module)
 	 * 
 	 * TEST CASES: length vb validation on all input componenents ,tab
 	 * indexes,validations{max fiyat,past time),turkce karakter{*.xhtml,
 	 * db.gridfield}, authfilter for member acess(session attr status needed)
 	 * 
-	 * ISSUES:user's own product control,default picture in product detail and
-	 * results,product filter in urunlerim, or true state in authfilter,
-	 * Db.slect<T> the fields that is not in db,
+	 * ISSUES:set 'there is no record' warning on paket-detay, user's own product
+	 * control,default picture in product detail and results,product filter in
+	 * urunlerim, or true state in authfilter, Db.slect<T> the fields that is
+	 * not in db,, preparedstatement must be on every user input,make categories in master sessionscoped,
 	 * 
 	 * NOTES:unnecesary file include in master,beter(persist) unit testing,
 	 * activation kontrol on logging(PENDING)
 	 * 
-	 * THOUGHTS: externalize messages, make categories in master sessionscoped,
-	 * build test scenario,
+	 * THOUGHTS: externalize messages, 	 * build test scenario,
+	 * , do test scenario with code
 	 * 
 	 * SCENARIO:cat search, text search, paket-detay, make talep, register,
 	 * login, add product, list product, edit/delete product

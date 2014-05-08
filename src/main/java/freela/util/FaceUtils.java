@@ -11,6 +11,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
+import freela.util.Sql.Select;
 import model.Product;
 
 public class FaceUtils {
@@ -23,12 +24,12 @@ public class FaceUtils {
 			}
 		};
 		consoleHandler.setFormatter(new LogFormatter());
-		consoleHandler.setLevel(Level.ALL);	
-		
+		consoleHandler.setLevel(Level.ALL);
+
 		if (log.getHandlers().length == 0) {
 			log.addHandler(consoleHandler);
 		}
-	
+
 		log.setLevel(Level.ALL);
 
 	}
@@ -37,10 +38,26 @@ public class FaceUtils {
 			String table) {
 
 		String string = getGET(param);
+		if (string != null)
+			return getObjectById(type, table, string);
+		else {
+			try {
+				return type.newInstance();
+			} catch (InstantiationException e) {
+				log.warning(e.getMessage());
+			} catch (IllegalAccessException e) {
+				log.warning(e.getMessage());
+			}
+		}
+		return null;
 
-		List<T> li = Db.select(
-				new Sql.Select().from(table).where("id=", string).get(),
-				type);
+	}
+
+	public static <T> T getObjectById(Class<T> type, String table, String string) {
+		Sql.Select sql = (Select) new Sql.Select().from(table)
+				.where("id=", string).prepare();
+
+		List<T> li = Db.preparedSelect(sql.get(), sql.params(), type);
 		T ret = null;
 		try {
 			if (li.size() == 0) {
@@ -55,7 +72,6 @@ public class FaceUtils {
 			e.printStackTrace();
 		}
 		return ret;
-
 	}
 
 	public static String getGET(String param) {
@@ -84,7 +100,5 @@ public class FaceUtils {
 			e.printStackTrace();
 		}
 	}
-
-
 
 }

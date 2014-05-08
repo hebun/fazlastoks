@@ -9,14 +9,13 @@
 		<div class="sagContentAlan">
 			<div class="urunDetayResim">
 				<img src="_resimler/_urunResim/fs-(42).jpg" width="200" height="100" />
+				<div class="clearLeft"></div>
+				<SPAN style="font-size: 12px"> Bütün resimleri görmek için
+					resmin üstüne tıklayın. </SPAN>
 			</div>
 			<div class="urunDetayAlan">
-			
-				<div class="paketBaslikKutu">
-					<span class="detayKutuBaslik">Kategori :</span><span
-						class="detayKutuYazi">Kategori</span>
-					<div class="clearLeft"></div>
-				</div>
+
+				<ui:param name="reqMessage" value=" Lütfen bu alanı doldurun."></ui:param>
 				<div class="paketBaslikKutu">
 					<span class="detayKutuBaslik">Paket Adı :</span><span
 						class="detayKutuYazi">#{prodetail.pro.pname}</span>
@@ -34,6 +33,11 @@
 					<div class="clearLeft"></div>
 				</div>
 				<div class="paketBaslikKutu">
+					<span class="detayKutuBaslik">Ürün Durumu :</span><span
+						class="detayKutuYazi">#{prodetail.proStates}</span>
+					<div class="clearLeft"></div>
+				</div>
+				<div class="paketBaslikKutu">
 					<span class="detayKutuBaslik">Paket Tanımı :</span><span
 						class="detayKutuYazi">#{prodetail.pro.content}</span>
 					<div class="clearLeft"></div>
@@ -41,29 +45,38 @@
 			</div>
 			<div class="clearLeft"></div>
 			<div class="urunTalepAlan">
-				<span class="talepFormBaslik">Paket İsmi :</span> <input type="text"
-					name="adSoyad" class="formTalepText" />
-				<div class="clearLeft"></div>
-				<span class="talepFormBaslik">Firma Kodu :</span> <input type="text"
-					name="adSoyad" class="formTalepText" />
-				<div class="clearLeft"></div>
-				<span class="talepFormBaslik">Ad Soyad :</span> <input type="text"
-					name="adSoyad" class="formTalepText" />
-				<div class="clearLeft"></div>
-				<span class="talepFormBaslik">E-Mail :</span> <input type="text"
-					name="adSoyad" class="formTalepText" />
-				<div class="clearLeft"></div>
-				<span class="talepFormBaslik">Gsm :</span> <input type="text"
-					name="adSoyad" class="formTalepText" />
-				<div class="clearLeft"></div>
-				<span class="talepFormBaslik">Mesaj :</span>
-				<textarea name="adSoyad" rows="6" class="formTalepText"></textarea>
-				<div class="clearLeft"></div>
-				<span class="talepFormBaslik"></span> <input type="submit"
-					name="Gonder" value="Gönder" />
-				<div class="clearLeft"></div>
-				<div></div>
-				<div></div>
+				<h:form rendered="#{prodetail.pro.id>0}">
+					<span class="talepFormBaslik">Ad Soyad* :</span>
+					<h:inputText id="adSoyad" required="true"
+						requiredMessage="#{reqMessage}" value="#{prodetail.talep.name}" styleClass="formTalepText"></h:inputText>
+					<h:message styleClass="error" for="adSoyad">
+					</h:message>
+
+					<div class="clearLeft"></div>
+					<span class="talepFormBaslik">E-Mail* :</span>
+					<h:inputText id="email" required="true"
+						requiredMessage="#{reqMessage}" label="E-mail" value="#{prodetail.talep.email}"  styleClass="formTalepText"></h:inputText>
+					<h:message styleClass="error" for="email"></h:message>
+
+					<div class="clearLeft"></div>
+					<span class="talepFormBaslik">Gsm* :</span>
+					<h:inputText id="gsm" required="true"
+						requiredMessage="#{reqMessage}" value="#{prodetail.talep.gsm}"  styleClass="formTalepText"></h:inputText>
+					<h:message styleClass="error" for="gsm"></h:message>
+
+					<div class="clearLeft"></div>
+					<span class="talepFormBaslik">Mesaj :</span>
+					<h:inputTextarea id="mesaj" rows="6" value="#{prodetail.talep.notes}"  styleClass="formTalepText"></h:inputTextarea>
+					<div class="clearLeft"></div>
+					<span class="talepFormBaslik"></span>
+
+					<h:commandButton id="Gonder" action="#{prodetail.saveTalep()}"
+						value="Gönder">
+					</h:commandButton>
+					<div class="clearLeft"></div>
+					<div></div>
+					<div></div>
+				</h:form>
 			</div>
 			<div class="clearLeft"></div>
 		</div>

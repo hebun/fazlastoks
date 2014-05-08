@@ -133,7 +133,7 @@
 .info,.success,.warning,.error {
 	border: 1px solid;
 	margin: 10px 0px;
-	padding: 10px 10px 10px 50px;
+	padding: 5px 5px 5px 50px;
 	background-repeat: no-repeat;
 	background-position: 10px center;
 	-moz-border-radius: .5em;

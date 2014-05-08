@@ -47,36 +47,6 @@ public class Db {
 		started = true;
 	}
 
-	public static void select(String sql, SelectCallback callback) {
-
-		try {
-			if (debug)
-				FaceUtils.log.info(sql);
-			start("");
-			ResultSet rs = stmt.executeQuery(sql);
-			ResultSetMetaData metaData = rs.getMetaData();
-			int colCount = metaData.getColumnCount();
-
-			String[] columns = new String[colCount];
-
-			for (int i = 0; i < colCount; i++) {
-				columns[i] = new String(metaData.getColumnLabel(i + 1));
-			}
-
-			callback.callback(rs, columns);
-
-		} catch (SQLException se) {
-			System.out.println("se in select" + sql);
-			se.printStackTrace();
-		} catch (Exception e) {
-			System.out.println("e in select");
-			e.printStackTrace();
-		} finally {
-			close("");
-		}
-
-	}
-
 	public static <T> List<T> select(String sql, Class<T> type) {
 		long start = System.currentTimeMillis();
 
@@ -103,8 +73,7 @@ public class Db {
 								+ input.substring(1);
 						Method met;
 						Class<?> type2 = f.getType();
-				
-						
+
 						try {
 							Object object = rs.getObject(f.getName());
 
@@ -126,7 +95,7 @@ public class Db {
 			}
 			return list;
 		} catch (SQLException se) {
-			FaceUtils.log.warning(se.getMessage()+":"+ sql);
+			FaceUtils.log.warning(se.getMessage() + ":" + sql);
 			se.printStackTrace();
 			return new ArrayList<T>();
 		} catch (Exception e) {
@@ -140,48 +109,6 @@ public class Db {
 			close("");
 		}
 
-	}
-
-	public static void select(String sql, SelectCallbackTable callback) {
-
-		String[] columns = null;
-		List<List<String>> data = null;
-		try {
-			if (debug)
-				FaceUtils.log.info(sql);
-			start("");
-			ResultSet rs = stmt.executeQuery(sql);
-			ResultSetMetaData metaData = rs.getMetaData();
-			int colCount = metaData.getColumnCount();
-
-			columns = new String[colCount];
-
-			for (int i = 0; i < colCount; i++) {
-				columns[i] = new String(metaData.getColumnLabel(i + 1));
-			}
-
-			data = new ArrayList<List<String>>();
-			while (rs.next()) {
-				List<String> row = new ArrayList<String>();
-				for (String col : columns) {
-					String string = rs.getString(col);
-					if (string == null)
-						string = "null";
-					row.add(string);
-				}
-				data.add(row);
-			}
-
-		} catch (SQLException se) {
-			System.out.println("se in select" + sql);
-			se.printStackTrace();
-		} catch (Exception e) {
-			System.out.println("e in select" + sql);
-			e.printStackTrace();
-		} finally {
-			close("");
-		}
-		callback.callback(columns, data);
 	}
 
 	public static void select(String sql, SelectCallbackLoop callback) {
@@ -258,7 +185,7 @@ public class Db {
 
 					hash.put(columnLabel, value);
 				}
-			list.add(hash);
+				list.add(hash);
 
 			}
 		} catch (SQLException se) {
@@ -307,8 +234,45 @@ public class Db {
 
 			close("");
 
-		}// end trys
+		}
 
+	}
+
+	public static int prepareInsert(String sql, List<String> params) {
+
+		if (debug)
+			FaceUtils.log.info(sql);
+
+		PreparedStatement statement = null;
+		started = true;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+			statement = conn.prepareStatement(sql);
+			for (int i = 1; i <= params.size(); i++) {
+				statement.setString(i, params.get(i - 1));
+			}
+			int res = statement.executeUpdate();
+			if (res == 0)
+				return res;
+			ResultSet generatedKeys = statement.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				return (int) generatedKeys.getLong(1);
+			}
+		} catch (Exception ex) {
+			return 0;
+
+		} finally {
+			try {
+				conn.close();
+				statement.close();
+			} catch (Exception ex) {
+
+			}
+		}
+		return 0;
 	}
 
 	public static int update(String sql) {
@@ -366,154 +330,6 @@ public class Db {
 	}
 
 	public static void main(String[] args) {
-		String genSql = "";
-		try {
-			long a = System.currentTimeMillis();
-			start("");
-
-			DatabaseMetaData data = conn.getMetaData();
-			ResultSet res = data.getTables(null, null, null,
-					new String[] { "TABLE" });
-
-			List<String> sourceTables = new ArrayList<String>();
-
-			while (res.next()) {
-				System.out.println("   " + res.getString("TABLE_CAT") + ", "
-						+ res.getString("TABLE_SCHEM") + ", "
-						+ res.getString("TABLE_NAME") + ", "
-						+ res.getString("TABLE_TYPE") + ", "
-						+ res.getString("REMARKS"));
-				sourceTables.add(res.getString("TABLE_NAME"));
-			}
-			long b = System.currentTimeMillis() - a;
-
-			Connection remCon = DriverManager.getConnection(
-					"jdbc:mysql://173.243.120.226:3306/freelaj_fazlastoklar",
-					"freelaj_fazla", "2882jh");
-
-			long c = System.currentTimeMillis() - a;
-
-			DatabaseMetaData dataR = remCon.getMetaData();
-			System.out.println("blbla");
-
-			ResultSet resR = dataR.getTables(null, null, null,
-					new String[] { "TABLE" });
-			List<String> targetTables = new ArrayList<String>();
-
-			long d = System.currentTimeMillis() - a;
-
-			while (resR.next()) {
-				System.out.println("   " + resR.getString("TABLE_CAT") + ", "
-						+ resR.getString("TABLE_SCHEM") + ", "
-						+ resR.getString("TABLE_NAME") + ", "
-						+ resR.getString("TABLE_TYPE") + ", "
-						+ resR.getString("REMARKS"));
-				targetTables.add(resR.getString("TABLE_NAME"));
-			}
-
-			List<String> diffTables = new ArrayList<String>();
-
-			for (String string : sourceTables) {
-				if (targetTables.indexOf(string) >= 0) {
-					ResultSet scols = data.getColumns(null, null, string, null);
-					ResultSet tcols = dataR
-							.getColumns(null, null, string, null);
-
-					List<String> scollist = new ArrayList<String>();
-					List<String> tcollist = new ArrayList<String>();
-
-					while (tcols.next()) {
-						String coldef = tcols.getString(4) + ":"
-								+ tcols.getString(6) + ":" + tcols.getString(7);
-						tcollist.add(coldef);
-					}
-
-					while (scols.next()) {
-						String col = scols.getString(4) + ":"
-								+ scols.getString(6) + ":" + scols.getString(7);
-
-						String colname = scols.getString(4);
-						if (!subContain(tcollist, colname)) {
-							System.out.println("missing column:" + string + "."
-									+ col);
-
-							genSql += "\n alter table " + string
-									+ " add column " + colname + " "
-									+ scols.getString(6) + " ("
-									+ scols.getString(7) + ");";
-
-						} else if (tcollist.indexOf(col) < 0) {
-							System.out.println("altered column:" + string + "."
-									+ col);
-							genSql += "\n alter table " + string + " modify  "
-									+ colname + " " + scols.getString(6) + " ("
-									+ scols.getString(7) + ");";
-						} else {
-
-						}
-						scollist.add(col);
-					}
-
-				} else {
-					System.out.println("missing table:" + string);
-
-					ResultSet scols = data.getColumns(null, null, string, null);
-					genSql += "\n create table " + string + "(\n";
-					while (scols.next()) {
-						genSql += "\n" + scols.getString(4) + " "
-								+ scols.getString(6) + " ("
-								+ scols.getString(7) + "),";
-
-					}
-					genSql += ")";
-
-				}
-			}
-			long e = System.currentTimeMillis() - a;
-			// System.out.println("Missing Tables:");
-
-			for (String table : sourceTables) {
-				ResultSet cols = data.getColumns(null, null, table, null);
-				while (cols.next()) {
-					// System.out.print(cols.getString(2) + " ");
-					// System.out.print(cols.getString(3) + " ");
-					// System.out.print(cols.getString(4) + " ");
-					// System.out.print(cols.getString(6) + " ");
-					// System.out.println(cols.getString(7));
-				}
-
-			}
-
-			System.out.println("================");
-			long f = System.currentTimeMillis() - a;
-
-			System.out.println("\ngot local:" + (b) + " \nconnected to remote:"
-					+ (c - b) + " \ngot remote:" + (d - c)
-					+ " \nsearched diffs:" + (e - d) + "\n last is:" + (f - e)
-					+ " ii:" + ii);
-			System.out.println(genSql);
-		} catch (ClassNotFoundException e) {
-			System.out.println("blbla");
-			e.printStackTrace();
-		} catch (SQLException e) {
-			System.out.println("blbla");
-			e.printStackTrace();
-		}
-
-	}
-
-	private static int ii = 0;
-
-	private static boolean subContain(List<String> tcollist, String string) {
-
-		for (String string1 : tcollist) {
-			ii++;
-			if (string1.split(":")[0].equals(string)) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	public static interface SelectCallback {
@@ -581,6 +397,72 @@ public class Db {
 			return null;
 
 		}
+
+	}
+
+	public static <T> List<T> preparedSelect(String sql, List<String> params,
+			Class<T> type) {
+		PreparedStatement statement = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			started = true;
+			statement = conn.prepareStatement(sql);
+			for (int i = 1; i <= params.size(); i++) {
+				statement.setString(i, params.get(i - 1));
+			}
+
+			ResultSet rs = statement.executeQuery();
+
+			List<T> list = new ArrayList<>();
+
+			while (rs.next()) {
+				T obj = type.newInstance();
+				for (Field f : type.getDeclaredFields()) {
+					if (Modifier.isPrivate(f.getModifiers())) {
+						String input = f.getName();
+						input = input.substring(0, 1).toUpperCase()
+								+ input.substring(1);
+						Method met;
+						Class<?> type2 = f.getType();
+
+						try {
+							Object object = rs.getObject(f.getName());
+
+							met = type.getMethod("set" + input, type2);
+							if (object != null)
+
+								met.invoke(obj, object);
+
+						} catch (NoSuchMethodException e) {
+							FaceUtils.log.finer(e.getMessage());
+							e.printStackTrace();
+						} catch (Exception e) {
+							FaceUtils.log.fine(e.toString());
+							e.printStackTrace();
+						}
+					}
+				}
+				list.add(obj);
+			}
+			if (debug)
+				FaceUtils.log.fine(sql);
+			return list;
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (InstantiationException e1) {
+			FaceUtils.log.warning(e1.getMessage());
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			e1.printStackTrace();
+		}
+		return new ArrayList<T>();
 
 	}
 

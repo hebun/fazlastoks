@@ -24,10 +24,10 @@ public class SearchTest {
 
 	@Mock
 	FacesContext context;
-
+	private ExternalContext externalContext;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		FaceUtils.log.setLevel(Level.SEVERE);
+		FaceUtils.log.setLevel(Level.INFO);
 	}
 
 	@AfterClass
@@ -35,7 +35,7 @@ public class SearchTest {
 	}
 
 	Search search;
-	private ExternalContext externalContext;
+	
 
 	@Before
 	public void setUp() throws Exception {
