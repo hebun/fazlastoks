@@ -25,12 +25,12 @@ public class TestPro {
 
 	/**
 	 * 
-	 * CURRENT: 
+	 * CURRENT: add product,
 	 * 
 	 * admin CURRENT:{dynamic column(add columns to db), users}
 	 * 
-	 * TODO:change password, lightbox for pictures in talep,
-	 * , masterpage bottom ,activation mail,add product,list/delete/edit product
+	 * TODO:change password(delayed), lightbox for pictures in talep,
+	 * , masterpage bottom ,activation mail,list/delete/edit product,add product,
 	 * 
 	 * Admin( products,products master-detail, in
 	 * detail(prophotos,procates,prokeyword etc.) url filter products, link to
@@ -46,7 +46,7 @@ public class TestPro {
 	 * not in db,, preparedstatement must be on every user input,make categories in master sessionscoped,
 	 * 
 	 * NOTES:unnecesary file include in master,beter(persist) unit testing,
-	 * activation kontrol on logging(PENDING)
+	 * activation kontrol on logging in(PENDING)
 	 * 
 	 * THOUGHTS: externalize messages, 	 * build test scenario,
 	 * , do test scenario with code
@@ -131,7 +131,7 @@ public class TestPro {
 	public void testPro() {
 		Pro p = new Pro();
 
-		p.preRenderView();
+		//p.preRenderView();
 		p.getPro().setExpiredate(new Date(System.currentTimeMillis()));
 		p.validateInput();
 	}

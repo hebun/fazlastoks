@@ -392,7 +392,16 @@ text-decoration: none;
 	color: #333;
 	text-decoration: none;
 }
-
+.urunEkleAlanBaslik{
+	width: 150px;
+	float: left;
+	padding: 5px;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12px;
+	font-weight: bold;
+	color: #333;
+	text-decoration: none;
+}
 
 .kayitText  {
 	padding: 5px;

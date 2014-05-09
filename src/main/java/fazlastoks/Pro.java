@@ -1,40 +1,103 @@
 package fazlastoks;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import javax.enterprise.inject.Produces;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.servlet.http.Part;
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 import freela.util.Db;
 import freela.util.FaceUtils;
 import freela.util.Sql;
-import model.Product;
+import model.*;
 
 @ViewScoped
 @ManagedBean
 public class Pro implements Serializable {
 
 	private Product pro;
+	private List<Category> cats;
+
+	Map<Integer, Boolean> prosCatsm;
+	Map<Integer, Boolean> proState;
+	Part file;
+
+	public void upload() {
+		File filex = new File("somefilename.ext");
+		try {
+			file.write(filex.getAbsolutePath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public Pro() {
-		System.out.println("pro constructor");
 
+		pro = FaceUtils.getObjectFromGETParam("pid", Product.class, "product");
+
+		cats = Db.select(new Sql.Select().from("category").get(),
+				Category.class);
+		List<Category> prosCats;
+		prosCats = Db.select(
+				new Sql.Select().from("category").innerJoin("productcategory")
+						.on("category.id", "productcategory.categoryid")
+						.where("productid", this.pro.getId()).get(),
+				Category.class);
+
+		prosCatsm = new HashMap<>();
+		for (Category cat : cats) {
+			prosCatsm.put(cat.getId(), false);
+		}
+
+		for (Category cat : prosCats) {
+			System.out.println(cat.getId());
+			prosCatsm.put(cat.getId(), true);
+		}
+
+		states = Db.select(new Sql.Select().from("state").get(), State.class);
+
+		proState = new HashMap<>();
+		for (State s : states) {
+			proState.put(s.getId(), false);
+		}
+
+		List<State> ps = Db.select(
+				new Sql.Select().from("state").innerJoin("prostate")
+						.on("prostate.stateid", "state.id")
+						.where("prostate.productid", pro.getId()).get(),
+				State.class);
+
+		for (State s : ps) {
+			proState.put(s.getId(), true);
+		}
 	}
 
 	public String save() {
+
+		for (Map.Entry<Integer, Boolean> m : prosCatsm.entrySet()) {
+			System.out.println(m.getKey() + ":" + m.getValue());
+		}
+
 		FaceUtils.log.info("save called pro.id:" + pro.getId());
 
-		if (!validateInput())
-			return null;
+		// if (!validateInput()) return null;
 		SimpleDateFormat dateFormat = new SimpleDateFormat("Y-m-d");
 		String dat = dateFormat.format(pro.getExpiredate());
 		Sql sql = null;
-		
-	
-		
-		if (pro.getId()<= 0) {
+
+		if (pro.getId() <= 0) {
 			sql = new Sql.Insert("product").add("pname", pro.getPname())
 					.add("content", pro.getContent()).add("expiredate", dat);
 		} else {
@@ -62,16 +125,64 @@ public class Pro implements Serializable {
 		return true;
 	}
 
-	public void preRenderView() {
-		if (pro == null) {
-			pro = new Product();
+	public void validateFile(FacesContext ctx, UIComponent comp, Object value) {
+
+		Part file = (Part) value;
+		if (file.getSize() > 1024) {
+			FaceUtils.addError("file too big");
 		}
+		if (!"text/plain".equals(file.getContentType())) {
+			FaceUtils.addError("not a text file");
+		}
+
 	}
 
 	private static final long serialVersionUID = -2018425860394584424L;
 
+	public Map<Integer, Boolean> getProsCatsm() {
+		return prosCatsm;
+	}
+
+	public void setProsCatsm(Map<Integer, Boolean> prosCatsm) {
+		this.prosCatsm = prosCatsm;
+	}
+
+	public Part getFile() {
+		return file;
+	}
+
+	public void setFile(Part file) {
+		this.file = file;
+	}
+
+	public Map<Integer, Boolean> getProState() {
+		return proState;
+	}
+
+	public void setProState(Map<Integer, Boolean> prosState) {
+		this.proState = prosState;
+	}
+
+	private List<State> states;
+
+	public List<State> getStates() {
+		return states;
+	}
+
+	public void setStates(List<State> states) {
+		this.states = states;
+	}
+
 	public Product getPro() {
 		return pro;
+	}
+
+	public List<Category> getCats() {
+		return cats;
+	}
+
+	public void setCats(List<Category> cats) {
+		this.cats = cats;
 	}
 
 	public void setPro(Product pro) {

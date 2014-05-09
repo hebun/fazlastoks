@@ -20,7 +20,7 @@ import freela.util.FaceUtils;
 @WebFilter(filterName = "AuthFilter", urlPatterns = { "*" })
 public class AuthFilter implements Filter {
 
-	static boolean devStage = false;
+	static boolean devStage = true;
 
 	public AuthFilter() {
 	}

@@ -3,8 +3,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-	>
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <f:view contentType="text/html">
 	<h:head>
 
@@ -23,7 +22,7 @@
 
 			<h:dataTable value="#{products.list}" var="p" id="betDt1"
 				styleClass="tableSorter">
- 
+
 				<h:column>
 					<f:facet name="header">Paket Ismi </f:facet>
 					#{p.pname}
@@ -31,7 +30,7 @@
 				<h:column>
 					<f:facet name="header">Paket Icerigi </f:facet>
 					#{p.content}
-    			</h:column> 
+    			</h:column>
 				<h:column>
 					<f:facet name="header">Fiyat </f:facet>
 					#{p.price} 
@@ -49,21 +48,100 @@
 			</h:dataTable>
 		</h:form>
 	</h:body>
-	
-			<span class="kayitAlanBaslik">Eski Şifre* :</span>
-			<h:inputSecret label="Şifre" id="Parola"
-				value="#{login.user.password}" styleClass="kayitText"
-				required="true" pt:placeholder="En az 4 basamaklı olmalı"
-				requiredMessage="#{reqMessage}">
-			</h:inputSecret>
-			<h:message for="Parola" styleClass="error"></h:message>
-			<div class="clearLeft"></div>
 
-			<span class="kayitAlanBaslik">Şifre Tekrar* :</span>
-			<h:inputSecret id="ParolaTekrar" value="#{register.rePassword}"
-				styleClass="kayitText" required="true"
-				requiredMessage="#{reqMessage}"></h:inputSecret>
-			<h:message for="ParolaTekrar" styleClass="error"></h:message>
-			<div class="clearLeft"></div>
-	</f:view>
-	</html>
+	<span class="kayitAlanBaslik">Eski Şifre* :</span>
+	<h:inputSecret label="Şifre" id="Parola" value="#{login.user.password}"
+		styleClass="kayitText" required="true"
+		pt:placeholder="En az 4 basamaklı olmalı"
+		requiredMessage="#{reqMessage}">
+	</h:inputSecret>
+	<h:message for="Parola" styleClass="error"></h:message>
+	<div class="clearLeft"></div>
+
+	<span class="kayitAlanBaslik">Şifre Tekrar* :</span>
+	<h:inputSecret id="ParolaTekrar" value="#{register.rePassword}"
+		styleClass="kayitText" required="true" requiredMessage="#{reqMessage}"></h:inputSecret>
+	<h:message for="ParolaTekrar" styleClass="error"></h:message>
+	<div class="clearLeft"></div>
+
+
+
+	<p class="contact">
+		<label for="pstate">Urun Durumunu Girin*</label>
+	</p>
+	<h:inputText id="pstate" pt:placeholder="Or:yeni,2.el, hurda vb.."
+		required="true" value="#{pro.pro.pstate}"
+		requiredMessage="#{reqMessage}" tabindex="3" type="text">
+	</h:inputText>
+
+	<h:message for="pstate" styleClass="error"></h:message>
+
+	<p class="contact">
+		<label for="quantity">Miktar Girin*</label>
+	</p>
+	<h:inputText id="quantity" pt:placeholder="Or:1.5 ton , 240 adet vb .."
+		tabindex="4" value="#{pro.pro.quantity}" required="true"
+		requiredMessage="#{reqMessage}">
+	</h:inputText>
+
+	<h:message for="quantity" styleClass="error"></h:message>
+	<p class="contact">
+		<label for="pstate">Anahtar Kelimeler</label>
+	</p>
+	<h:inputTextarea id="keywords"
+		pt:placeholder="Virgul ile ayrilmis 10 anahtar kelime girin"
+		tabindex="7" value="#{pro.pro.keywords}">
+	</h:inputTextarea>
+
+	<h:message for="keywords" styleClass="error"></h:message>
+	<ui:param name="reqMessage" value="Lütfen bu alani doldurun."></ui:param>
+	<h:messages globalOnly="true" styleClass="error"></h:messages>
+
+	<span class="kayitAlanBaslik">Paket Ismi*</span>
+
+	<h:inputText id="pname" pt:placeholder="Paket ismi girin"
+		required="true" requiredMessage="#{reqMessage}" tabindex="1"
+		value="#{pro.pro.pname}">
+	</h:inputText>
+	<h:message for="pname" styleClass="error"></h:message>
+	<div class="clearLeft"></div>
+
+	<span class="kayitAlanBaslik">Paket icerigi*</span>
+
+
+	<h:inputTextarea id="content" pt:placeholder="Paket icerigi"
+		value="#{pro.pro.content}" required="true"
+		requiredMessage="#{reqMessage}" tabindex="2" rows="2"></h:inputTextarea>
+	<h:message for="content" styleClass="error"></h:message>
+	<div class="clearLeft"></div>
+
+
+	<span class="kayitAlanBaslik">Paket Toplam Fiyati(TL)*</span>
+
+	<h:inputText id="price"
+		pt:placeholder="Sadece rakam giriniz(En az 1000) " required="true"
+		requiredMessage="#{reqMessage}" tabindex="5" value="#{pro.pro.price}"
+		validatorMessage="Lutfen 1000+ bir sayi girin"
+		converterMessage="Lutfen bir sayi giriniz">
+		<f:convertNumber integerOnly="true"></f:convertNumber>
+		<f:validateLongRange minimum="1000" maximum="999999" />
+	</h:inputText>
+
+	<h:message for="price" styleClass="error"></h:message>
+	<div class="clearLeft"></div>
+
+	<span class="kayitAlanBaslik">Paket Geçerlik Tarihi*</span>
+
+	<h:inputText id="expiredate" styleClass="datepicker"
+		pt:placeholder="Son satış tarihi " required="true"
+		requiredMessage="#{reqMessage}" tabindex="6"
+		value="#{pro.pro.expiredate}" converterMessage="Tarih uygun degil">
+		<f:convertDateTime pattern="dd.MM.yyyy"></f:convertDateTime>
+
+	</h:inputText>
+
+	<h:message for="expiredate" styleClass="error"></h:message>
+	<div class="clearLeft"></div>
+
+</f:view>
+</html>

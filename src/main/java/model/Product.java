@@ -22,6 +22,8 @@ public class Product implements java.io.Serializable {
 	private int kg;
 	private int m3;
 	private int kalem;
+	
+	
 	private int pprice;
 
 	public int getId() {

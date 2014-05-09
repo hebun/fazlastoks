@@ -6,104 +6,85 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="head">
-		<f:metadata>
-			<f:viewParam name="pid" value="#{pro.pro}"
-				converter="#{proConvertor}" />
-			<f:event listener="#{pro.preRenderView()}" type="preRenderView" />
-		</f:metadata>
+
 
 	</ui:define>
 	<ui:define name="content">
 		<div class="anaUrunBaslik">
-			<span class="solAnaBaslikUrunListe"></span> <span
-				class="ortaAnaBaslikUrunListe">Yeni Urun Paketi Ekle</span> <span
-				class="sagAnaBaslikUrunListe"></span>
+			<div class="baslikKutu">PAKET EKLE</div>
 			<div class="clearLeft"></div>
 		</div>
 		<div class="form" id="formtop">
 
 			<h:form id="contactform">
-				<ui:param name="reqMessage" value="Lutfen bu alani doldurun."></ui:param>
-				<h:messages globalOnly="true" styleClass="error"></h:messages>
-				<p class="contact">
-					<label for="pname">Paket Ismi*</label>
-				</p>
-				<h:inputText id="pname" pt:placeholder="Paket ismi girin"
-					required="true" requiredMessage="#{reqMessage}" tabindex="1"
-					value="#{pro.pro.pname}">
-				</h:inputText>
+				<ui:param name="reqMessage" value="Lütfen bu alanı doldurun."></ui:param>
+
+				<span class="urunEkleAlanBaslik">Paket Ismi* :</span>
+				<h:inputText id="pname" label="Paket Ismi" styleClass="kayitText"
+					value="#{pro.pro.pname}" required="true"
+					requiredMessage="#{reqMessage}"></h:inputText>
 				<h:message for="pname" styleClass="error"></h:message>
+				<div class="clearLeft"></div>
 
-				<p class="contact">
-					<label for="content">Paket icerigi*</label>
-				</p>
 
-				<h:inputTextarea id="content" pt:placeholder="Paket icerigi"
-					value="#{pro.pro.content}" required="true"
-					requiredMessage="#{reqMessage}" tabindex="2"></h:inputTextarea>
+				<span class="urunEkleAlanBaslik">Paket Tanımı* :</span>
+				<h:inputTextarea id="content" value="#{pro.pro.content}"
+					styleClass="kayitText" required="true"
+					requiredMessage="#{reqMessage}"></h:inputTextarea>
 				<h:message for="content" styleClass="error"></h:message>
+				<div class="clearLeft"></div>
 
-
-				<p class="contact">
-					<label for="pstate">Urun Durumunu Girin*</label>
-				</p>
-				<h:inputText id="pstate" pt:placeholder="Or:yeni,2.el, hurda vb.."
-					required="true" value="#{pro.pro.pstate}"
-					requiredMessage="#{reqMessage}" tabindex="3" type="text">
+				<span class="urunEkleAlanBaslik">Paket toplam Piyasa fiyatı
+					(KDV hariç ) :</span>
+				<h:inputText pt:placeholder="" value="#{pro.pro.pprice}"
+					style="width:100px;" id="FirmaAd" styleClass="kayitText">
 				</h:inputText>
+				<div class="clearLeft"></div>
 
-				<h:message for="pstate" styleClass="error"></h:message>
+				<span class="urunEkleAlanBaslik">Paket Fırsat Fiyatı ( KDV
+					hariç ) :</span>
+				<h:inputText id="SabitTel" value="#{pro.pro.price}"
+					styleClass="kayitText" style="width:100px;" />
+				<div class="clearLeft"></div>
+				
+				<span class="urunEkleAlanBaslik">Miktar :</span>
+				<h:inputText value="#{pro.pro.kalem}" style="width:50px;"></h:inputText>
+				<span style="font-size: 12px;"> Kalem </span>
+				<h:inputText value="#{pro.pro.kg}" style="width:50px;"></h:inputText>
+				<span style="font-size: 12px;"> KG </span>
+				<h:inputText value="#{pro.pro.m3}" style="width:50px;"></h:inputText>
+				<span style="font-size: 12px;"> M³ </span>
+<div class="clearLeft" ></div>
+
+				<span class="urunEkleAlanBaslik">Ürün Kategorisi* :</span>
+				<h:panelGrid columns="3" styleClass="noClass">
+					<c:forEach items="#{pro.cats}" var="cat">
+						<h:selectBooleanCheckbox value="#{pro.prosCatsm[cat.id]}">#{cat.cname}
+						</h:selectBooleanCheckbox>
+
+					</c:forEach>
+				</h:panelGrid>
 
 
-				<p class="contact">
-					<label for="quantity">Miktar Girin*</label>
-				</p>
-				<h:inputText id="quantity"
-					pt:placeholder="Or:1.5 ton , 240 adet vb .." tabindex="4"
-					value="#{pro.pro.quantity}" required="true"
-					requiredMessage="#{reqMessage}">
-				</h:inputText>
+				<span class="urunEkleAlanBaslik">Ürün Genel Durumu* :</span>
+				<h:panelGrid columns="1">
+					<c:forEach items="#{pro.states}" var="cat">
+						<h:selectBooleanCheckbox value="#{pro.proState[cat.id]}">#{cat.sname}
+						</h:selectBooleanCheckbox>
 
-				<h:message for="quantity" styleClass="error"></h:message>
+					</c:forEach>
+				</h:panelGrid>
 
-				<p class="contact">
-					<label for="price">Paket Toplam Fiyati(TL)*</label>
-				</p>
-				<h:inputText id="price"
-					pt:placeholder="Sadece rakam giriniz(En az 1000) " required="true"
-					requiredMessage="#{reqMessage}" tabindex="5"
-					value="#{pro.pro.price}"
-					validatorMessage="Lutfen 1000+ bir sayi girin"
-					converterMessage="Lutfen bir sayi giriniz">
-					<f:convertNumber integerOnly="true"></f:convertNumber>
-					<f:validateLongRange minimum="1000" maximum="999999" />
-				</h:inputText>
+	<span class="urunEkleAlanBaslik">Resim Yükle :</span>
 
-				<h:message for="price" styleClass="error"></h:message>
-
-				<p class="contact">
-					<label for="expiredate">Paket Geçerlik Tarihi*</label>
-				</p>
-				<h:inputText id="expiredate" styleClass="datepicker"
-					pt:placeholder="Son satış tarihi " required="true"
-					requiredMessage="#{reqMessage}" tabindex="6"
-					value="#{pro.pro.expiredate}" converterMessage="Tarih uygun degil">
-					<f:convertDateTime pattern="dd.MM.yyyy"></f:convertDateTime>
-
-				</h:inputText>
-
-				<h:message for="expiredate" styleClass="error"></h:message>
-
-				<p class="contact">
-					<label for="pstate">Anahtar Kelimeler</label>
-				</p>
-				<h:inputTextarea id="keywords"
-					pt:placeholder="Virgul ile ayrilmis 10 anahtar kelime girin"
-					tabindex="7" value="#{pro.pro.keywords}">
-				</h:inputTextarea>
-
-				<h:message for="keywords" styleClass="error"></h:message>
-
+				<h:form id="form" enctype="multipart/form-data">
+					<h:inputFile id="file" value="#{pro.file}"
+						validator="#{pro.validateFile}" />
+					<h:commandButton value="Yükle" action="#{pro.upload}">
+						<f:ajax execute="file" render="@all" />
+					</h:commandButton>
+				<div class="clearLeft"></div>
+				</h:form>
 				<br />
 				<h:commandButton styleClass="buttom" id="submit" tabindex="8"
 					value="Kaydet" action="#{pro.save}"></h:commandButton>
