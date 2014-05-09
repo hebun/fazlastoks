@@ -14,12 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fazlastoks.Login;
 import freela.util.FaceUtils;
 
 @WebFilter(filterName = "AuthFilter", urlPatterns = { "*" })
 public class AuthFilter implements Filter {
 
-	static boolean devStage = true;
+	static boolean devStage = false;
 
 	public AuthFilter() {
 	}
@@ -64,15 +65,25 @@ public class AuthFilter implements Filter {
 			HttpServletResponse res, HttpSession ses, String reqURI)
 			throws IOException {
 
-		String[] memberPages = { "urunlerim", "urun" };
+		String[] memberPages = { "urunlerim", "urun-ekle", "uye-profil" };
 
 		for (String string : memberPages) {
 
 			if (reqURI.indexOf(string) >= 0) {
-				if (ses != null && ses.getAttribute("username") != null) {
+				
+				if (ses != null && ses.getAttribute("login") != null) {
+					
+					Login bean = ((Login) (ses.getAttribute("login")));
+
+					if (!bean.isLoggedIn()) {
+						
+						res.sendRedirect(req.getContextPath() + "/kullanici-giris");
+						return false;
+					}
+					
 				} else {
 
-					res.sendRedirect(req.getContextPath() + "/login");
+					res.sendRedirect(req.getContextPath() + "/kullanici-giris");
 					return false;
 				}
 			}

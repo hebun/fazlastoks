@@ -13,6 +13,8 @@ import java.util.logging.Level;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import model.User;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,6 +22,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import freela.util.App;
+import freela.util.Db;
 import freela.util.FaceUtils;
 
 public class LoginTest {
@@ -43,6 +47,7 @@ public class LoginTest {
 
 		context = ContextMocker.mockFacesContext();
 		FaceUtils.log.setLevel(Level.INFO);
+		Db.debug = true;
 	}
 
 	@After
@@ -76,8 +81,18 @@ public class LoginTest {
 	}
 
 	@Test
+	public void testUpdate() {
+
+		User us = Db.select("select * from user limit 1", User.class).get(0);
+		us.setAddress(us.getAddress() + "x");
+		login.setUser(us);
+
+		//login.updateUser();
+	}
+
+	@Test
 	public void testLogout() {
-	
+
 	}
 
 }

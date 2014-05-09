@@ -29,8 +29,8 @@ public class TestPro {
 	 * 
 	 * admin CURRENT:{dynamic column(add columns to db), users}
 	 * 
-	 * TODO: lightbox for pictures in talep, uye profil(with
-	 * update),, masterpage bottom activation mail,add product,list/delete/edit product
+	 * TODO:change password, lightbox for pictures in talep,
+	 * , masterpage bottom ,activation mail,add product,list/delete/edit product
 	 * 
 	 * Admin( products,products master-detail, in
 	 * detail(prophotos,procates,prokeyword etc.) url filter products, link to

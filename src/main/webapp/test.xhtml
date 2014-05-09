@@ -49,5 +49,21 @@
 			</h:dataTable>
 		</h:form>
 	</h:body>
+	
+			<span class="kayitAlanBaslik">Eski Şifre* :</span>
+			<h:inputSecret label="Şifre" id="Parola"
+				value="#{login.user.password}" styleClass="kayitText"
+				required="true" pt:placeholder="En az 4 basamaklı olmalı"
+				requiredMessage="#{reqMessage}">
+			</h:inputSecret>
+			<h:message for="Parola" styleClass="error"></h:message>
+			<div class="clearLeft"></div>
+
+			<span class="kayitAlanBaslik">Şifre Tekrar* :</span>
+			<h:inputSecret id="ParolaTekrar" value="#{register.rePassword}"
+				styleClass="kayitText" required="true"
+				requiredMessage="#{reqMessage}"></h:inputSecret>
+			<h:message for="ParolaTekrar" styleClass="error"></h:message>
+			<div class="clearLeft"></div>
 	</f:view>
 	</html>

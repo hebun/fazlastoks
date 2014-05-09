@@ -240,9 +240,14 @@ public class Db {
 
 	public static int prepareInsert(String sql, List<String> params) {
 
-		if (debug)
-			FaceUtils.log.info(sql);
+		if (debug) {
+			String pars = "";
 
+			for (String string : params) {
+				pars += string + ",";
+			}
+			FaceUtils.log.info(sql + " pars:" + pars);
+		}
 		PreparedStatement statement = null;
 		started = true;
 		try {
@@ -250,7 +255,7 @@ public class Db {
 
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-			statement = conn.prepareStatement(sql);
+			statement = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			for (int i = 1; i <= params.size(); i++) {
 				statement.setString(i, params.get(i - 1));
 			}
@@ -262,6 +267,7 @@ public class Db {
 				return (int) generatedKeys.getLong(1);
 			}
 		} catch (Exception ex) {
+			FaceUtils.log.warning(ex.getMessage());
 			return 0;
 
 		} finally {

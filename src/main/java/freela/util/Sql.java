@@ -142,6 +142,15 @@ public abstract class Sql {
 
 		}
 
+		public List<String> params() {
+			List<String> ret = new ArrayList<>();
+			for (Object string : fields.values()) {
+				ret.add(string.toString());
+			}
+			return ret;
+
+		}
+
 		@Override
 		public String get() {
 			if (isBuilt)
@@ -158,8 +167,15 @@ public abstract class Sql {
 			builder.append(this.tableName);
 			builder.append("` set ");
 			for (Map.Entry<String, Object> en : fields.entrySet()) {
-				builder.append(en.getKey()).append("='")
-						.append(en.getValue().toString()).append("',");
+				builder.append(en.getKey()).append("=");
+
+				if (isPrepared) {
+					builder.append("?,");
+				} else {
+
+					builder.append("'").append(en.getValue().toString())
+							.append("',");
+				}
 			}
 			builder.deleteCharAt(builder.length() - 1);
 			for (Map.Entry<String, Map.Entry<String, String>> en : where

@@ -1,0 +1,79 @@
+<ui:composition template="/master.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:define name="content">
+		<div class="baslikKutu">ÜYE PROFİL</div>
+		<div class="kayitOlKutu">
+			<h:form>
+			<ui:param name="reqMessage" value="Lütfen bu alanı doldurun."></ui:param>
+				<span class="kayitAlanBaslik">E-Mail* :</span>
+				<h:inputText id="Email" label="E-Mail" styleClass="kayitText"
+					value="#{login.user.email}" disabled="true"></h:inputText>
+				<div class="clearLeft"></div>
+
+
+				<span class="kayitAlanBaslik">Ad Soyad* :</span>
+				<h:inputText id="AdSoyad" value="#{login.user.uname}"
+					styleClass="kayitText" required="true"
+					requiredMessage="#{reqMessage}"></h:inputText>
+				<h:message for="AdSoyad" styleClass="error"></h:message>
+				<div class="clearLeft"></div>
+
+				<span class="kayitAlanBaslik">Firma Adı :</span>
+				<h:inputText pt:placeholder="Firmalar Icin"
+					value="#{login.user.firmaname}" id="FirmaAd" styleClass="kayitText">
+				</h:inputText>
+				<div class="clearLeft"></div>
+
+				<span class="kayitAlanBaslik">Sabit Tel :</span>
+				<h:inputText id="SabitTel" value="#{login.user.sabitno}"
+					styleClass="kayitText" />
+				<div class="clearLeft"></div>
+
+				<span class="kayitAlanBaslik">Cep Tel* :</span>
+				<h:inputText id="CepTel" value="#{login.user.cepno}"
+					styleClass="kayitText" required="true"
+					requiredMessage="#{reqMessage}"></h:inputText>
+				<h:message for="CepTel" styleClass="error"></h:message>
+				<div class="clearLeft"></div>
+
+				<span class="kayitAlanBaslik">Adres :</span>
+				<h:inputText id="adres" value="#{login.user.address}"
+					styleClass="kayitText" />
+				<div class="clearLeft"></div>
+
+				<span class="kayitAlanBaslik">Şehir :</span>
+				<h:inputText id="city" value="#{login.user.city}"
+					styleClass="kayitText" />
+				<div class="clearLeft"></div>
+
+				<span class="kayitAlanBaslik">Web Site :</span>
+				<h:inputText id="website" value="#{login.user.website}"
+					styleClass="kayitText" />
+				<div class="clearLeft"></div>
+
+				<span class="kayitAlanBaslik">Vergi Dairesi :</span>
+				<h:inputText id="vergidaire" value="#{login.user.vergidaire}"
+					styleClass="kayitText" />
+				<div class="clearLeft"></div>
+
+				<span class="kayitAlanBaslik">Vergi Numarası :</span>
+				<h:inputText id="vergino" value="#{login.user.vergino}"
+					styleClass="kayitText" />
+				<div class="clearLeft"></div>
+
+				<span class="kayitAlanBaslik"></span>
+				<h:commandButton id="Gonder" action="#{login.update()}"
+					value="Güncelle"></h:commandButton>
+				<div class="clearLeft"></div>
+			</h:form>
+		</div>
+		<div class="clearLeft"></div>
+
+	</ui:define>
+</ui:composition>
