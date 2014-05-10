@@ -23,7 +23,7 @@
 		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 		<script type="text/javascript" src="_js/client.js"></script>
 		<title>Untitled Document</title>
-
+<ui:insert name="head"></ui:insert>
 	</h:head>
 
 	<h:body>
@@ -87,7 +87,7 @@
 		<div class="contentSablon">
 			<div class="contentAlan">
 				<ui:fragment
-					rendered="#{not view.viewId.contains('kullanici-giris')}">
+					rendered="#{view.viewId.contains('kullanici-giris')==false}">
 					<div class="solContentAlan">
 
 						<h:panelGroup styleClass="ustKategori" rendered="#{login.loggedIn}">

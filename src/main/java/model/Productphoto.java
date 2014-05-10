@@ -20,16 +20,12 @@ import javax.persistence.UniqueConstraint;
 public class Productphoto implements java.io.Serializable {
 
 	private Integer id;
-	private Product product;
+	private Integer productid;
 	private String file;
 
 	public Productphoto() {
 	}
 
-	public Productphoto(Product product, String file) {
-		this.product = product;
-		this.file = file;
-	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -44,12 +40,12 @@ public class Productphoto implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "productId", unique = true)
-	public Product getProduct() {
-		return this.product;
+	public Integer getProduct() {
+		return this.productid;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProduct(Integer product) {
+		this.productid = product;
 	}
 
 	@Column(name = "file")

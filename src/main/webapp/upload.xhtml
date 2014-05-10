@@ -1,0 +1,41 @@
+<ui:composition template="/master.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:define name="head">
+
+
+	</ui:define>
+	<ui:define name="content">
+		<div class="anaUrunBaslik">
+			<div class="baslikKutu">PAKET EKLE</div>
+			<div class="clearLeft"></div>
+		</div>
+		<div class="form" id="formtop">
+
+			<h:form id="contactform" enctype="multipart/form-data">
+		
+
+				<span class="urunEkleAlanBaslik">Resim Yükle :</span>
+
+				
+				<h:commandButton id="submitFile" value="Yükle" action="#{pro.upload}">
+					
+				</h:commandButton>
+				<div class="clearLeft"></div>
+
+				<h:panelGrid columns="1" id="photos">
+					<c:forEach items="#{pro.productphotos}" var="cat">
+						<h:outputText value="#{cat.file}"></h:outputText>
+
+					</c:forEach>
+				</h:panelGrid>
+			
+
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -31,6 +31,10 @@
 		<param-value>2882</param-value>
 	</context-param>
 	<context-param>
+		<param-name>uploaddir</param-name>
+		<param-value>/home/ismet/workenv/uploads/</param-value>
+	</context-param>
+	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>

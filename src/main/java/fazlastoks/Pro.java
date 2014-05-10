@@ -4,24 +4,29 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import javax.enterprise.inject.Produces;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
+import javax.faces.validator.ValidatorException;
 import javax.servlet.http.Part;
-import javax.swing.text.StyledEditorKit.BoldAction;
 
+import model.Category;
+import model.Product;
+import model.Productphoto;
+import model.State;
 import freela.util.Db;
 import freela.util.FaceUtils;
 import freela.util.Sql;
-import model.*;
 
 @ViewScoped
 @ManagedBean
@@ -33,18 +38,45 @@ public class Pro implements Serializable {
 	Map<Integer, Boolean> prosCatsm;
 	Map<Integer, Boolean> proState;
 	Part file;
+	Logger log = FaceUtils.log;
 
-	public void upload() {
-		File filex = new File("somefilename.ext");
+	List<Productphoto> productphotos;
+
+	public List<Productphoto> getProductphotos() {
+		return productphotos;
+	}
+
+	public void setProductphotos(List<Productphoto> productphotos) {
+		this.productphotos = productphotos;
+	}
+
+	public String upload() {
+		log.severe(file.getContentType() + ":" + FaceUtils.getFilename(file)
+				+ ":" + file.getSize());
+		if (file == null)
+			return "";
 		try {
-			file.write(filex.getAbsolutePath());
+			final File filex = File.createTempFile("pre",
+					FaceUtils.getFilename(file), new File(FaceUtils.uploadDir));
+
+			String absolutePath = filex.getAbsolutePath();
+			file.write(absolutePath);
+			Productphoto pp = new Productphoto();
+			pp.setFile(filex.getName());
+			pp.setProduct(pro.getId());
+
+			productphotos.add(pp);
+			file = null;
 		} catch (IOException e) {
+			log.warning(e.getMessage());
 			e.printStackTrace();
 		}
+
+		return "";
 	}
 
 	public Pro() {
-
+		log.setLevel(Level.ALL);
 		pro = FaceUtils.getObjectFromGETParam("pid", Product.class, "product");
 
 		cats = Db.select(new Sql.Select().from("category").get(),
@@ -82,6 +114,7 @@ public class Pro implements Serializable {
 		for (State s : ps) {
 			proState.put(s.getId(), true);
 		}
+		productphotos = new ArrayList<Productphoto>();
 	}
 
 	public String save() {
@@ -128,13 +161,18 @@ public class Pro implements Serializable {
 	public void validateFile(FacesContext ctx, UIComponent comp, Object value) {
 
 		Part file = (Part) value;
-		if (file.getSize() > 1024) {
-			FaceUtils.addError("file too big");
+		boolean fail = false;
+		String msg = null;
+		if (file.getSize() > 1_000_000) {
+			msg=("En fazla 1 MB boyuntunda dosya yüklenebilir.");
+			fail = true;
 		}
-		if (!"text/plain".equals(file.getContentType())) {
-			FaceUtils.addError("not a text file");
+		if (!"image".equals(file.getContentType().split("/")[0])) {
+			msg=("Sadece resim dosyaları yüklenebilir.");
+			fail = true;
 		}
-
+		if(fail)
+		throw new ValidatorException(new FacesMessage(msg));
 	}
 
 	private static final long serialVersionUID = -2018425860394584424L;

@@ -32,13 +32,19 @@ public class App implements Serializable {
 			parameters = ctx.getInitParameterMap();
 
 			Db.DB_URL = parameters.get("jdbcurl").toString();
-			
+
 			Db.USER = parameters.get("jdbcuser").toString();
-			
+
 			Db.PASS = parameters.get("jdbcpassword").toString();
-			
+
 			Db.debug = parameters.get("javax.faces.PROJECT_STAGE").equals(
 					"Development");
+			Object uploadDir = parameters.get("uploaddir");
+			
+			if (uploadDir != null) {
+				FaceUtils.uploadDir = uploadDir.toString();
+			}
+
 		} catch (Exception e) {
 			FaceUtils.log.severe(e.getMessage());
 			e.printStackTrace();

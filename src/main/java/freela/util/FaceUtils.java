@@ -10,12 +10,14 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import freela.util.Sql.Select;
 import model.Product;
 
 public class FaceUtils {
 	public static final Logger log = Logger.getLogger("FazlaStoklar");
+	public static String uploadDir;
 	static {
 		log.setUseParentHandlers(false);
 		ConsoleHandler consoleHandler = new ConsoleHandler() {
@@ -32,6 +34,18 @@ public class FaceUtils {
 
 		log.setLevel(Level.ALL);
 
+	}
+
+	public static String getFilename(Part part) {
+		for (String cd : part.getHeader("content-disposition").split(";")) {
+			if (cd.trim().startsWith("filename")) {
+				String filename = cd.substring(cd.indexOf('=') + 1).trim()
+						.replace("\"", "");
+				return filename.substring(filename.lastIndexOf('/') + 1)
+						.substring(filename.lastIndexOf('\\') + 1); // MSIE fix.
+			}
+		}
+		return null;
 	}
 
 	public static <T> T getObjectFromGETParam(String param, Class<T> type,

@@ -6,7 +6,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="head">
-
+		<link rel="stylesheet" type="text/css" media="all"
+			href="_css/lightbox.css" />
+		<script type="text/javascript" src="_js/lightbox.min.js"></script>
 
 	</ui:define>
 	<ui:define name="content">
@@ -16,7 +18,8 @@
 		</div>
 		<div class="form" id="formtop">
 
-			<h:form id="contactform">
+			<h:form id="contactform" enctype="multipart/form-data">
+				<h:messages globalOnly="true"></h:messages>
 				<ui:param name="reqMessage" value="Lütfen bu alanı doldurun."></ui:param>
 
 				<span class="urunEkleAlanBaslik">Paket Ismi* :</span>
@@ -46,7 +49,7 @@
 				<h:inputText id="SabitTel" value="#{pro.pro.price}"
 					styleClass="kayitText" style="width:100px;" />
 				<div class="clearLeft"></div>
-				
+
 				<span class="urunEkleAlanBaslik">Miktar :</span>
 				<h:inputText value="#{pro.pro.kalem}" style="width:50px;"></h:inputText>
 				<span style="font-size: 12px;"> Kalem </span>
@@ -54,7 +57,7 @@
 				<span style="font-size: 12px;"> KG </span>
 				<h:inputText value="#{pro.pro.m3}" style="width:50px;"></h:inputText>
 				<span style="font-size: 12px;"> M³ </span>
-<div class="clearLeft" ></div>
+				<div class="clearLeft"></div>
 
 				<span class="urunEkleAlanBaslik">Ürün Kategorisi* :</span>
 				<h:panelGrid columns="3" styleClass="noClass">
@@ -75,16 +78,29 @@
 					</c:forEach>
 				</h:panelGrid>
 
-	<span class="urunEkleAlanBaslik">Resim Yükle :</span>
+				<span class="urunEkleAlanBaslik">Resim Yükle :</span>
 
-				<h:form id="form" enctype="multipart/form-data">
-					<h:inputFile id="file" value="#{pro.file}"
-						validator="#{pro.validateFile}" />
-					<h:commandButton value="Yükle" action="#{pro.upload}">
-						<f:ajax execute="file" render="@all" />
-					</h:commandButton>
+				<h:inputFile id="file" value="#{pro.file}"
+					validator="#{pro.validateFile}" />
+				<h:commandButton id="submitFile"
+					style="vertical-align:middle; height:42px;" value="Yükle"
+					action="#{pro.upload}" styleClass="buttom">
+					<f:ajax execute="file" render="photos file mff"></f:ajax>
+				</h:commandButton>
 				<div class="clearLeft"></div>
-				</h:form>
+				<span class="urunEkleAlanBaslik"></span>
+				<h:message id="mff" for="file" styleClass="error"></h:message>
+
+				<div class="clearLeft"></div>
+				<span class="urunEkleAlanBaslik">Yüklenmis Resimler :</span>
+
+				<h:panelGrid columns="1" id="photos">
+					<c:forEach items="#{pro.productphotos}" var="cat">
+						<a href="images/#{cat.file}" data-lightbox="img">#{cat.file.substring(22)}</a>
+
+
+					</c:forEach>
+				</h:panelGrid>
 				<br />
 				<h:commandButton styleClass="buttom" id="submit" tabindex="8"
 					value="Kaydet" action="#{pro.save}"></h:commandButton>
