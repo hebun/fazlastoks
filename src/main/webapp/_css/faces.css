@@ -196,14 +196,13 @@ table {
 }
 
 table th {
-	padding: 21px 25px 22px 25px;
+	padding: 10px 10px 10px 60px;
 	border-top: 1px solid #fafafa;
 	border-bottom: 1px solid #e0e0e0;
 	background: #ededed;
 	background: -webkit-gradient(linear, left top, left bottom, from(#ededed),
 		to(#ebebeb));
-	background: -moz-linear-gradient(top, #ededed, #ebebeb);
-	background-image: url(../_images/logoBG.png);
+
 	color: #000033;
 	font-family: Arial, Tahoma, Verdana;
 	

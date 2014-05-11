@@ -12,8 +12,10 @@
 				<c:forEach items="#{search.list}" var="paket">
 					<div class="urunKutu">
 						<div class="urunAnaResim">
-							<img src="_resimler/_urunResim/fs-(42).jpg" width="200"
-								height="100" />
+
+							<img
+								src="#{search.photos[paket.id] == null ?'_images/fs-(42).jpg':'images/'.concat(search.photos[paket.id]) }"
+								width="200" height="100" />
 						</div>
 						<div class="paketTanim">#{paket.content}</div>
 						<div class="paketFiyat">
@@ -31,7 +33,8 @@
 						</div>
 					</div>
 				</c:forEach>
-				<h:outputText rendered="#{search.list.size()==0}" value="Sonuç Bulunamadı."></h:outputText>
+				<h:outputText rendered="#{search.list.size()==0}"
+					value="Sonuç Bulunamadı."></h:outputText>
 			</div>
 		</div>
 	</ui:define>

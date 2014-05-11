@@ -23,7 +23,7 @@ public class Products implements Serializable {
 	private List<Product> list;
 
 	public Products() {
-		Sql.Select select = new Select().from("product");
+		Sql.Select select = (Select) new Select().from("product").order("id").desc();
 		list = Db.select(select.get(), Product.class);
 
 

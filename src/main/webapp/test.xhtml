@@ -9,7 +9,7 @@
 
 
 	</h:head>
-
+ 
 	<h:body>
 		<h:form>
 
@@ -19,50 +19,9 @@
 					class="sagAnaBaslikUrunListe"></span>
 				<div class="clearLeft"></div>
 			</div>
-
-			<h:dataTable value="#{products.list}" var="p" id="betDt1"
-				styleClass="tableSorter">
-
-				<h:column>
-					<f:facet name="header">Paket Ismi </f:facet>
-					#{p.pname}
-    			</h:column>
-				<h:column>
-					<f:facet name="header">Paket Icerigi </f:facet>
-					#{p.content}
-    			</h:column>
-				<h:column>
-					<f:facet name="header">Fiyat </f:facet>
-					#{p.price} 
-    			</h:column>
-				<h:column>
-					<f:facet name="header">Son Tarih </f:facet>
-					#{p.expiredate}
-    			</h:column>
-				<h:column>
-					<f:facet name="header">Islemler </f:facet>
-					<h:outputLink value="urun?pid=#{p.id}">Duzenle </h:outputLink>
-					<h:commandLink action="#{products.delete(p)}" value="Sil">
-					</h:commandLink>
-				</h:column>
-			</h:dataTable>
+<h:commandButton value="doit" action="#{testBean.dumpCompTree}"></h:commandButton>
 		</h:form>
 	</h:body>
-
-	<span class="kayitAlanBaslik">Eski Şifre* :</span>
-	<h:inputSecret label="Şifre" id="Parola" value="#{login.user.password}"
-		styleClass="kayitText" required="true"
-		pt:placeholder="En az 4 basamaklı olmalı"
-		requiredMessage="#{reqMessage}">
-	</h:inputSecret>
-	<h:message for="Parola" styleClass="error"></h:message>
-	<div class="clearLeft"></div>
-
-	<span class="kayitAlanBaslik">Şifre Tekrar* :</span>
-	<h:inputSecret id="ParolaTekrar" value="#{register.rePassword}"
-		styleClass="kayitText" required="true" requiredMessage="#{reqMessage}"></h:inputSecret>
-	<h:message for="ParolaTekrar" styleClass="error"></h:message>
-	<div class="clearLeft"></div>
 
 
 
@@ -70,7 +29,7 @@
 		<label for="pstate">Urun Durumunu Girin*</label>
 	</p>
 	<h:inputText id="pstate" pt:placeholder="Or:yeni,2.el, hurda vb.."
-		required="true" value="#{pro.pro.pstate}"
+		required="true" value="#{testBean.pro.pstate}"
 		requiredMessage="#{reqMessage}" tabindex="3" type="text">
 	</h:inputText>
 
@@ -80,7 +39,7 @@
 		<label for="quantity">Miktar Girin*</label>
 	</p>
 	<h:inputText id="quantity" pt:placeholder="Or:1.5 ton , 240 adet vb .."
-		tabindex="4" value="#{pro.pro.quantity}" required="true"
+		tabindex="4" value="#{testBean.pro.quantity}" required="true"
 		requiredMessage="#{reqMessage}">
 	</h:inputText>
 
@@ -90,7 +49,7 @@
 	</p>
 	<h:inputTextarea id="keywords"
 		pt:placeholder="Virgul ile ayrilmis 10 anahtar kelime girin"
-		tabindex="7" value="#{pro.pro.keywords}">
+		tabindex="7" value="#{testBean.pro.keywords}">
 	</h:inputTextarea>
 
 	<h:message for="keywords" styleClass="error"></h:message>
@@ -101,7 +60,7 @@
 
 	<h:inputText id="pname" pt:placeholder="Paket ismi girin"
 		required="true" requiredMessage="#{reqMessage}" tabindex="1"
-		value="#{pro.pro.pname}">
+		value="#{testBean.pro.pname}">
 	</h:inputText>
 	<h:message for="pname" styleClass="error"></h:message>
 	<div class="clearLeft"></div>
@@ -110,7 +69,7 @@
 
 
 	<h:inputTextarea id="content" pt:placeholder="Paket icerigi"
-		value="#{pro.pro.content}" required="true"
+		value="#{testBean.pro.content}" required="true"
 		requiredMessage="#{reqMessage}" tabindex="2" rows="2"></h:inputTextarea>
 	<h:message for="content" styleClass="error"></h:message>
 	<div class="clearLeft"></div>
@@ -120,7 +79,7 @@
 
 	<h:inputText id="price"
 		pt:placeholder="Sadece rakam giriniz(En az 1000) " required="true"
-		requiredMessage="#{reqMessage}" tabindex="5" value="#{pro.pro.price}"
+		requiredMessage="#{reqMessage}" tabindex="5" value="#{testBean.pro.price}"
 		validatorMessage="Lutfen 1000+ bir sayi girin"
 		converterMessage="Lutfen bir sayi giriniz">
 		<f:convertNumber integerOnly="true"></f:convertNumber>
@@ -135,7 +94,7 @@
 	<h:inputText id="expiredate" styleClass="datepicker"
 		pt:placeholder="Son satış tarihi " required="true"
 		requiredMessage="#{reqMessage}" tabindex="6"
-		value="#{pro.pro.expiredate}" converterMessage="Tarih uygun degil">
+		value="#{testBean.pro.expiredate}" converterMessage="Tarih uygun degil">
 		<f:convertDateTime pattern="dd.MM.yyyy"></f:convertDateTime>
 
 	</h:inputText>

@@ -47,7 +47,7 @@ public class App implements Serializable {
 
 		} catch (Exception e) {
 			FaceUtils.log.severe(e.getMessage());
-			e.printStackTrace();
+		//	e.printStackTrace();
 
 		}
 

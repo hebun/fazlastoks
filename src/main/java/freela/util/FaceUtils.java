@@ -22,7 +22,7 @@ public class FaceUtils {
 		log.setUseParentHandlers(false);
 		ConsoleHandler consoleHandler = new ConsoleHandler() {
 			{
-				setOutputStream(System.out);
+				//setOutputStream(System.out);
 			}
 		};
 		consoleHandler.setFormatter(new LogFormatter());
@@ -96,9 +96,13 @@ public class FaceUtils {
 	}
 
 	public static void addError(String msg) {
+		addError(null, msg);
+	}
+
+	public static void addError(String id, String msg) {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-				msg, "");
-		FacesContext.getCurrentInstance().addMessage(null, message);
+				msg, msg);
+		FacesContext.getCurrentInstance().addMessage(id, message);
 	}
 
 	public static void redirectTo(String url) {

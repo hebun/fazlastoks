@@ -1,23 +1,26 @@
 package fazlastoks;
 
+import static freela.util.FaceUtils.log;
+import static java.lang.System.out;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.Part;
 
 import model.Category;
@@ -27,6 +30,8 @@ import model.State;
 import freela.util.Db;
 import freela.util.FaceUtils;
 import freela.util.Sql;
+import freela.util.Sql.Insert;
+import freela.util.Sql.Update;
 
 @ViewScoped
 @ManagedBean
@@ -37,24 +42,89 @@ public class Pro implements Serializable {
 
 	Map<Integer, Boolean> prosCatsm;
 	Map<Integer, Boolean> proState;
-	Part file;
-	Logger log = FaceUtils.log;
+	Part file;;
+	private List<State> states;
+	private List<String> keywords;
 
 	List<Productphoto> productphotos;
+	private String keyword;
 
-	public List<Productphoto> getProductphotos() {
-		return productphotos;
+	public String addKeyword() {
+		try {
+			log.info(keyword);
+			if (keyword != "")
+				this.keywords.add(keyword);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 
-	public void setProductphotos(List<Productphoto> productphotos) {
-		this.productphotos = productphotos;
+	public String deleteKeyword(String key) {
+		log.info(key);
+		for (int i = 0; i < keywords.size(); i++) {
+			if (keywords.get(i).equals(key)) {
+
+				this.keywords.remove(i);
+			}
+		}
+		return "";
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	@ManagedProperty(value = "#{login}")
+	Login login;
+
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
+	}
+
+
+	public String deletePhoto(Productphoto cat) {
+		log.info(cat.getFile());
+
+		try {
+			if (cat.getId() > 0) {
+				Db.delete(new Sql.Delete("productphoto").where("id",
+						cat.getId()).get());
+
+			}
+			for (int i = 0; i < productphotos.size(); i++) {
+				Productphoto array_element = productphotos.get(i);
+				if (array_element.getFile().equals(cat.getFile())) {
+					log.info("removing");
+					productphotos.remove(i);
+				}
+			}
+
+			Files.deleteIfExists(Paths.get(FaceUtils.uploadDir + cat.getFile()));
+		} catch (IOException e) {
+			log.warning(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return "";
 	}
 
 	public String upload() {
-		log.severe(file.getContentType() + ":" + FaceUtils.getFilename(file)
-				+ ":" + file.getSize());
+
 		if (file == null)
 			return "";
+
+		if (validateFile())
+			return null;
+
 		try {
 			final File filex = File.createTempFile("pre",
 					FaceUtils.getFilename(file), new File(FaceUtils.uploadDir));
@@ -63,7 +133,7 @@ public class Pro implements Serializable {
 			file.write(absolutePath);
 			Productphoto pp = new Productphoto();
 			pp.setFile(filex.getName());
-			pp.setProduct(pro.getId());
+			pp.setProductid(pro.getId());
 
 			productphotos.add(pp);
 			file = null;
@@ -88,19 +158,19 @@ public class Pro implements Serializable {
 						.where("productid", this.pro.getId()).get(),
 				Category.class);
 
-		prosCatsm = new HashMap<>();
+		prosCatsm = new ProHashMap();
+
 		for (Category cat : cats) {
 			prosCatsm.put(cat.getId(), false);
 		}
 
 		for (Category cat : prosCats) {
-			System.out.println(cat.getId());
 			prosCatsm.put(cat.getId(), true);
 		}
 
 		states = Db.select(new Sql.Select().from("state").get(), State.class);
 
-		proState = new HashMap<>();
+		proState = new ProHashMap();
 		for (State s : states) {
 			proState.put(s.getId(), false);
 		}
@@ -114,65 +184,158 @@ public class Pro implements Serializable {
 		for (State s : ps) {
 			proState.put(s.getId(), true);
 		}
-		productphotos = new ArrayList<Productphoto>();
+		productphotos = Db.select(
+				new Sql.Select().from("productphoto")
+						.where("productid", pro.getId()).get(),
+				Productphoto.class);
+
+		String keywords2 = pro.getKeywords();
+		log.info("from  db" + keywords2);
+		if (keywords2 != null && keywords2.length() > 3) {
+			keywords = new ArrayList<String>(
+					Arrays.asList(keywords2.split(",")));
+		} else {
+			keywords = new ArrayList<>();
+		}
 	}
 
 	public String save() {
 
-		for (Map.Entry<Integer, Boolean> m : prosCatsm.entrySet()) {
-			System.out.println(m.getKey() + ":" + m.getValue());
+		try {
+
+			if (!validateInput())
+				return null;
+
+			saveOrUpdatePro();
+			saveProStates();
+			saveProCats();
+			saveProPhotos();
+
+			return "urunlerim";
+		} catch (Exception e) {
+			log.warning(e.getMessage());
+			e.printStackTrace();
+			return null;
 		}
 
-		FaceUtils.log.info("save called pro.id:" + pro.getId());
+	}
 
-		// if (!validateInput()) return null;
-		SimpleDateFormat dateFormat = new SimpleDateFormat("Y-m-d");
+	private void saveProPhotos() {
+		if (productphotos.size() > 0) {
+			String proCatsql = "insert ignore into productphoto(file,productid) values";
+
+			for (Productphoto pp : productphotos) {
+
+				proCatsql += "('" + pp.getFile() + "'," + pro.getId() + "),";
+
+			}
+			proCatsql = proCatsql.substring(0, proCatsql.length() - 1);
+			Db.insert(proCatsql);
+		}
+	}
+
+	private void saveProCats() {
+		if (((ProHashMap) prosCatsm).getTrueCount() > 0) {
+			String proCatsql = "insert ignore into productcategory(categoryid,productid) values";
+
+			for (Map.Entry<Integer, Boolean> ps : prosCatsm.entrySet()) {
+				if (ps.getValue()) {
+					proCatsql += "(" + ps.getKey() + "," + pro.getId() + "),";
+				}
+			}
+			proCatsql = proCatsql.substring(0, proCatsql.length() - 1);
+			Db.insert(proCatsql);
+		}
+	}
+
+	private void saveProStates() {
+		if (((ProHashMap) proState).getTrueCount() > 0) {
+			String prostatesql = "insert ignore into prostate(stateid,productid) values";
+
+			for (Map.Entry<Integer, Boolean> ps : proState.entrySet()) {
+				if (ps.getValue()) {
+					prostatesql += "(" + ps.getKey() + "," + pro.getId() + "),";
+				}
+			}
+			prostatesql = prostatesql.substring(0, prostatesql.length() - 1);
+			Db.insert(prostatesql);
+		}
+	}
+
+	private void saveOrUpdatePro() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("Y-M-d");
+
 		String dat = dateFormat.format(pro.getExpiredate());
-		Sql sql = null;
+		log.info(pro.getExpiredate().toString());
+		int generatedKey = 0;
+		int id = 3;// login.user.getId();
+
+		String ks = "";
+		for (String s : keywords) {
+			ks += s + ",";
+		}
 
 		if (pro.getId() <= 0) {
-			sql = new Sql.Insert("product").add("pname", pro.getPname())
-					.add("content", pro.getContent()).add("expiredate", dat);
+			Insert sql = new Insert("product").add("pname", pro.getPname())
+					.add("content", pro.getContent())
+					.add("price", pro.getPrice())
+					.add("pprice", pro.getPprice()).add("userid", id)
+					.add("m3", pro.getM3()).add("kg", pro.getKg())
+					.add("kalem", pro.getKalem()).add("expiredate", dat)
+					.add("keywords", ks);
+			generatedKey = Db.prepareInsert(sql.prepare().get(), sql.params());
+			pro.setId(generatedKey);
+
 		} else {
-			sql = new Sql.Update("product").add("pname", pro.getPname())
-					.add("content", pro.getContent()).add("expiredate", dat)
-					.where("id=", pro.getId());
+			Update sql = (Update) new Update("product")
+					.add("pname", pro.getPname())
+					.add("content", pro.getContent())
+					.add("price", pro.getPrice())
+					.add("pprice", pro.getPprice()).add("userid", id)
+					.add("m3", pro.getM3()).add("kg", pro.getKg())
+					.add("kalem", pro.getKalem()).add("keywords", ks)
+					.add("expiredate", dat).where("id=", pro.getId());
+			generatedKey = Db.prepareInsert(sql.prepare().get(), sql.params());
 		}
-
-		Db.insert(sql.get());
-
-		return "urunlerim";
-
 	}
 
 	public boolean validateInput() {
 
-		if (pro.getExpiredate().compareTo(new Date()) <= 0) {
-			System.out.println(pro.getExpiredate().toString() + "---"
-					+ new Date().toString());
-			String msg = "Lütfen ileri bir tarih seçin!";
-			FaceUtils.addError(msg);
-
+		if (((ProHashMap) prosCatsm).getTrueCount() > 5) {
+			FaceUtils.addError("En fazla 5 tane kategori eklenebilir.");
+			return false;
+		}
+		if (((ProHashMap) proState).getTrueCount() > 5) {
+			FaceUtils.addError("En fazla 5 tane durum eklenebilir.");
 			return false;
 		}
 		return true;
 	}
 
-	public void validateFile(FacesContext ctx, UIComponent comp, Object value) {
+	public boolean validateFile() {
 
-		Part file = (Part) value;
 		boolean fail = false;
 		String msg = null;
 		if (file.getSize() > 1_000_000) {
-			msg=("En fazla 1 MB boyuntunda dosya yüklenebilir.");
+			msg = ("En fazla 1 MB boyuntunda dosya yüklenebilir.");
 			fail = true;
 		}
 		if (!"image".equals(file.getContentType().split("/")[0])) {
-			msg=("Sadece resim dosyaları yüklenebilir.");
+			msg = ("Sadece resim dosyaları yüklenebilir.");
 			fail = true;
 		}
-		if(fail)
-		throw new ValidatorException(new FacesMessage(msg));
+		if (productphotos.size() > 8) {
+			msg = ("En fazla 9 resim yüklenebilir.");
+			fail = true;
+		}
+
+		if (fail) {
+
+			FaceUtils.addError("contactform:file", msg);
+		}
+		log.info(fail + "");
+		return fail;
+
 	}
 
 	private static final long serialVersionUID = -2018425860394584424L;
@@ -201,8 +364,6 @@ public class Pro implements Serializable {
 		this.proState = prosState;
 	}
 
-	private List<State> states;
-
 	public List<State> getStates() {
 		return states;
 	}
@@ -226,4 +387,21 @@ public class Pro implements Serializable {
 	public void setPro(Product pro) {
 		this.pro = pro;
 	}
+
+	public List<Productphoto> getProductphotos() {
+		return productphotos;
+	}
+
+	public void setProductphotos(List<Productphoto> productphotos) {
+		this.productphotos = productphotos;
+	}
+
+	public List<String> getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(List<String> keywords) {
+		this.keywords = keywords;
+	}
+
 }

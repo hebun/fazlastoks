@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import fazlastoks.Login;
 import freela.util.FaceUtils;
 
-@WebFilter(filterName = "AuthFilter", urlPatterns = { "*" })
+@WebFilter(filterName = "AuthFilter", urlPatterns = { "/*" })
 public class AuthFilter implements Filter {
 
 	static boolean devStage = true;

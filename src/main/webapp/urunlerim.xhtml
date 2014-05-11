@@ -7,10 +7,8 @@
 	<ui:define name="content">
 		<h:form>
 			<div class="anaUrunBaslik">
-				<span class="solAnaBaslikUrunListe"></span> <span
-					class="ortaAnaBaslikUrunListe">Urunlerim</span> <span
-					class="sagAnaBaslikUrunListe"></span>
-				<div class="clearLeft"></div>
+			<div class="baslikKutu">PAKETLERIM</div>
+			<div class="clearLeft"></div>
 			</div>
 
 			<h:dataTable value="#{products.list}" var="p" id="betDt1"
@@ -36,7 +34,7 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">Islemler </f:facet>
-					<h:outputLink value="urun-ekle?pid=#{p.id}">Duzenle </h:outputLink>
+					<h:outputLink value="urun-ekle?pid=#{p.id}">Düzenle </h:outputLink>
 					<h:commandLink action="#{products.delete(p)}" value="Sil">
 					</h:commandLink>
 				</h:column>

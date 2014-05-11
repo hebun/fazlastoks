@@ -29,8 +29,9 @@ public class TestPro {
 	 * 
 	 * admin CURRENT:{dynamic column(add columns to db), users}
 	 * 
-	 * TODO:change password(delayed), lightbox for pictures in talep,
-	 * , masterpage bottom ,activation mail,list/delete/edit product,add product,
+	 * TODO: change password(delayed),keyowrds in pro,
+	 * lightbox for pictures in talep, , masterpage bottom ,activation
+	 * mail,list/delete/edit product,add product,
 	 * 
 	 * Admin( products,products master-detail, in
 	 * detail(prophotos,procates,prokeyword etc.) url filter products, link to
@@ -40,19 +41,20 @@ public class TestPro {
 	 * indexes,validations{max fiyat,past time),turkce karakter{*.xhtml,
 	 * db.gridfield}, authfilter for member acess(session attr status needed)
 	 * 
-	 * ISSUES:set 'there is no record' warning on paket-detay, user's own product
-	 * control,default picture in product detail and results,product filter in
-	 * urunlerim, or true state in authfilter, Db.slect<T> the fields that is
-	 * not in db,, preparedstatement must be on every user input,make categories in master sessionscoped,
+	 * ISSUES:files remain after canceling upload, set 'there is no record'
+	 * warning on paket-detay, user's own product control,default picture in
+	 * product detail and results and index,product filter in urunlerim, or true state in
+	 * authfilter, Db.slect<T> the fields that is not in db,, preparedstatement
+	 * must be on every user input,make categories in master sessionscoped,
 	 * 
 	 * NOTES:unnecesary file include in master,beter(persist) unit testing,
 	 * activation kontrol on logging in(PENDING)
 	 * 
-	 * THOUGHTS: externalize messages, 	 * build test scenario,
-	 * , do test scenario with code
+	 * THOUGHTS: externalize messages, * build test scenario, , do test scenario
+	 * with code
 	 * 
 	 * SCENARIO:cat search, text search, paket-detay, make talep, register,
-	 * login, add product, list product, edit/delete product
+	 * login, add product(add/remove photos), list product, edit/delete product
 	 */
 
 	// @Test
@@ -131,7 +133,7 @@ public class TestPro {
 	public void testPro() {
 		Pro p = new Pro();
 
-		//p.preRenderView();
+		// p.preRenderView();
 		p.getPro().setExpiredate(new Date(System.currentTimeMillis()));
 		p.validateInput();
 	}

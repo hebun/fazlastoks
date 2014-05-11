@@ -84,10 +84,8 @@ public class Db {
 
 						} catch (NoSuchMethodException e) {
 							FaceUtils.log.finer(e.getMessage());
-							e.printStackTrace();
 						} catch (Exception e) {
 							FaceUtils.log.fine(e.toString());
-							e.printStackTrace();
 						}
 					}
 				}
@@ -96,11 +94,9 @@ public class Db {
 			return list;
 		} catch (SQLException se) {
 			FaceUtils.log.warning(se.getMessage() + ":" + sql);
-			se.printStackTrace();
 			return new ArrayList<T>();
 		} catch (Exception e) {
-			System.out.println("e in select");
-			e.printStackTrace();
+			FaceUtils.log.warning(e.getMessage() + ":" + sql);
 			return new ArrayList<T>();
 		} finally {
 			if (debug)
@@ -143,11 +139,9 @@ public class Db {
 			}
 
 		} catch (SQLException se) {
-			System.out.println("se in select" + sql);
-			se.printStackTrace();
+			FaceUtils.log.warning(se.getMessage());
 		} catch (Exception e) {
-			System.out.println("e in select" + sql);
-			e.printStackTrace();
+			FaceUtils.log.warning(e.getMessage());
 		} finally {
 			close("");
 		}
@@ -189,11 +183,9 @@ public class Db {
 
 			}
 		} catch (SQLException se) {
-
-			se.printStackTrace();
+			FaceUtils.log.warning(se.getMessage());
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			FaceUtils.log.warning(e.getMessage());
 		} finally {
 			close("");
 		}// end try
@@ -223,8 +215,8 @@ public class Db {
 			}
 			return 0;
 		} catch (SQLException se) {
-			System.out.println("se in insert" + sql);
-			se.printStackTrace();
+
+			FaceUtils.log.warning(se.getMessage());
 			return 0;
 		} catch (Exception e) {
 
@@ -255,7 +247,8 @@ public class Db {
 
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-			statement = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			statement = conn.prepareStatement(sql,
+					Statement.RETURN_GENERATED_KEYS);
 			for (int i = 1; i <= params.size(); i++) {
 				statement.setString(i, params.get(i - 1));
 			}
@@ -295,8 +288,7 @@ public class Db {
 			stmt.close();
 			conn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			FaceUtils.log.warning(e.getMessage());
 		}
 		started = false;
 
@@ -327,9 +319,9 @@ public class Db {
 			map.put("ucount", callableStatement.getInt("ucount") + "");
 			return map;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			FaceUtils.log.warning(e.getMessage());
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			FaceUtils.log.warning(e.getMessage());
 		}
 		return new HashMap<String, String>();
 
@@ -395,11 +387,11 @@ public class Db {
 			return list;
 
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			FaceUtils.log.warning(e.getMessage());
 			return null;
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			FaceUtils.log.warning(e.getMessage());
 			return null;
 
 		}
@@ -442,11 +434,11 @@ public class Db {
 								met.invoke(obj, object);
 
 						} catch (NoSuchMethodException e) {
-							FaceUtils.log.finer(e.getMessage());
-							e.printStackTrace();
+							FaceUtils.log.fine(e.getMessage());
+						
 						} catch (Exception e) {
 							FaceUtils.log.fine(e.toString());
-							e.printStackTrace();
+						
 						}
 					}
 				}
@@ -457,16 +449,15 @@ public class Db {
 			return list;
 
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			FaceUtils.log.warning(e.getMessage());
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			FaceUtils.log.warning(e.getMessage());
 
 		} catch (InstantiationException e1) {
 			FaceUtils.log.warning(e1.getMessage());
-			e1.printStackTrace();
 		} catch (IllegalAccessException e1) {
-			e1.printStackTrace();
+			FaceUtils.log.warning(e1.getMessage());
 		}
 		return new ArrayList<T>();
 

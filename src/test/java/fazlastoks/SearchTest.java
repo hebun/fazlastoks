@@ -18,6 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import freela.util.Db;
 import freela.util.FaceUtils;
 
 public class SearchTest {
@@ -25,6 +26,7 @@ public class SearchTest {
 	@Mock
 	FacesContext context;
 	private ExternalContext externalContext;
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		FaceUtils.log.setLevel(Level.INFO);
@@ -35,7 +37,6 @@ public class SearchTest {
 	}
 
 	Search search;
-	
 
 	@Before
 	public void setUp() throws Exception {
@@ -57,34 +58,37 @@ public class SearchTest {
 
 	}
 
-	@Test
+	// @Test
 	public void testSearch() {
 
-		Map<String,String> map=new HashMap<>();
-	
+		Map<String, String> map = new HashMap<>();
+
 		map.put("key", "test");
-		
+
 		when(externalContext.getRequestParameterMap()).thenReturn(map);
-		
-		
+
 		String ret = search.processUrl();
 		assertEquals("init", ret);
-		
+
 		map.put("key", null);
 		map.put("catid", "9");
 		ret = search.processUrl();
 		assertEquals("cat", ret);
-		
+
 	}
 
 	@Test
 	public void testInit() {
-		search.setKey("test");
+		Db.debug = true;
+		FaceUtils.log.setLevel(Level.ALL);
+
+		search.setKey("yeni");
+
 		search.init();
 		assertTrue(search.getList().size() > 0);
 	}
 
-	@Test
+	// @Test
 	public void testinitWithCat() {
 
 		Master master = new Master();

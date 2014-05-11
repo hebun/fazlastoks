@@ -3,27 +3,34 @@ package model;
 
 import java.util.Date;
 
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 public class Product implements java.io.Serializable {
 
 	public Product() {
 	}
 
-	private int id=0;
+	private int id = 0;
 	private int userid;
 	private String pname;
 	private String content;
 	private String pstate;
 	private String quantity;
+
+	@Min(value = 1000, message = "{priceTooLow}")
 	private int price;
+	@Future(message = "{dateFuture}")
 	private Date expiredate;
+
 	private String keywords;
 	private String file;
 	private int adet;
 	private int kg;
 	private int m3;
 	private int kalem;
-	
-	
+
 	private int pprice;
 
 	public int getId() {

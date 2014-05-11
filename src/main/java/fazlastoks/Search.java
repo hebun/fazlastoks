@@ -1,12 +1,15 @@
 package fazlastoks;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import model.Product;
+import model.Productphoto;
 import freela.util.Db;
 import freela.util.FaceUtils;
 import freela.util.Sql;
@@ -21,6 +24,8 @@ public class Search implements Serializable {
 	private String key;
 
 	private int catId;
+
+	private Map<Integer, String> photos;
 
 	public Search(String testing) {
 
@@ -52,9 +57,11 @@ public class Search implements Serializable {
 	public void initWithCat() {
 		Sql.Select sql = (Select) new Sql.Select().from("product").as("p")
 				.innerJoin("productcategory").as("pc")
-				.on("p.id", "pc.productid").where("pc.categoryid", catId).prepare();
-		
-		list = Db.preparedSelect(sql.get(),sql.params(), Product.class);
+				.on("p.id", "pc.productid").where("pc.categoryid", catId)
+				.prepare();
+
+		list = Db.preparedSelect(sql.get(), sql.params(), Product.class);
+		loadPhotos();
 	}
 
 	public void init() {
@@ -63,10 +70,28 @@ public class Search implements Serializable {
 				.where("pname like ", value).or("content like ", value)
 				.or("keywords like ", value).prepare();
 
-		list = Db.preparedSelect(sql.get(),sql.params() ,Product.class);
+		list = Db.preparedSelect(sql.get(), sql.params(), Product.class);
 
-		FaceUtils.log.info(sql.get());
+		loadPhotos();
 
+	}
+
+	private void loadPhotos() {
+		String proids = "(";
+
+		for (Product p : list) {
+			proids += p.getId() + ",";
+		}
+		proids = proids.substring(0, proids.length() - 1) + ")";
+		List<Productphoto> productphotos;
+		productphotos = Db
+				.select("select * from productphoto where productid in "
+						+ proids + " ", Productphoto.class);
+photos = new HashMap<>();
+		for (Productphoto pp : productphotos) {
+			
+			photos.put(pp.getProductid(), pp.getFile());
+		}
 	}
 
 	public List<Product> getList() {
@@ -97,5 +122,13 @@ public class Search implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2018425860394584424L;
+
+	public Map<Integer, String> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(Map<Integer, String> photos) {
+		this.photos = photos;
+	}
 
 }

@@ -8,5 +8,9 @@
 			<default-locale>en</default-locale>
 		</locale-config>
 		<message-bundle>fazlastoks.messages</message-bundle>
+
 	</application>
+	<lifecycle>
+		<phase-listener>fazlastoks.MyPhaseListener</phase-listener>
+	</lifecycle>
 </faces-config>
