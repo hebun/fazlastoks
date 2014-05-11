@@ -44,6 +44,11 @@ public class App implements Serializable {
 			if (uploadDir != null) {
 				FaceUtils.uploadDir = uploadDir.toString();
 			}
+			
+			DoMail.SMTP_HOST_NAME=parameters.get("mailhost").toString();
+			DoMail.SMTP_AUTH_USER=parameters.get("mailuser").toString();
+			DoMail.SMTP_AUTH_PWD=parameters.get("mailpassword").toString();
+			DoMail.emailFromAddress=parameters.get("mailuser").toString();
 
 		} catch (Exception e) {
 			FaceUtils.log.severe(e.getMessage());

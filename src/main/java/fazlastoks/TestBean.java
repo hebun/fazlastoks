@@ -1,17 +1,14 @@
 package fazlastoks;
 
-import static freela.util.FaceUtils.log;
-
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 
-import freela.util.DoMail;
 import model.Product;
+import freela.util.DoMail;
 
 @ViewScoped
 @ManagedBean

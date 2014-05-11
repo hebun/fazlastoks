@@ -1,36 +1,35 @@
 package freela.util;
 
-
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.*;
 import java.io.*;
 
 public class DoMail {
-	private static final String SMTP_HOST_NAME = "uc3.nodecluster.net "; // or
-																		// simply
-																		// "localhost"
-	private static final String SMTP_AUTH_USER = "ismet@freela.jvmhost.net";
-	private static final String SMTP_AUTH_PWD = "ZMA8~~3vu~iu";
-	private static final String emailMsgTxt = "Body";
-	private static final String emailSubjectTxt = "Subject";
-	private static final String emailFromAddress = "ismet@freela.jvmhost.net";
+	public static String SMTP_HOST_NAME = "localhost"; // or
+														// simply
+														// "localhost"
+	public static String SMTP_AUTH_USER = "ismet@freela.jvmhost.net";
+	public static String SMTP_AUTH_PWD = "ZMA8~~3vu~iu";
+	public static String emailMsgTxt = "Body";
+	public static String emailSubjectTxt = "Subject";
+	public static String emailFromAddress = "ismet@freela.jvmhost.net";
 
 	// Add List of Email address to who email needs to be sent to
-	private static final String[] emailList = { "ismettung@gmail.com" };
+	public static String[] emailList = { "ismettung@gmail.com" };
 
 	public static void main(String args[]) throws Exception {
-		DoMail smtpMailSender = new DoMail();
-		smtpMailSender.postMail(emailList, emailSubjectTxt, emailMsgTxt,
+		DoMail.postMail(emailList, emailSubjectTxt, emailMsgTxt,
 				emailFromAddress);
 		System.out.println("Sucessfully Sent mail to All Users");
 	}
 
-	public void postMail(String recipients[], String subject, String message,
+	public static void postMail(String recipients[], String subject, String message,
 			String from) throws MessagingException,
 			AuthenticationFailedException {
-		boolean debug = false;
 
+		boolean debug = false;
+		from = emailFromAddress;
 		// Set the host smtp address
 		Properties props = new Properties();
 		props.put("mail.smtp.host", SMTP_HOST_NAME);
@@ -55,11 +54,11 @@ public class DoMail {
 
 		// Setting the Subject and Content Type
 		msg.setSubject(subject);
-		msg.setContent(message, "text/plain");
+		msg.setContent(message, "text/html; charset=utf-8");
 		Transport.send(msg);
 	}
 
-	private class SMTPAuthenticator extends javax.mail.Authenticator {
+	public static class SMTPAuthenticator extends javax.mail.Authenticator {
 		public PasswordAuthentication getPasswordAuthentication() {
 			String username = SMTP_AUTH_USER;
 			String password = SMTP_AUTH_PWD;

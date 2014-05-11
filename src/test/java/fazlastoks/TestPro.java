@@ -25,7 +25,7 @@ public class TestPro {
 
 	/**
 	 * 
-	 * CURRENT: add product,
+	 * CURRENT:activation mail
 	 * 
 	 * admin CURRENT:{dynamic column(add columns to db), users}
 	 * 

@@ -31,6 +31,19 @@
 		<param-value>2882</param-value>
 	</context-param>
 	<context-param>
+		<param-name>mailhost</param-name>
+		<param-value>localhost
+		</param-value>
+	</context-param>
+	<context-param>
+		<param-name>mailuser</param-name>
+		<param-value>ismet@freela.jvmhost.net</param-value>
+	</context-param>
+	<context-param>
+		<param-name>mailpassword</param-name>
+		<param-value>ZMA8~~3vu~iu</param-value>
+	</context-param>
+	<context-param>
 		<param-name>uploaddir</param-name>
 		<param-value>/home/ismet/workenv/uploads/</param-value>
 	</context-param>
