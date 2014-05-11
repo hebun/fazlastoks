@@ -1,6 +1,7 @@
 package fazlastoks;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
@@ -13,6 +14,7 @@ import freela.util.FaceUtils;
 import freela.util.Sql;
 import freela.util.Sql.Insert;
 import model.Product;
+import model.Productphoto;
 import model.Talep;
 
 @ViewScoped
@@ -22,9 +24,18 @@ public class ProDetail implements Serializable {
 	Product pro;
 	String proStates;
 	Talep talep;
-	
+
 	@ManagedProperty(value = "#{app}")
 	private App app;
+	private List<Productphoto> productphotos;
+
+	public List<Productphoto> getProductphotos() {
+		return productphotos;
+	}
+
+	public void setProductphotos(List<Productphoto> productphotos) {
+		this.productphotos = productphotos;
+	}
 
 	public App getApp() {
 		return app;
@@ -54,12 +65,16 @@ public class ProDetail implements Serializable {
 			}
 		};
 		Db.select(sql, callback);
+
 		if (proStates.length() > 0) {
 			if (proStates.endsWith(",")) {
 				proStates = proStates.substring(0, proStates.length() - 1);
 			}
 		}
-
+		productphotos = Db.select(
+				new Sql.Select().from("productphoto")
+						.where("productid", pro.getId()).get(),
+				Productphoto.class);
 	}
 
 	public String saveTalep() {
@@ -72,12 +87,11 @@ public class ProDetail implements Serializable {
 				.add("userid", pro.getUserid()).add("name", talep.getName())
 				.add("email", talep.getEmail()).add("gsm", talep.getGsm())
 				.add("notes", talep.getNotes()).prepare();
-		
+
 		Db.prepareInsert(insert.get(), insert.params());
 
 		app.setCurrentInfoMessage("Talebiniz başarıyla iletildi.");
 		return "bilgi";
-	
 
 	}
 

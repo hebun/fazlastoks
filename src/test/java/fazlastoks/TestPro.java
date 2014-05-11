@@ -29,9 +29,8 @@ public class TestPro {
 	 * 
 	 * admin CURRENT:{dynamic column(add columns to db), users}
 	 * 
-	 * TODO: change password(delayed),keyowrds in pro,
-	 * lightbox for pictures in talep, , masterpage bottom ,activation
-	 * mail,list/delete/edit product,add product,
+	 * TODO: change password(delayed),
+	 *  , masterpage bottom ,activation	 * mail
 	 * 
 	 * Admin( products,products master-detail, in
 	 * detail(prophotos,procates,prokeyword etc.) url filter products, link to
@@ -54,7 +53,7 @@ public class TestPro {
 	 * with code
 	 * 
 	 * SCENARIO:cat search, text search, paket-detay, make talep, register,
-	 * login, add product(add/remove photos), list product, edit/delete product
+	 * login, add product(add/remove photos), list product, edit/delete product,
 	 */
 
 	// @Test

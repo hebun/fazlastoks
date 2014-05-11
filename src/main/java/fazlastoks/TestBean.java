@@ -10,6 +10,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import freela.util.DoMail;
 import model.Product;
 
 @ViewScoped
@@ -18,14 +19,14 @@ public class TestBean {
 	Product pro;
 
 	public TestBean() {
-		pro = new Product();
-
+	
 		try {
-			throw new Exception("blbla");
+			DoMail.main(null);
 		} catch (Exception e) {
-			log.info(e.fillInStackTrace().toString());
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 
 	}
 

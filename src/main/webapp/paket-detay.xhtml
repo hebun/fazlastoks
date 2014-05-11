@@ -5,14 +5,33 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:define name="head">
+		<link rel="stylesheet" type="text/css" media="all"
+			href="_css/lightbox.css" />
+		<script type="text/javascript" src="_js/lightbox.min.js"></script>
+
+	</ui:define>
 	<ui:define name="content">
 		<div class="sagContentAlan">
+		
 			<div class="urunDetayResim">
-				<img src="_resimler/_urunResim/fs-(42).jpg" width="200" height="100" />
+			<ui:fragment rendered="#{prodetail.productphotos.size()>0}">
+				<a href="images/#{prodetail.productphotos[0].file}" data-lightbox="img">
+				<img src="images/#{prodetail.productphotos[0].file}" width="200" height="100" />
+				</a>
+				<c:forEach items="#{prodetail.productphotos}" var="pp">
+				
+				<a href="images/#{pp.file}" data-lightbox="img"></a>
+				
+				
+				</c:forEach>
 				<div class="clearLeft"></div>
 				<SPAN style="font-size: 12px"> Bütün resimleri görmek için
 					resmin üstüne tıklayın. </SPAN>
+					</ui:fragment>
+					<h:graphicImage value="_images/fs-(42).jpg" rendered="#{prodetail.productphotos.size()==0}"></h:graphicImage>
 			</div>
+			
 			<div class="urunDetayAlan">
 
 				<ui:param name="reqMessage" value=" Lütfen bu alanı doldurun."></ui:param>

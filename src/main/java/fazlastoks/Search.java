@@ -87,9 +87,9 @@ public class Search implements Serializable {
 		productphotos = Db
 				.select("select * from productphoto where productid in "
 						+ proids + " ", Productphoto.class);
-photos = new HashMap<>();
+		photos = new HashMap<>();
 		for (Productphoto pp : productphotos) {
-			
+
 			photos.put(pp.getProductid(), pp.getFile());
 		}
 	}
