@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
@@ -22,7 +23,7 @@ public class FaceUtils {
 		log.setUseParentHandlers(false);
 		ConsoleHandler consoleHandler = new ConsoleHandler() {
 			{
-				//setOutputStream(System.out);
+				// setOutputStream(System.out);
 			}
 		};
 		consoleHandler.setFormatter(new LogFormatter());
@@ -34,6 +35,16 @@ public class FaceUtils {
 
 		log.setLevel(Level.ALL);
 
+	}
+
+	public static String getRootUrl() {
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance()
+				.getExternalContext()
+				.getRequest();
+		String contextURL = request.getRequestURL().toString()
+				.replace(request.getRequestURI().substring(0), "")
+				+ request.getContextPath();
+		return contextURL;
 	}
 
 	public static String getFilename(Part part) {

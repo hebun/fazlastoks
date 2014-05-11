@@ -78,27 +78,27 @@ public class Register implements Serializable {
 					+ "Lütfen E-Mail Adresinizi Ziyaret Ediniz.");
 			return "bilgi";
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.severe(e.getMessage());
 			FaceUtils.addError("Hata olustu");
 			return null;
 		}
 	}
 
-	private void sendActivation(String uid) throws AuthenticationFailedException,
-			MessagingException {
+	private void sendActivation(String uid)
+			throws AuthenticationFailedException, MessagingException {
 		List<Map<String, String>> table = Db.selectTable(new Sql.Select()
 				.from("mailcontent").where("name", "activation").get());
 
 		String mc = table.get(0).get("content");
 
-		mc=mc.replaceAll("#link#", FacesContext.getCurrentInstance()
-				.getExternalContext().getRequestContextPath()
+		mc = mc.replaceAll("#link#", FaceUtils.getRootUrl()
 				+ "/activation?code=" + uid);
 
 		DoMail.postMail(
 				new String[] { "ismettung@gmail.com", user.getEmail() },
 				"fazlastoklar.com aktivasyon", mc, "");
-		
+
 	}
 
 	public boolean checkExistingEmail() {

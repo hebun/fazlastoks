@@ -6,9 +6,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import model.Product;
 import freela.util.DoMail;
+import freela.util.FaceUtils;
 
 @ViewScoped
 @ManagedBean
@@ -16,14 +18,20 @@ public class TestBean {
 	Product pro;
 
 	public TestBean() {
-	
+
 		try {
-			DoMail.main(null);
+			HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance()
+					.getExternalContext()
+					.getRequest();
+			String contextURL = request.getRequestURL().toString()
+					.replace(request.getRequestURI().substring(0), "")
+					+ request.getContextPath();
+			FaceUtils.log.info(contextURL);
+			// DoMail.main(null);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 	}
 
