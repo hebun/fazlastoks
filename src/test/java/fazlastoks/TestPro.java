@@ -29,8 +29,8 @@ public class TestPro {
 	 * 
 	 * admin CURRENT:{dynamic column(add columns to db), users}
 	 * 
-	 * TODO: change password(delayed),
-	 *  , masterpage bottom ,activation	 * mail
+	 * TODO: change password(delayed), , masterpage bottom , mail to nethizmet on talep request
+	 * 
 	 * 
 	 * Admin( products,products master-detail, in
 	 * detail(prophotos,procates,prokeyword etc.) url filter products, link to
@@ -40,11 +40,12 @@ public class TestPro {
 	 * indexes,validations{max fiyat,past time),turkce karakter{*.xhtml,
 	 * db.gridfield}, authfilter for member acess(session attr status needed)
 	 * 
-	 * ISSUES:files remain after canceling upload, set 'there is no record'
-	 * warning on paket-detay, user's own product control,default picture in
-	 * product detail and results and index,product filter in urunlerim, or true state in
-	 * authfilter, Db.slect<T> the fields that is not in db,, preparedstatement
-	 * must be on every user input,make categories in master sessionscoped,
+	 * ISSUES: files remain after
+	 * canceling upload, set 'there is no record' warning on paket-detay, user's
+	 * own product control,default picture in product detail and results and
+	 * index,product filter in urunlerim, or true state in authfilter,
+	 * Db.slect<T> the fields that is not in db,, preparedstatement must be on
+	 * every user input,make categories in master sessionscoped,
 	 * 
 	 * NOTES:unnecesary file include in master,beter(persist) unit testing,
 	 * activation kontrol on logging in(PENDING)

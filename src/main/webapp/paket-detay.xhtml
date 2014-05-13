@@ -13,25 +13,29 @@
 	</ui:define>
 	<ui:define name="content">
 		<div class="sagContentAlan">
-		
+
 			<div class="urunDetayResim">
-			<ui:fragment rendered="#{prodetail.productphotos.size()>0}">
-				<a href="images/#{prodetail.productphotos[0].file}" data-lightbox="img">
-				<img src="images/#{prodetail.productphotos[0].file}" width="200" height="100" />
-				</a>
-				<c:forEach items="#{prodetail.productphotos}" var="pp">
-				
-				<a href="images/#{pp.file}" data-lightbox="img"></a>
-				
-				
-				</c:forEach>
-				<div class="clearLeft"></div>
-				<SPAN style="font-size: 12px"> Bütün resimleri görmek için
-					resmin üstüne tıklayın. </SPAN>
-					</ui:fragment>
-					<h:graphicImage value="_images/fs-(42).jpg" rendered="#{prodetail.productphotos.size()==0}"></h:graphicImage>
+				<ui:fragment rendered="#{prodetail.productphotos.size()>0}">
+					<a href="images/#{prodetail.productphotos[0].file}"
+						data-lightbox="img"> <img
+						src="images/#{prodetail.productphotos[0].file}" width="200"
+						height="100" />
+					</a>
+					<c:forEach items="#{prodetail.productphotos}" var="pp">
+
+						<ui:fragment rendered="#{prodetail.productphotos[0].id!=pp.id}">
+							<a href="images/#{pp.file}" data-lightbox="img"></a>
+						</ui:fragment>
+
+					</c:forEach>
+					<div class="clearLeft"></div>
+					<SPAN style="font-size: 12px"> Bütün resimleri görmek için
+						resmin üstüne tıklayın. </SPAN>
+				</ui:fragment>
+				<h:graphicImage value="_images/fs-(42).jpg"
+					rendered="#{prodetail.productphotos.size()==0}"></h:graphicImage>
 			</div>
-			
+
 			<div class="urunDetayAlan">
 
 				<ui:param name="reqMessage" value=" Lütfen bu alanı doldurun."></ui:param>
@@ -67,25 +71,29 @@
 				<h:form rendered="#{prodetail.pro.id>0}">
 					<span class="talepFormBaslik">Ad Soyad* :</span>
 					<h:inputText id="adSoyad" required="true"
-						requiredMessage="#{reqMessage}" value="#{prodetail.talep.name}" styleClass="formTalepText"></h:inputText>
+						requiredMessage="#{reqMessage}" value="#{prodetail.talep.name}"
+						styleClass="formTalepText"></h:inputText>
 					<h:message styleClass="error" for="adSoyad">
 					</h:message>
 
 					<div class="clearLeft"></div>
 					<span class="talepFormBaslik">E-Mail* :</span>
 					<h:inputText id="email" required="true"
-						requiredMessage="#{reqMessage}" label="E-mail" value="#{prodetail.talep.email}"  styleClass="formTalepText"></h:inputText>
+						requiredMessage="#{reqMessage}" label="E-mail"
+						value="#{prodetail.talep.email}" styleClass="formTalepText"></h:inputText>
 					<h:message styleClass="error" for="email"></h:message>
 
 					<div class="clearLeft"></div>
 					<span class="talepFormBaslik">Gsm* :</span>
 					<h:inputText id="gsm" required="true"
-						requiredMessage="#{reqMessage}" value="#{prodetail.talep.gsm}"  styleClass="formTalepText"></h:inputText>
+						requiredMessage="#{reqMessage}" value="#{prodetail.talep.gsm}"
+						styleClass="formTalepText"></h:inputText>
 					<h:message styleClass="error" for="gsm"></h:message>
 
 					<div class="clearLeft"></div>
 					<span class="talepFormBaslik">Mesaj :</span>
-					<h:inputTextarea id="mesaj" rows="6" value="#{prodetail.talep.notes}"  styleClass="formTalepText"></h:inputTextarea>
+					<h:inputTextarea id="mesaj" rows="6"
+						value="#{prodetail.talep.notes}" styleClass="formTalepText"></h:inputTextarea>
 					<div class="clearLeft"></div>
 					<span class="talepFormBaslik"></span>
 

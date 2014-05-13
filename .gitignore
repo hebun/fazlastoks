@@ -1,2 +1,4 @@
 target/
 
+/velocity.log
+/hs_err_pid1541.log

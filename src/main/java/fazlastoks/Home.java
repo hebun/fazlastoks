@@ -1,7 +1,9 @@
 package fazlastoks;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -12,19 +14,29 @@ import freela.util.Db;
 import freela.util.FaceUtils;
 import freela.util.Sql;
 import model.Product;
+import model.Productphoto;
 
 @ViewScoped
 @ManagedBean(name = "hom")
 public class Home implements Serializable {
 
+	public Map<Integer, String> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(Map<Integer, String> photos) {
+		this.photos = photos;
+	}
+
 	List<Product> firsatPakets;
 
 	@ManagedProperty(value = "#{login}")
 	Login login;
+	private Map<Integer, String> photos;
 
 	public Home() {
 		loadFirsats();
-
+		loadPhotos();
 	}
 
 	public Login getLogin() {
@@ -48,8 +60,24 @@ public class Home implements Serializable {
 						.on("product.id", "firsatproduct.productid").get(),
 				Product.class);
 
-	
+	}
 
+	private void loadPhotos() {
+		String proids = "(";
+
+		for (Product p : firsatPakets) {
+			proids += p.getId() + ",";
+		}
+		proids = proids.substring(0, proids.length() - 1) + ")";
+		List<Productphoto> productphotos;
+		productphotos = Db
+				.select("select * from productphoto where productid in "
+						+ proids + " ", Productphoto.class);
+		photos = new HashMap<>();
+		for (Productphoto pp : productphotos) {
+
+			photos.put(pp.getProductid(), pp.getFile());
+		}
 	}
 
 	public List<Product> getFirsatPakets() {
