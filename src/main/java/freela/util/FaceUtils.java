@@ -1,7 +1,9 @@
 package freela.util;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,11 +23,7 @@ public class FaceUtils {
 	public static String uploadDir;
 	static {
 		log.setUseParentHandlers(false);
-		ConsoleHandler consoleHandler = new ConsoleHandler() {
-			{
-				// setOutputStream(System.out);
-			}
-		};
+		ConsoleHandler consoleHandler = new ConsoleHandler();
 		consoleHandler.setFormatter(new LogFormatter());
 		consoleHandler.setLevel(Level.ALL);
 
@@ -38,9 +36,8 @@ public class FaceUtils {
 	}
 
 	public static String getRootUrl() {
-		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance()
-				.getExternalContext()
-				.getRequest();
+		HttpServletRequest request = (HttpServletRequest) FacesContext
+				.getCurrentInstance().getExternalContext().getRequest();
 		String contextURL = request.getRequestURL().toString()
 				.replace(request.getRequestURI().substring(0), "")
 				+ request.getContextPath();
@@ -78,9 +75,9 @@ public class FaceUtils {
 
 	}
 
-	public static <T> T getObjectById(Class<T> type, String table, String string) {
-		Sql.Select sql = (Select) new Sql.Select().from(table)
-				.where("id=", string).prepare();
+	public static <T> T getObjectById(Class<T> type, String table, String id) {
+		Sql.Select sql = (Select) new Sql.Select().from(table).where("id=", id)
+				.prepare();
 
 		List<T> li = Db.preparedSelect(sql.get(), sql.params(), type);
 		T ret = null;
@@ -128,6 +125,29 @@ public class FaceUtils {
 			log.warning(e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	public static Map<String, String> getRecordFromGET(String param,
+			String table) {
+
+		String col = getGET(param);
+		Map<String, String> rec = new HashMap<>();
+		if (col != null) {
+
+			try {
+				Sql prepare = new Sql.Select().from(table).where("code", col)
+						.prepare();
+				List<Map<String, String>> result = Db.preparedSelect(
+						prepare.get(), ((Select) prepare).params());
+				if (result.size() > 0)
+					rec = result.get(0);
+			} catch (Exception e) {
+				log.warning(e.getMessage());
+			}
+
+		}
+
+		return rec;
 	}
 
 }

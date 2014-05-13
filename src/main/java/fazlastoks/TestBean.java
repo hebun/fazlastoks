@@ -1,5 +1,6 @@
 package fazlastoks;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
@@ -18,18 +19,19 @@ public class TestBean {
 	Product pro;
 
 	public TestBean() {
-
+		System.out.println("blblasdbflsdf");
+		dumpCompTree();
 		try {
-			HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance()
-					.getExternalContext()
-					.getRequest();
+			HttpServletRequest request = (HttpServletRequest) FacesContext
+					.getCurrentInstance().getExternalContext().getRequest();
 			String contextURL = request.getRequestURL().toString()
 					.replace(request.getRequestURI().substring(0), "")
 					+ request.getContextPath();
+
 			FaceUtils.log.info(contextURL);
 			// DoMail.main(null);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 
@@ -42,8 +44,10 @@ public class TestBean {
 		map.put("id", "Myid");
 		map.put("value", "blblba my value");
 
-		System.out.println(context.getExternalContext()
-				.getRequestParameterMap().toString());
+		map.forEach((t, u) -> {
+			System.out.println(t + ":" + u);
+			FaceUtils.log.info(t + ":" + u);
+		});
 
 	}
 

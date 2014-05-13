@@ -24,7 +24,7 @@ public class Home implements Serializable {
 
 	public Home() {
 		loadFirsats();
-	
+
 	}
 
 	public Login getLogin() {
@@ -47,6 +47,9 @@ public class Home implements Serializable {
 				new Sql.Select().from("product").innerJoin("firsatproduct")
 						.on("product.id", "firsatproduct.productid").get(),
 				Product.class);
+
+	
+
 	}
 
 	public List<Product> getFirsatPakets() {

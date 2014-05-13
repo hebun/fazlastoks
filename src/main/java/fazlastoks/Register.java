@@ -63,7 +63,7 @@ public class Register implements Serializable {
 					insertUser.params());
 
 			Date time = Calendar.getInstance().getTime();
-			SimpleDateFormat dateFormat = new SimpleDateFormat("Y-m-d H:m:s");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("Y-M-d H:m:s");
 
 			UUID uuid = UUID.randomUUID();
 			String insertAct = new Sql.Insert("activation").add("code", uuid)
@@ -78,7 +78,7 @@ public class Register implements Serializable {
 					+ "Lütfen E-Mail Adresinizi Ziyaret Ediniz.");
 			return "bilgi";
 		} catch (Exception e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 			log.severe(e.getMessage());
 			FaceUtils.addError("Hata olustu");
 			return null;
@@ -92,8 +92,11 @@ public class Register implements Serializable {
 
 		String mc = table.get(0).get("content");
 
-		mc = mc.replaceAll("#link#", FaceUtils.getRootUrl()
-				+ "/activation?code=" + uid);
+		mc = mc.replaceAll("#link#",
+				FaceUtils.getRootUrl() + "/activation?code=" + uid).replaceAll(
+				"#fullname#", user.getUname());
+
+		log.fine(mc);
 
 		DoMail.postMail(
 				new String[] { "ismettung@gmail.com", user.getEmail() },

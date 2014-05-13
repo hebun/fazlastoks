@@ -435,10 +435,10 @@ public class Db {
 
 						} catch (NoSuchMethodException e) {
 							FaceUtils.log.fine(e.getMessage());
-						
+
 						} catch (Exception e) {
 							FaceUtils.log.fine(e.toString());
-						
+
 						}
 					}
 				}
@@ -461,6 +461,10 @@ public class Db {
 		}
 		return new ArrayList<T>();
 
+	}
+
+	public static List<Map<String, String>> selectFrom(String table) {
+		return selectTable("select * from `" + table + "`");
 	}
 
 }
