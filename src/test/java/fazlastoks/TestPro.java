@@ -40,7 +40,7 @@ public class TestPro {
 	 * indexes,validations{max fiyat,past time),turkce karakter{*.xhtml,
 	 * db.gridfield}, authfilter for member acess(session attr status needed)
 	 * 
-	 * ISSUES: files remain after
+	 * ISSUES:placeholder font all over site, files remain after
 	 * canceling upload, set 'there is no record' warning on paket-detay, user's
 	 * own product control,product filter in urunlerim, or true state in authfilter,
 	 * Db.slect<T> the fields that is not in db,make categories in master sessionscoped,

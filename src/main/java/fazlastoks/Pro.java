@@ -22,6 +22,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.Part;
+import javax.validation.constraints.Size;
 
 import model.Category;
 import model.Product;
@@ -44,6 +45,8 @@ public class Pro implements Serializable {
 	Map<Integer, Boolean> proState;
 	Part file;;
 	private List<State> states;
+	
+	
 	private List<String> keywords;
 
 	List<Productphoto> productphotos;
@@ -51,6 +54,13 @@ public class Pro implements Serializable {
 
 	public String addKeyword() {
 		try {
+
+			if (this.keywords.size() > 9) {
+				FaceUtils.addError("contactform:keyword",
+						"En fazla 10 anahtar kelime eklenebilir.");
+				return null;
+			}
+
 			log.info(keyword);
 			if (keyword != "")
 				this.keywords.add(keyword);
@@ -89,7 +99,6 @@ public class Pro implements Serializable {
 	public void setLogin(Login login) {
 		this.login = login;
 	}
-
 
 	public String deletePhoto(Productphoto cat) {
 		log.info(cat.getFile());
@@ -268,7 +277,7 @@ public class Pro implements Serializable {
 		String dat = dateFormat.format(pro.getExpiredate());
 		log.info(pro.getExpiredate().toString());
 		int generatedKey = 0;
-		int id = 3;// login.user.getId();
+		int id =  login.user.getId();
 
 		String ks = "";
 		for (String s : keywords) {

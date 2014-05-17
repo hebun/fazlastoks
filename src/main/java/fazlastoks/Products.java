@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import freela.util.Db;
@@ -22,11 +24,27 @@ public class Products implements Serializable {
 
 	private List<Product> list;
 
+	@ManagedProperty(value = "#{login}")
+	Login login;
+
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
+	}
+
 	public Products() {
-		Sql.Select select = (Select) new Select().from("product").order("id").desc();
+		
+
+	}
+
+	@PostConstruct
+	public void init() {
+		Sql.Select select = (Select) ((Select) new Select().from("product")
+				.where("userid", login.user.getId())).order("id").desc();
 		list = Db.select(select.get(), Product.class);
-
-
 	}
 
 	public List<Product> getList() {
