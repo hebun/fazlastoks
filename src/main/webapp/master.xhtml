@@ -23,51 +23,53 @@
 		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 		<script type="text/javascript" src="_js/client.js"></script>
 		<title>Untitled Document</title>
-<ui:insert name="head"></ui:insert>
+		<ui:insert name="head"></ui:insert>
 	</h:head>
 
 	<h:body>
 		<div class="header">
 			<h:form id="searchForm">
-			<div class="ustSayfa">
-				<div class="logo">LOGO</div>
-				<div class="urunArama">
-				
+				<div class="ustSayfa">
+					<div class="logo">LOGO</div>
+					<div class="urunArama">
+
 						<span class="urunAraBaslik">Ürün Arama </span>
 						<h:inputText id="urunAra" name="UrunAra" type="text"
-							class="urunAra" pt:placeholder="Arama Kelimesi Giriniz...(En az 3 harf)"
+							class="urunAra"
+							pt:placeholder="Arama Kelimesi Giriniz...(En az 3 harf)"
 							value="#{master.searchText}"></h:inputText>
 
 						<h:commandButton styleClass="searchButton" value=""
 							action="#{master.search}">
 							<f:param name="key" value="#{master.searchText}"></f:param>
 						</h:commandButton>
-					
-				</div>
-				<div class="uyeAlan">
-					<div class="saticiBaslik">
-					<h:outputText value="#{login.loggedIn?'Üye Profili':'Satıcılar İçin'}"></h:outputText>
+
 					</div>
-					<div class="uyeGiris">
-						<span class="hesabaGiris"> <h:outputLink
-								rendered="#{login.loggedIn}" value="uye-profil"> 
+					<div class="uyeAlan">
+						<div class="saticiBaslik">
+							<h:outputText
+								value="#{login.loggedIn?'Üye Profili':'Satıcılar İçin'}"></h:outputText>
+						</div>
+						<div class="uyeGiris">
+							<span class="hesabaGiris"> <h:outputLink
+									rendered="#{login.loggedIn}" value="uye-profil"> 
 						Hesabım
 					</h:outputLink> <h:outputLink rendered="#{not login.loggedIn}"
-								value="kullanici-giris"> 
+									value="kullanici-giris"> 
 						 Hesap Girişi
 					</h:outputLink>
-						</span> <span class="uyeGirisi"> <h:commandLink
-								rendered="#{login.loggedIn}" styleClass="kayit-ol"
-							 action="#{login.logout}"> 
+							</span> <span class="uyeGirisi"> <h:commandLink
+									rendered="#{login.loggedIn}" styleClass="kayit-ol"
+									action="#{login.logout}"> 
 						Çıkış
 					</h:commandLink> <h:outputLink styleClass="kayit-ol"
-								rendered="#{not login.loggedIn}" value="kayit-ol"> 
-						Yeni Üyelik
+									rendered="#{not login.loggedIn}" value="kayit-ol"> 
+						 Hesap Aç
 					</h:outputLink></span>
-						<div class="clearLeft"></div>
+							<div class="clearLeft"></div>
+						</div>
 					</div>
-				</div> 
-			</div>
+				</div>
 			</h:form>
 		</div>
 		<div class="menuAlan">
@@ -89,8 +91,13 @@
 				<ui:fragment
 					rendered="#{view.viewId.contains('kullanici-giris')==false}">
 					<div class="solContentAlan">
-
-						<h:panelGroup styleClass="ustKategori" rendered="#{login.loggedIn}">
+						<ui:fragment rendered="#{login.loggedIn}">
+							<div class="urunEkleAlanBaslik">Hoşgeldiniz</div>
+							<div class="kayitAlanBaslik" style="float: none;">
+								#{login.user.uname}</div>
+						</ui:fragment>
+						<h:panelGroup styleClass="ustKategori"
+							rendered="#{login.loggedIn}">
 							<span class="solKategoriCubuk"></span>
 							<span class="ortaKategoriCubuk"> Menu</span>
 							<span class="sagKategoriCubuk"></span>
@@ -100,13 +107,13 @@
 									<li><h:outputLink value="urunlerim">Ürünlerim</h:outputLink></li>
 									<li><h:outputLink value="urun-ekle">Yeni Paket Ekle</h:outputLink>
 									</li>
-								
+
 
 								</ul>
 							</div>
 							<br />
 						</h:panelGroup>
-						
+
 
 						<div class="ustKategori">
 							<span class="solKategoriCubuk"></span> <span
@@ -115,9 +122,9 @@
 							<div class="clearLeft"></div>
 							<div class="kategoriKutu">
 								<ul>
-								<c:forEach var="cat" items="#{master.cats}">
-									<li><a href="urun-arama?catid=#{cat.id}">#{cat.cname}</a></li>
-							</c:forEach>
+									<c:forEach var="cat" items="#{master.cats}">
+										<li><a href="urun-arama?catid=#{cat.id}">#{cat.cname}</a></li>
+									</c:forEach>
 								</ul>
 							</div>
 						</div>
@@ -169,8 +176,8 @@
 				</div>
 
 				<div class="clearRight"></div>
-				<div class="copyRgiht">Copyright &copy; 2014 All rights
-					reserved Fazlastoklar.com</div>
+				<div class="copyRgiht"> Copyright 2014 -  All Rights Reserved
+					- FazlaStoklar.com</div>
 				<div class="clearLeft"></div>
 			</div>
 		</div>

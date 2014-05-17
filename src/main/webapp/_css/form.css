@@ -1,51 +1,58 @@
-.urunAra{
+input:focus::-webkit-input-placeholder {
+	color: transparent;
+	font-weight: bold;
+}
+
+input:focus:-moz-placeholder {
+	font-weight: bold;
+	color: black;
+}
+
+.urunAra {
 	width: 370px;
 	height: 23px;
 	line-height: 23px;
 	padding: 5px;
 	float: left;
 	border: 1px solid #eaeaea;
-	color:#cecece;
+	color: #000000;
+	font-size: medium;
+	font-weight: normal;
 }
 
-.aramaYap{
-display:block;
-margin-left:10px;
-padding-top:5px;
-padding-bottom:5px;
-float:left;
-
+.aramaYap {
+	display: block;
+	margin-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	float: left;
 }
 
-.emailKayitGonder{
-width:405px;
-margin-top:10px;
-
+.emailKayitGonder {
+	width: 405px;
+	margin-top: 10px;
 }
 
-.butonSubmit{
-
-margin:10px;
-text-align:right;
-float:right;
-display:block;
-	
-
+.butonSubmit {
+	margin: 10px;
+	text-align: right;
+	float: right;
+	display: block;
 }
 
-.emailText{
+.emailText {
 	width: 173px;
 	border: 1px solid #eaeaea;
-	padding:3px;
-	color:#cecece;	
+	padding: 3px;
+	color: #cecece;
 }
 
-.emailGonder{
-display:block;
-float:right;
+.emailGonder {
+	display: block;
+	float: right;
 }
 
-.formTalepText{
+.formTalepText {
 	width: 250px;
 	float: left;
 	font-family: Arial, Tahoma, Verdana;

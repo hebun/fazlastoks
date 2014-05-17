@@ -19,13 +19,21 @@
 						</div>
 						<div class="paketTanim">#{paket.content}</div>
 						<div class="paketFiyat">
-							<span class="baslik1">Piyasa Fiyatı</span> <span class="baslik3">#{paket.pprice}
-								TL</span>
+							<span class="baslik1">Piyasa Fiyatı</span>
+							<h:outputText styleClass="baslik3"
+								style="text-decoration:line-through" value="#{paket.pprice}">
+								<f:convertNumber type="currency" currencySymbol="TL"
+									locale="tr_TR" />
+							</h:outputText>
+
 							<div class="clearLeft"></div>
 						</div>
 						<div class="firsatFiyat">
-							<span class="baslik4">Fırsat Fiyatı</span> <span class="baslik3">#{paket.price}
-								TL</span>
+							<span class="baslik4">Fırsat Fiyatı</span>
+							<h:outputText styleClass="baslik3" value="#{paket.pprice}">
+								<f:convertNumber type="currency" currencySymbol="TL"
+									locale="tr_TR" />
+							</h:outputText>
 							<div class="clearLeft"></div>
 						</div>
 						<div class="paketDetay">

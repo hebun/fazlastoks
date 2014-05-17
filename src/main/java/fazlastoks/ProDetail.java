@@ -29,21 +29,7 @@ public class ProDetail implements Serializable {
 	private App app;
 	private List<Productphoto> productphotos;
 
-	public List<Productphoto> getProductphotos() {
-		return productphotos;
-	}
-
-	public void setProductphotos(List<Productphoto> productphotos) {
-		this.productphotos = productphotos;
-	}
-
-	public App getApp() {
-		return app;
-	}
-
-	public void setApp(App app) {
-		this.app = app;
-	}
+	
 
 	public ProDetail() {
 		talep = new Talep();
@@ -118,7 +104,21 @@ public class ProDetail implements Serializable {
 	public void setProStates(String proStates) {
 		this.proStates = proStates;
 	}
+	public List<Productphoto> getProductphotos() {
+		return productphotos;
+	}
 
+	public void setProductphotos(List<Productphoto> productphotos) {
+		this.productphotos = productphotos;
+	}
+
+	public App getApp() {
+		return app;
+	}
+
+	public void setApp(App app) {
+		this.app = app;
+	}
 	private static final long serialVersionUID = 2647447812313684383L;
 
 }

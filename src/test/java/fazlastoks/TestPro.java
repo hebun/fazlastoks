@@ -25,11 +25,11 @@ public class TestPro {
 
 	/**
 	 * 
-	 * CURRENT:activation mail
+	 * CURRENT:
 	 * 
 	 * admin CURRENT:{dynamic column(add columns to db), users}
 	 * 
-	 * TODO: change password(delayed), , masterpage bottom , mail to nethizmet on talep request
+	 * TODO: change password(delayed), , masterpage bottom , mail to nethizmet on talep request, context pages
 	 * 
 	 * 
 	 * Admin( products,products master-detail, in
@@ -42,13 +42,11 @@ public class TestPro {
 	 * 
 	 * ISSUES: files remain after
 	 * canceling upload, set 'there is no record' warning on paket-detay, user's
-	 * own product control,default picture in product detail and results and
-	 * index,product filter in urunlerim, or true state in authfilter,
-	 * Db.slect<T> the fields that is not in db,, preparedstatement must be on
-	 * every user input,make categories in master sessionscoped,
+	 * own product control,product filter in urunlerim, or true state in authfilter,
+	 * Db.slect<T> the fields that is not in db,make categories in master sessionscoped,
 	 * 
 	 * NOTES:unnecesary file include in master,beter(persist) unit testing,
-	 * activation kontrol on logging in(PENDING)
+	 * 
 	 * 
 	 * THOUGHTS: externalize messages, * build test scenario, , do test scenario
 	 * with code

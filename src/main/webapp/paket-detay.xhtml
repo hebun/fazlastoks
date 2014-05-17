@@ -45,14 +45,20 @@
 					<div class="clearLeft"></div>
 				</div>
 				<div class="paketBaslikKutu">
-					<span class="detayKutuBaslik">Piyasa Fiyatı :</span><span
-						class="detayKutuYazi">#{prodetail.pro.pprice} TL</span>
+					<span class="detayKutuBaslik">Piyasa Fiyatı :</span>
+					<h:outputText styleClass="baslik3"	style="text-decoration:line-through" value="#{prodetail.pro.pprice}">
+						<f:convertNumber type="currency" currencySymbol="TL"
+							locale="tr_TR" />
+					</h:outputText>
 					<div class="clearLeft"></div>
 				</div>
 
 				<div class="paketBaslikKutu">
-					<span class="detayKutuBaslik">Fırsat Fiyat :</span><span
-						class="detayKutuYazi">#{prodetail.pro.price} TL</span>
+					<span class="detayKutuBaslik">Fırsat Fiyat :</span>
+					<h:outputText styleClass="baslik3" value="#{prodetail.pro.price}">
+						<f:convertNumber type="currency" currencySymbol="TL"
+							locale="tr_TR" />
+					</h:outputText>
 					<div class="clearLeft"></div>
 				</div>
 				<div class="paketBaslikKutu">
