@@ -1,6 +1,7 @@
 package freela.util;
 
 import java.io.IOException;
+import java.net.HttpRetryException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
@@ -125,6 +127,37 @@ public class FaceUtils {
 			log.warning(e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	public static String getCookieValue(HttpServletRequest request, String name) {
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				
+				if (name.equals(cookie.getName())) {
+					return cookie.getValue();
+				}
+			}
+		}
+		return null;
+	}
+
+	public static void addCookie(String name, String value, int maxAge) {
+		addCookie((HttpServletResponse) FacesContext.getCurrentInstance()
+				.getExternalContext().getResponse(), name, value, maxAge);
+
+	}
+
+	public static void addCookie(HttpServletResponse response, String name,
+			String value, int maxAge) {
+		Cookie cookie = new Cookie(name, value);
+		cookie.setPath("/");
+		cookie.setMaxAge(maxAge);
+		response.addCookie(cookie);
+	}
+
+	public static void removeCookie(HttpServletResponse response, String name) {
+		addCookie(response, name, null, 0);
 	}
 
 	public static Map<String, String> getRecordFromGET(String param,

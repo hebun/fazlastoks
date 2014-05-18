@@ -51,6 +51,8 @@ public class Register implements Serializable {
 			if (!checkExistingEmail()) {
 				return null;
 			}
+			UUID uuid = UUID.randomUUID();
+			user.setUuid(uuid.toString());
 
 			Insert insertUser = new Sql.Insert("user")
 					.add("email", user.getEmail())
@@ -58,14 +60,14 @@ public class Register implements Serializable {
 					.add("firmaname", user.getFirmaname())
 					.add("uname", user.getUname())
 					.add("cepno", user.getCepno())
-					.add("sabitno", user.getSabitno());
+					.add("sabitno", user.getSabitno())
+					.add("uuid", user.getUuid());
 			int insertedId = Db.prepareInsert(insertUser.prepare().get(),
 					insertUser.params());
 
 			Date time = Calendar.getInstance().getTime();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("Y-M-d H:m:s");
 
-			UUID uuid = UUID.randomUUID();
 			String insertAct = new Sql.Insert("activation").add("code", uuid)
 					.add("userid", insertedId)
 					.add("tarih", dateFormat.format(time)).get();

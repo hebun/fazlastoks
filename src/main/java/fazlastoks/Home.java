@@ -30,8 +30,8 @@ public class Home implements Serializable {
 
 	List<Product> firsatPakets;
 
-	@ManagedProperty(value = "#{login}")
-	Login login;
+
+	
 	private Map<Integer, String> photos;
 
 	public Home() {
@@ -39,19 +39,11 @@ public class Home implements Serializable {
 		loadPhotos();
 	}
 
-	public Login getLogin() {
-		return login;
-	}
 
-	public void setLogin(Login login) {
-		this.login = login;
-	}
 
 	@PostConstruct
 	public void init() {
-		if (login.isLoggedIn()) {
-			FaceUtils.log.fine("logged in true");
-		}
+	
 	}
 
 	public void loadFirsats() {

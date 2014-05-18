@@ -8,8 +8,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 
 import freela.util.App;
+import freela.util.AuthFilter;
 import freela.util.Db;
 import freela.util.FaceUtils;
 import freela.util.Sql;
@@ -24,6 +26,15 @@ public class Login implements Serializable {
 	String password;
 	private boolean loggedIn;
 	User user;
+	private boolean remember;
+
+	public boolean isRemember() {
+		return remember;
+	}
+
+	public void setRemember(boolean remember) {
+		this.remember = remember;
+	}
 
 	String newPassword;
 	String reNewPassword;
@@ -65,15 +76,17 @@ public class Login implements Serializable {
 	}
 
 	public Login() {
-		// loggedIn = true;
-
+		Object object = FacesContext.getCurrentInstance().getExternalContext()
+				.getSessionMap().get("user");
+		if (object != null) {
+			this.user = (User) object;
+			this.loggedIn = true;
+		}
 	}
 
 	public String login() {
 		Sql.Select select = (Select) new Select().from("user")
 				.where("email", username).and("password", password);
-		String normalSelect = select.get();
-
 		List<Map<String, String>> table = Db.preparedSelect(select.prepare()
 				.get(), select.params());
 
@@ -89,6 +102,14 @@ public class Login implements Serializable {
 					User.class).get(0);
 
 			loggedIn = true;
+
+			if (remember) {
+				FaceUtils.addCookie("remember", user.getUuid(), 100_000_000);
+
+				FacesContext.getCurrentInstance().getExternalContext()
+						.getSessionMap().put("user", user);
+			}
+
 			return "index";
 		} else {
 			FaceUtils.addError("Kullanıcı ve/veya şifre yanlış.");
@@ -104,6 +125,9 @@ public class Login implements Serializable {
 		loggedIn = false;
 		FacesContext.getCurrentInstance().getExternalContext()
 				.invalidateSession();
+		FaceUtils.removeCookie((HttpServletResponse) FacesContext
+				.getCurrentInstance().getExternalContext().getResponse(),
+				"remember");
 		return "index?faces-redirect=true";
 	}
 

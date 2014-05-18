@@ -1,6 +1,9 @@
 package freela.util;
 
+import static freela.util.FaceUtils.*;
+
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 
 import javax.servlet.Filter;
@@ -10,10 +13,12 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.User;
 import fazlastoks.Login;
 import freela.util.FaceUtils;
 
@@ -33,28 +38,53 @@ public class AuthFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
+		String COOKIE_NAME = "remember";
 		try {
-			java.util.logging.Logger.getLogger("org.hibernate").setLevel(
-					Level.OFF);
 			HttpServletRequest req = (HttpServletRequest) request;
 			HttpServletResponse res = (HttpServletResponse) response;
 			HttpSession ses = req.getSession(false);
+			User user = (User) req.getSession().getAttribute("user");
 
-			String reqURI = req.getRequestURI();
+			if (user == null) {
+				String uuid = getCookieValue(req, COOKIE_NAME);
+				
+				if (uuid != null) {
+					System.out.println();
+					List<User> users = Db.select(new Sql.Select().from("user")
+							.where("uuid", uuid).get(), User.class);
 
-			if (devStage) {
-				chain.doFilter(request, response);
-			} else {
+					if (users.size() > 0) {
+						user = users.get(0);
 
-				if (adminControle(req, res, ses, reqURI)) {
+						req.getSession().setAttribute("user", user);
+						// addCookie(res, "remember", uuid, 100_000_000);
 
-					if (memberControle(req, res, ses, reqURI)) {
+					} else {
 
-						chain.doFilter(request, response);
+						removeCookie(res, COOKIE_NAME);
 					}
 				}
 			}
 
+			if (user != null) {
+				chain.doFilter(request, response);
+			} else {
+
+				String reqURI = req.getRequestURI();
+
+				if (devStage) {
+					chain.doFilter(request, response);
+				} else {
+
+					if (adminControle(req, res, ses, reqURI)) {
+
+						if (memberControle(req, res, ses, reqURI)) {
+
+							chain.doFilter(request, response);
+						}
+					}
+				}
+			}
 		} catch (Throwable t) {
 			FaceUtils.log.info(t.getMessage());
 			t.printStackTrace();
@@ -70,17 +100,18 @@ public class AuthFilter implements Filter {
 		for (String string : memberPages) {
 
 			if (reqURI.indexOf(string) >= 0) {
-				
+
 				if (ses != null && ses.getAttribute("login") != null) {
-					
+
 					Login bean = ((Login) (ses.getAttribute("login")));
 
 					if (!bean.isLoggedIn()) {
-						
-						res.sendRedirect(req.getContextPath() + "/kullanici-giris");
+
+						res.sendRedirect(req.getContextPath()
+								+ "/kullanici-giris");
 						return false;
 					}
-					
+
 				} else {
 
 					res.sendRedirect(req.getContextPath() + "/kullanici-giris");
