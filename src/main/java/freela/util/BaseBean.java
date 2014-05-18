@@ -16,7 +16,7 @@ public class BaseBean {
 
 	public String delete(String id) {
 
-		data.removeIf(m -> m.get("id").equals(id));
+		//data.removeIf(m -> m.get("id").equals(id));
 
 		Db.prepareInsert("delete from `" + table + "` where id=?",
 				Arrays.asList(new String[] { id }));

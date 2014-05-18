@@ -24,15 +24,16 @@ public class Home implements Serializable {
 	public Home() {
 		String pcount = new Sql.Select("count(*)").from("product").get();
 		String ucount = new Sql.Select("count(*)").from("user").get();
-		String tcount = new Sql.Select("count(*)").from("talep")
+		String tcount = new Sql.Select("count(*)").from("talep").as("t")
+				.innerJoin("product").as("p").on("p.id", "t.productid")
 				.where("state=", 0).get();
 
 		String all = new Sql.Select("(" + pcount + ") as pcount,(" + ucount
 				+ ") as ucount,(" + tcount + ") as tcount").get();
 
 		stats = Db.selectTable(all).get(0);
-		
-		//memUse();
+
+		// memUse();
 	}
 
 	private void memUse() {

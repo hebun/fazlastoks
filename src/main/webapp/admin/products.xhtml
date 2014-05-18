@@ -35,10 +35,10 @@
 
 								<h:column>
 									<f:facet name="header">#{c.header}</f:facet>
-									
+
 									<h:outputLink rendered="#{c.name=='pname'}"
 										value="proDetail?id=#{m.id}">#{m[c.name]}</h:outputLink>
-									
+
 									<h:outputText rendered="#{c.name!='pname'}">#{m[c.name]}</h:outputText>
 
 								</h:column>
@@ -47,7 +47,9 @@
 
 								<f:facet name="header">Eylemler</f:facet>
 								<h:commandButton image="images/icn_trash.png"
-									action="#{product.delete(m)}" pt:title="Sil"></h:commandButton>
+									action="#{product.delete(m)}"
+									onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"
+									pt:title="Sil"></h:commandButton>
 
 
 							</h:column>

@@ -88,7 +88,8 @@
 
 							<f:facet name="header">Eylemler</f:facet>
 							<h:commandButton image="images/icn_trash.png"
-								action="#{cc.attrs.bean.delete(m)}" pt:title="Sil"></h:commandButton>
+								action="#{cc.attrs.bean.delete(m)}"
+								onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false" pt:title="Sil"></h:commandButton>
 							<h:commandButton rendered="#{cc.attrs.hasToggleRead}"
 								image="images/icn_jump_back.png"
 								action="#{cc.attrs.bean.toggleRead(m)}"

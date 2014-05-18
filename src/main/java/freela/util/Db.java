@@ -207,13 +207,17 @@ public class Db {
 				System.out.print(say + ".");
 
 			int rs = stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+			FaceUtils.log.fine(rs+"");
 			if (rs == 0)
 				return rs;
 			ResultSet generatedKeys = stmt.getGeneratedKeys();
 			if (generatedKeys.next()) {
-				return (int) generatedKeys.getLong(1);
+				
+				int long1 = (int) generatedKeys.getLong(1);
+				FaceUtils.log.fine(long1+":long1");
+				return long1;
 			}
-			return 0;
+			return rs;
 		} catch (SQLException se) {
 
 			FaceUtils.log.warning(se.getMessage());

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import model.State;
 import freela.util.Db;
 import freela.util.FaceUtils;
 import freela.util.Sql;
@@ -17,7 +18,22 @@ public class Products extends CrudBase implements Serializable {
 
 	List<Map<String, String>> products;
 
+	public void delete(Map<String, String> pr) {
 
+		int ret = Db.delete(new Sql.Delete(table).where("id", pr.get("id"))
+				.get());
+		hasMessage = true;
+		if (ret == 0) {
+
+			messageType = "alert_warning";
+			message = "Kayıt silinemedi. Bu ürüne atanmış başka kayıtlar(resim,kategori vb) var."
+					+ " Öncelikle onları silmelisiniz.";
+			return;
+		}
+		messageType = "alert_success";
+		message = "Kayıt başarıyla silindi.";
+		products.remove(pr);
+	}
 
 	public List<Map<String, String>> getProducts() {
 		return products;
@@ -26,14 +42,16 @@ public class Products extends CrudBase implements Serializable {
 	public void setProducts(List<Map<String, String>> products) {
 		this.products = products;
 	}
-	static int insCount=0;
+
+	static int insCount = 0;
+
 	public Products() {
 		this.table = "product";
-		String sql = new Sql.Select("product.*,user.*").from(table).innerJoin("user").on("product.userid", "user.id").get();
+		String sql = new Sql.Select("product.*,user.*").from(table)
+				.innerJoin("user").on("product.userid", "user.id").get();
 
-		
 		products = Db.selectTable(sql);
-		FaceUtils.log.info(insCount++ +"");
+		FaceUtils.log.info(insCount++ + "");
 		super.initColumns();
 
 	}

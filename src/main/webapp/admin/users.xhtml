@@ -10,54 +10,54 @@
 	<ui:define name="content">
 
 
-<h4 class="alert_info">Sütun başlıklarına tıklayarak sıralama
-		yapabilirsiniz. Sıralama yönünü değiştirmek için tekrar tıklayın.</h4>
+		<h4 class="alert_info">Sütun başlıklarına tıklayarak sıralama
+			yapabilirsiniz. Sıralama yönünü değiştirmek için tekrar tıklayın.</h4>
 
-	<h:form>
-		<h:panelGrid style="width:100%;"
-			rendered="#{users.hasMessage}">
-			<h4 class="#{users.messageType}">#{users.message}</h4>
-		</h:panelGrid>
+		<h:form>
+			<h:panelGrid style="width:100%;" rendered="#{users.hasMessage}">
+				<h4 class="#{users.messageType}">#{users.message}</h4>
+			</h:panelGrid>
 
 
-		<article class="module width_3_quarter" style="width:80%;">
+			<article class="module width_3_quarter" style="width: 80%;">
 
-			<header>
-				<h3 class="tabs_involved">Kullanicilar</h3>
+				<header>
+					<h3 class="tabs_involved">Kullanicilar</h3>
 
-			</header>
+				</header>
 
-			<div class="tab_container">
+				<div class="tab_container">
 
-				<div id="tab1" class="tab_content">
-					<h:dataTable value="#{users.users}" var="m" id="betDt1"
-						styleClass="tablesorter"
-						columnClasses="column1,column2,column3,column4,column5">
-						<c:forEach items="#{users.columns}" var="c">
+					<div id="tab1" class="tab_content">
+						<h:dataTable value="#{users.users}" var="m" id="betDt1"
+							styleClass="tablesorter"
+							columnClasses="column1,column2,column3,column4,column5">
+							<c:forEach items="#{users.columns}" var="c">
 
-							<h:column>
-								<f:facet name="header">#{c.header}</f:facet>	
+								<h:column>
+									<f:facet name="header">#{c.header}</f:facet>	
 									
 								#{m[c.name]}
 						
 							</h:column>
-						</c:forEach>
-						<h:column pt:style="width:20%;">
+							</c:forEach>
+							<h:column pt:style="width:20%;">
 
-							<f:facet name="header">Eylemler</f:facet>
-							<h:commandButton image="images/icn_trash.png"
-								action="#{users.delete(m)}" pt:title="Sil"></h:commandButton>
-						
+								<f:facet name="header">Eylemler</f:facet>
+								<h:commandButton image="images/icn_trash.png"
+									action="#{users.delete(m)}" pt:title="Sil"
+									onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"></h:commandButton>
 
-						</h:column>
 
-					</h:dataTable>
+							</h:column>
 
+						</h:dataTable>
+
+					</div>
 				</div>
-			</div>
-		</article>
+			</article>
 
-	</h:form>
+		</h:form>
 
 		<h:outputScript>
 $(document).ready(function() 
@@ -71,7 +71,6 @@ $(document).ready(function()
 	<ui:define name="head">
 		<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
 		<style type="text/css">
-
 .delButton {
 	background-image: url(images/icn_trash.png)
 }

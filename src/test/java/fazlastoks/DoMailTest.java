@@ -8,7 +8,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import freela.util.Db;
 import freela.util.DoMail;
+import freela.util.FaceUtils;
 
 public class DoMailTest {
 
@@ -30,7 +32,9 @@ public class DoMailTest {
 
 	@Test
 	public void testSend() {
-		DoMail doMail = new DoMail();
+		int del= Db.delete("update keyword set keyword='xxxxx' limit 2");
+		FaceUtils.log.fine(del+"");
+		//DoMail doMail = new DoMail();
 	//	doMail.send();
 	}
 

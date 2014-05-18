@@ -1,6 +1,7 @@
 package fazlastoks.admin;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,16 @@ import freela.util.Sql;
 @ManagedBean(name = "prodet")
 public class ProDetail extends CrudBase implements Serializable {
 
-	List<Map<String, String>> categories, keywords, states, photos;
+	List<Map<String, String>> categories, states, photos;
+	List<String> keywords;
+	public List<String> getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(List<String> keywords) {
+		this.keywords = keywords;
+	}
+
 	Product pro;
 	List<ColumnModel> photoColumns, keywordColumns;
 
@@ -49,8 +59,7 @@ public class ProDetail extends CrudBase implements Serializable {
 				.innerJoin("category")
 				.on("category.id", "productcategory.categoryid")
 				.where("productid=", this.pro.getId()).get());
-		keywords = Db.selectTable(new Sql.Select().from("keyword")
-				.where("productid=", this.pro.getId()).get());
+		keywords = Arrays.asList(pro.getKeywords().split(","));
 		states = Db.selectTable(new Sql.Select().from("prostate")
 				.innerJoin("state").on("state.id", "prostate.stateid")
 				.where("productid=", this.pro.getId()).get());
@@ -83,13 +92,7 @@ public class ProDetail extends CrudBase implements Serializable {
 		this.categories = categories;
 	}
 
-	public List<Map<String, String>> getKeywords() {
-		return keywords;
-	}
 
-	public void setKeywords(List<Map<String, String>> keywords) {
-		this.keywords = keywords;
-	}
 
 	public List<Map<String, String>> getStates() {
 		return states;
