@@ -62,8 +62,11 @@ public class Pro implements Serializable {
 			}
 
 			log.info(keyword);
-			if (keyword != "")
+			if (!keyword.equals("") && !keywords.contains(keyword)
+					){
 				this.keywords.add(keyword);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
