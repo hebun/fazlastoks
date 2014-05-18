@@ -73,7 +73,7 @@ public class Pro implements Serializable {
 	public String deleteKeyword(String key) {
 		log.info(key);
 		for (int i = 0; i < keywords.size(); i++) {
-			if (keywords.get(i).equals(key)) {
+			if (keywords.get(i)==key) {
 
 				this.keywords.remove(i);
 			}

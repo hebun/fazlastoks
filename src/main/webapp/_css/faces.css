@@ -7,6 +7,7 @@ input:focus:-moz-placeholder {
 	font-weight: bold;
 	color: black;
 }
+
 .searchButton {
 	display: block;
 	margin-left: 5px;
@@ -37,15 +38,15 @@ input:focus:-moz-placeholder {
 }
 
 .form input[type="text"] {
-
+	
 }
 
 .form input[type="email"] {
-
+	
 }
 
 .form textarea {
-
+	
 }
 
 .form input.birthday {
@@ -137,7 +138,6 @@ input:focus:-moz-placeholder {
 }
 
 .info,.success,.warning,.error {
-	border: 1px solid;
 	margin: 10px 0px;
 	padding: 5px 5px 5px 50px;
 	background-repeat: no-repeat;
@@ -168,7 +168,9 @@ input:focus:-moz-placeholder {
 .error {
 	color: #D8000C;
 	background-color: #FFBABA;
-	background-image: url('../facesimg/error.png');
+	padding: 5px 5px 5px 10px;
+	font-size: 14px;
+	font-family: Arial,Tahoma,Verdana;
 }
 
 table a:link {
@@ -192,10 +194,8 @@ table {
 	font-family: Arial, Helvetica, sans-serif;
 	color: #000;
 	font-size: 12px;
-
 	background-color: #ffffff;
 	margin: 5px;
-
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -211,12 +211,10 @@ table th {
 	background: #ededed;
 	background: -webkit-gradient(linear, left top, left bottom, from(#ededed),
 		to(#ebebeb));
-
 	color: #000033;
 	font-family: Arial, Tahoma, Verdana;
-	
-	 text-decoration: none;
-	     font-size: 18px;
+	text-decoration: none;
+	font-size: 18px;
 }
 
 table th:first-child {

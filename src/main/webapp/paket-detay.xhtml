@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" media="all"
 			href="_css/lightbox.css" />
 		<script type="text/javascript" src="_js/lightbox.min.js"></script>
+	<script type="text/javascript" src="_js/jquery.maskedinput.min.js"></script>
 
 	</ui:define>
 	<ui:define name="content">
@@ -76,7 +77,7 @@
 			Bu sayfada incelediğiniz ürün ile ilgili daha fazla bilgi için aşağıdaki formu gönderin
 			<div class="urunTalepAlan">
 			<h3 style="padding-left: 40px;"> PAKET BİLGİ FORMU</h3>
-				<h:form rendered="#{prodetail.pro.id>0}">
+				<h:form rendered="#{prodetail.pro.id>0}" id="f">
 					<span class="talepFormBaslik">Ad Soyad* :</span>
 					<h:inputText id="adSoyad" required="true"
 						requiredMessage="#{reqMessage}" value="#{prodetail.talep.name}"
@@ -115,5 +116,9 @@
 			</div>
 			<div class="clearLeft"></div>
 		</div>
+		<h:outputScript >
+		
+		$("[id='f:gsm']").mask("(0999) 999 99 99");
+		</h:outputScript>
 	</ui:define>
 </ui:composition>
