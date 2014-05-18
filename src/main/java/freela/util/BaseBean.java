@@ -33,6 +33,7 @@ public class BaseBean {
 	}
 
 	public String getTable() {
+	
 		return table;
 	}
 

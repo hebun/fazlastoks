@@ -49,7 +49,7 @@ public class TestPro {
 	 * 
 	 * 
 	 * THOUGHTS: externalize messages, * build test scenario, , do test scenario
-	 * with code
+	 * with code,
 	 * 
 	 * SCENARIO:cat search, text search, paket-detay, make talep, register,
 	 * login, add product(add/remove photos), list product, edit/delete product,

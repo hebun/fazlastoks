@@ -65,12 +65,9 @@ public class Register implements Serializable {
 			int insertedId = Db.prepareInsert(insertUser.prepare().get(),
 					insertUser.params());
 
-			Date time = Calendar.getInstance().getTime();
-			SimpleDateFormat dateFormat = new SimpleDateFormat("Y-M-d H:m:s");
-
 			String insertAct = new Sql.Insert("activation").add("code", uuid)
 					.add("userid", insertedId)
-					.add("tarih", dateFormat.format(time)).get();
+					.add("tarih", FaceUtils.getFormattedTime() ) .get();
 
 			Db.insert(insertAct);
 
@@ -89,6 +86,7 @@ public class Register implements Serializable {
 
 	private void sendActivation(String uid)
 			throws AuthenticationFailedException, MessagingException {
+		
 		List<Map<String, String>> table = Db.selectTable(new Sql.Select()
 				.from("mailcontent").where("name", "activation").get());
 

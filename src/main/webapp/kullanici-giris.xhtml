@@ -28,13 +28,17 @@
 						<div class="clearLeft"></div>
 
 						<span class="kayitAlanBaslik">Beni Hatırla :</span>
-						<h:selectBooleanCheckbox style="margin-top:12px;" value="#{login.remember}"></h:selectBooleanCheckbox>
+						<h:selectBooleanCheckbox style="margin-top:12px;"
+							value="#{login.remember}"></h:selectBooleanCheckbox>
 						<div class="clearLeft"></div>
 
 						<span class="kayitAlanBaslik"></span>
 						<h:commandButton id="Gonder" action="#{login.login}"
 							value="Giriş Yap"></h:commandButton>
-						<div class="clearLeft"></div>
+							&#160;&#160;&#160;&#160;
+						<a
+							href="forgotpassword" style="font-weight:normal;">Şifremi Unuttum</a>
+						<div class="clearLeft"></div>	
 					</div>
 				</h:form>
 			</div>

@@ -2,6 +2,9 @@ package freela.util;
 
 import java.io.IOException;
 import java.net.HttpRetryException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -181,6 +184,20 @@ public class FaceUtils {
 		}
 
 		return rec;
+	}
+	
+	public static String getFormattedTime(){
+		Date time = Calendar.getInstance().getTime();
+		return getFormattedTime(time);
+		
+		
+	}
+
+	private static String getFormattedTime(Date time) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("Y-M-d H:m:s");
+
+		String formattedTime = dateFormat.format(time);
+		return formattedTime;
 	}
 
 }

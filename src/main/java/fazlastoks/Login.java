@@ -3,21 +3,24 @@ package fazlastoks;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.Size;
 
+import model.User;
 import freela.util.App;
-import freela.util.AuthFilter;
 import freela.util.Db;
+import freela.util.DoMail;
 import freela.util.FaceUtils;
 import freela.util.Sql;
 import freela.util.Sql.Select;
 import freela.util.Sql.Update;
-import model.User;
 
 @SessionScoped
 @ManagedBean
@@ -36,12 +39,16 @@ public class Login implements Serializable {
 		this.remember = remember;
 	}
 
+
 	String newPassword;
+	
 	String reNewPassword;
 
 	@ManagedProperty(value = "#{app}")
 	App app;
 
+	
+	
 	public App getApp() {
 		return app;
 	}
@@ -60,6 +67,46 @@ public class Login implements Serializable {
 
 	}
 
+	public String forgotPassword() {
+
+		List<Map<String, String>> userTable = Db.selectTable(new Sql.Select()
+				.from("user").where("email", username).and("state", "ACTIVE")
+				.get());
+
+		if (userTable.size() == 0) {
+			FaceUtils
+					.addError("Bu E-Mail adresi ile kayıtlı kullanıcı bulunamadı.");
+			return null;
+		}
+
+		List<Map<String, String>> table = Db.selectTable(new Sql.Select()
+				.from("mailcontent").where("name", "resetpassword").get());
+
+		String mc = table.get(0).get("content");
+
+		String uid = UUID.randomUUID().toString();
+
+		Db.insert(new Sql.Insert("resetpassword").add("code", uid)
+				.add("userid", userTable.get(0).get("id"))
+				.add("tarih", FaceUtils.getFormattedTime())
+				.get() );
+
+		mc = mc.replaceAll("#link#", FaceUtils.getRootUrl()
+				+ "/resetpassword?code=" + uid);
+
+		try {
+			DoMail.postMail(new String[] { "ismettung@gmail.com", username },
+					"fazlastoklar.com Şifre Yenile", mc, "");
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		app.setCurrentInfoMessage("Ayrıntılı talimatlar E-Posta adresinize gönderildi");
+
+		return "bilgi";
+	}
+
 	public void updateUser() {
 		Update prepare = (Update) new Sql.Update("user")
 				.add("uname", user.getUname())
@@ -76,22 +123,26 @@ public class Login implements Serializable {
 	}
 
 	public Login() {
+		System.out.println("yyy");
 		Object object = FacesContext.getCurrentInstance().getExternalContext()
 				.getSessionMap().get("user");
+		System.out.println("yyy");
 		if (object != null) {
 			this.user = (User) object;
+			System.out.println("yyy");
 			this.loggedIn = true;
 		}
 	}
 
 	public String login() {
+		System.out.println("xxx");
 		Sql.Select select = (Select) new Select().from("user")
 				.where("email", username).and("password", password);
 		List<Map<String, String>> table = Db.preparedSelect(select.prepare()
 				.get(), select.params());
-
+		System.out.println("xxx");
 		if (table.size() > 0) {
-
+			System.out.println("xxx");
 			if (table.get(0).get("state").toString().equals("PENDING")) {
 				FaceUtils.addError("Hesabınız Aktif Değil!");
 				loggedIn = false;
@@ -102,8 +153,9 @@ public class Login implements Serializable {
 					User.class).get(0);
 
 			loggedIn = true;
-
+			System.out.println("xxx");
 			if (remember) {
+				System.out.println("xxx");
 				FaceUtils.addCookie("remember", user.getUuid(), 100_000_000);
 
 				FacesContext.getCurrentInstance().getExternalContext()
