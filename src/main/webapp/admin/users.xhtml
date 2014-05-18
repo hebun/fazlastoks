@@ -15,8 +15,8 @@
 
 	<h:form>
 		<h:panelGrid style="width:100%;"
-			rendered="#{user.hasMessage}">
-			<h4 class="#{user.messageType}">#{user.message}</h4>
+			rendered="#{users.hasMessage}">
+			<h4 class="#{users.messageType}">#{users.message}</h4>
 		</h:panelGrid>
 
 
@@ -30,10 +30,10 @@
 			<div class="tab_container">
 
 				<div id="tab1" class="tab_content">
-					<h:dataTable value="#{user.users}" var="m" id="betDt1"
+					<h:dataTable value="#{users.users}" var="m" id="betDt1"
 						styleClass="tablesorter"
 						columnClasses="column1,column2,column3,column4,column5">
-						<c:forEach items="#{user.columns}" var="c">
+						<c:forEach items="#{users.columns}" var="c">
 
 							<h:column>
 								<f:facet name="header">#{c.header}</f:facet>	
@@ -46,7 +46,7 @@
 
 							<f:facet name="header">Eylemler</f:facet>
 							<h:commandButton image="images/icn_trash.png"
-								action="#{user.delete(m)}" pt:title="Sil"></h:commandButton>
+								action="#{users.delete(m)}" pt:title="Sil"></h:commandButton>
 						
 
 						</h:column>

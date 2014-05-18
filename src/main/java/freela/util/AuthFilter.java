@@ -25,7 +25,7 @@ import freela.util.FaceUtils;
 @WebFilter(filterName = "AuthFilter", urlPatterns = { "/*" })
 public class AuthFilter implements Filter {
 
-	static boolean devStage = true;
+	static boolean devStage = false;
 
 	public AuthFilter() {
 	}
@@ -47,7 +47,7 @@ public class AuthFilter implements Filter {
 
 			if (user == null) {
 				String uuid = getCookieValue(req, COOKIE_NAME);
-				
+
 				if (uuid != null) {
 					System.out.println();
 					List<User> users = Db.select(new Sql.Select().from("user")
@@ -129,14 +129,28 @@ public class AuthFilter implements Filter {
 		/**
 		 * admin access only
 		 */
+		
+		
+		
 		if (reqURI.indexOf("/admin") >= 0) {
 
-			if (ses == null || ses.getAttribute("username") == null
-					|| !ses.getAttribute("status").toString().equals("ADMIN")) {
-				FaceUtils.log.info("not authorized attempt to access admin/");
+			HttpSession session = req.getSession();
+			if (session == null || session.getAttribute("user") == null) {
+				FaceUtils.log
+						.warning("not authorized attempt to access admin/"+session.getAttribute("user"));
 
-				res.sendRedirect(req.getContextPath() + "/login");
+				res.sendRedirect(req.getContextPath() + "/kullanici-giris");
 				return false;
+			} else {
+				User user = (User) session.getAttribute("user");
+				System.out.println(user);
+				if (!user.getState().equals("ADMIN")) {
+					FaceUtils.log
+							.warning("Not authorized attempt to access admin/");
+
+					res.sendRedirect(req.getContextPath() + "/kullanici-giris");
+					return false;
+				}
 			}
 
 		}

@@ -12,7 +12,7 @@ import freela.util.FaceUtils;
 import freela.util.Sql;
 
 @ViewScoped
-@ManagedBean(name = "user")
+@ManagedBean
 public class Users extends CrudBase implements Serializable {
 
 	List<Map<String, String>> users;

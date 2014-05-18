@@ -123,26 +123,20 @@ public class Login implements Serializable {
 	}
 
 	public Login() {
-		System.out.println("yyy");
 		Object object = FacesContext.getCurrentInstance().getExternalContext()
 				.getSessionMap().get("user");
-		System.out.println("yyy");
 		if (object != null) {
 			this.user = (User) object;
-			System.out.println("yyy");
 			this.loggedIn = true;
 		}
 	}
 
 	public String login() {
-		System.out.println("xxx");
 		Sql.Select select = (Select) new Select().from("user")
 				.where("email", username).and("password", password);
 		List<Map<String, String>> table = Db.preparedSelect(select.prepare()
 				.get(), select.params());
-		System.out.println("xxx");
 		if (table.size() > 0) {
-			System.out.println("xxx");
 			if (table.get(0).get("state").toString().equals("PENDING")) {
 				FaceUtils.addError("Hesabınız Aktif Değil!");
 				loggedIn = false;
@@ -153,15 +147,13 @@ public class Login implements Serializable {
 					User.class).get(0);
 
 			loggedIn = true;
-			System.out.println("xxx");
 			if (remember) {
-				System.out.println("xxx");
 				FaceUtils.addCookie("remember", user.getUuid(), 100_000_000);
 
-				FacesContext.getCurrentInstance().getExternalContext()
-						.getSessionMap().put("user", user);
+				
 			}
-
+			FacesContext.getCurrentInstance().getExternalContext()
+			.getSessionMap().put("user", user);
 			return "index";
 		} else {
 			FaceUtils.addError("Kullanıcı ve/veya şifre yanlış.");
