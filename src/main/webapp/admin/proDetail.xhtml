@@ -14,7 +14,7 @@
 			<h:panelGrid style="width:100%;" rendered="#{prodet.hasMessage}">
 				<h4 class="#{prodet.messageType}">#{prodet.message}</h4>
 			</h:panelGrid>
-<h:messages styleClass="error"></h:messages>
+			<h:messages styleClass="error"></h:messages>
 			<h:panelGrid columns="2" columnClasses="alignRight"
 				style="margin-left:25px;" border="0" cellpadding="0" cellspacing="2">
 
@@ -65,154 +65,158 @@
 				<h:inputText id="expiredate" styleClass="datepicker"
 					pt:placeholder="Son satış tarihi " label="Tarih" required="true"
 					requiredMessage="Tarih uygun degil" tabindex="6"
-					value="#{prodet.pro.expiredate}" converterMessage="Tarih uygun degil">
+					value="#{prodet.pro.expiredate}"
+					converterMessage="Tarih uygun degil">
 					<f:convertDateTime pattern="dd.M.yyyy"></f:convertDateTime>
 				</h:inputText>
-<div></div>
+				<div></div>
 				<h:commandButton value="Kaydet" action="#{prodet.updatePro}"></h:commandButton>
 			</h:panelGrid>
-			<article class="module width_3_quarter" style="width: 40%;">
+			<h:panelGroup>
+				<article class="module width_3_quarter" style="width: 40%;">
 
-				<header>
-					<h3 class="tabs_involved">Urune ait kategoriler :</h3>
+					<header>
+						<h3 class="tabs_involved">Urune ait kategoriler :</h3>
 
-				</header>
+					</header>
 
-				<div class="tab_container">
+					<div class="tab_container">
 
-					<div id="tab1" class="tab_content">
-						<h:dataTable value="#{prodet.categories}" var="m" id="betDt1"
-							styleClass="tablesorter"
-							columnClasses="column1,column2,column3,column4,column5">
-							<c:forEach items="#{categories.columns}" var="c">
+						<div id="tab1" class="tab_content">
+							<h:dataTable value="#{prodet.categories}" var="m" id="betDt1"
+								styleClass="tablesorter"
+								columnClasses="column1,column2,column3,column4,column5">
+								<c:forEach items="#{categories.columns}" var="c">
 
-								<h:column>
-									<f:facet name="header">#{c.header}</f:facet>
+									<h:column>
+										<f:facet name="header">#{c.header}</f:facet>
 
-									<h:outputText>#{m[c.name]}</h:outputText>
+										<h:outputText>#{m[c.name]}</h:outputText>
 
-								</h:column>
-							</c:forEach>
-							<h:column pt:style="width:20%;">
-								<f:facet name="header">Eylemler</f:facet>
-								<h:commandButton image="images/icn_logout.png"
-									action="#{prodet.deleteCat(m)}"
-									onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"
-									pt:title="Sil"></h:commandButton>
-
-							</h:column>
-
-						</h:dataTable>
-
-					</div>
-				</div>
-			</article>
-			<article class="module width_3_quarter" style="width: 40%;">
-
-				<header>
-					<h3 class="tabs_involved">Urune ait durumlar</h3>
-
-				</header>
-
-				<div class="tab_container">
-
-					<div id="tab1" class="tab_content">
-						<h:dataTable value="#{prodet.states}" var="m" id="dtstates"
-							styleClass="tablesorter"
-							columnClasses="column1,column2,column3,column4,column5">
-							<c:forEach items="#{ps.columns}" var="c">
-
-								<h:column>
-									<f:facet name="header">#{c.header}</f:facet>
-
-									<h:outputText>#{m[c.name]}</h:outputText>
+									</h:column>
+								</c:forEach>
+								<h:column pt:style="width:20%;">
+									<f:facet name="header">Eylemler</f:facet>
+									<h:commandButton image="images/icn_logout.png"
+										action="#{prodet.deleteCat(m)}"
+										onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"
+										pt:title="Sil"></h:commandButton>
 
 								</h:column>
-							</c:forEach>
-							<h:column pt:style="width:20%;">
-								<f:facet name="header">Eylemler</f:facet>
-								<h:commandButton image="images/icn_logout.png"
-									action="#{prodet.deleteState(m)}"
-									onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"
-									pt:title="Sil"></h:commandButton>
 
-							</h:column>
+							</h:dataTable>
 
-						</h:dataTable>
-
+						</div>
 					</div>
-				</div>
-			</article>
-			<article class="module width_3_quarter" style="width: 40%;">
+				</article>
+				<article class="module width_3_quarter" style="width: 40%;">
 
-				<header>
-					<h3 class="tabs_involved">anahtar kelimeler</h3>
+					<header>
+						<h3 class="tabs_involved">Urune ait durumlar</h3>
 
-				</header>
+					</header>
 
-				<div class="tab_container">
+					<div class="tab_container">
 
-					<div id="tab1" class="tab_content">
-						<h:dataTable value="#{prodet.keywords}" var="m" id="dtkeywords"
-							styleClass="tablesorter"
-							columnClasses="column1,column2,column3,column4,column5">
+						<div id="tab1" class="tab_content">
+							<h:dataTable value="#{prodet.states}" var="m" id="dtstates"
+								styleClass="tablesorter"
+								columnClasses="column1,column2,column3,column4,column5">
+								<c:forEach items="#{ps.columns}" var="c">
 
-							<h:column>
-								<f:facet name="header">Kelime</f:facet>
+									<h:column>
+										<f:facet name="header">#{c.header}</f:facet>
 
-								<h:outputText>#{m}</h:outputText>
+										<h:outputText>#{m[c.name]}</h:outputText>
 
-							</h:column>
-
-							<h:column pt:style="width:20%;">
-								<f:facet name="header">Eylemler</f:facet>
-								<h:commandButton image="images/icn_logout.png"
-									action="#{prodet.deleteKeyword(m)}"
-									onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"
-									pt:title="Sil"></h:commandButton>
-
-							</h:column>
-
-						</h:dataTable>
-
-					</div>
-				</div>
-			</article>
-			<article class="module width_3_quarter" style="width: 40%;">
-
-				<header>
-					<h3 class="tabs_involved">Fotograflar</h3>
-
-				</header>
-
-				<div class="tab_container">
-
-					<div id="tab1" class="tab_content">
-						<h:dataTable value="#{prodet.photos}" var="m" id="dtphotos"
-							styleClass="tablesorter">
-							<c:forEach items="#{prodet.photoColumns}" var="c">
-
-								<h:column>
-									<f:facet name="header">#{c.header}</f:facet>
-
-									<h:outputText>#{m[c.name]}</h:outputText>
+									</h:column>
+								</c:forEach>
+								<h:column pt:style="width:20%;">
+									<f:facet name="header">Eylemler</f:facet>
+									<h:commandButton image="images/icn_logout.png"
+										action="#{prodet.deleteState(m)}"
+										onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"
+										pt:title="Sil"></h:commandButton>
 
 								</h:column>
-							</c:forEach>
-							<h:column pt:style="width:20%;">
-								<f:facet name="header">Eylemler</f:facet>
-								<h:commandButton image="images/icn_logout.png"
-									action="#{prodet.deletePhoto(m)}"
-									onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"
-									pt:title="Sil"></h:commandButton>
 
-							</h:column>
+							</h:dataTable>
 
-						</h:dataTable>
-
+						</div>
 					</div>
-				</div>
-			</article>
+				</article>
+				<article class="module width_3_quarter" style="width: 40%;">
+
+					<header>
+						<h3 class="tabs_involved">anahtar kelimeler</h3>
+
+					</header>
+
+					<div class="tab_container">
+
+						<div id="tab1" class="tab_content">
+							<h:dataTable value="#{prodet.keywords}"
+								rendered="#{prodet.keywords.size()>0}" var="m" id="dtkeywords"
+								styleClass="tablesorter"
+								columnClasses="column1,column2,column3,column4,column5">
+
+								<h:column>
+									<f:facet name="header">Kelime</f:facet>
+
+									<h:outputText>#{m}</h:outputText>
+
+								</h:column>
+
+								<h:column pt:style="width:20%;">
+									<f:facet name="header">Eylemler</f:facet>
+									<h:commandButton image="images/icn_logout.png"
+										action="#{prodet.deleteKeyword(m)}"
+										onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"
+										pt:title="Sil"></h:commandButton>
+
+								</h:column>
+
+							</h:dataTable>
+
+						</div>
+					</div>
+				</article>
+				<article class="module width_3_quarter" style="width: 40%;">
+
+					<header>
+						<h3 class="tabs_involved">Fotograflar</h3>
+
+					</header>
+
+					<div class="tab_container">
+
+						<div id="tab1" class="tab_content">
+							<h:dataTable value="#{prodet.photos}" var="m" id="dtphotos"
+								styleClass="tablesorter">
+								<c:forEach items="#{prodet.photoColumns}" var="c">
+
+									<h:column>
+										<f:facet name="header">#{c.header}</f:facet>
+
+										<h:outputText>#{m[c.name]}</h:outputText>
+
+									</h:column>
+								</c:forEach>
+								<h:column pt:style="width:20%;">
+									<f:facet name="header">Eylemler</f:facet>
+									<h:commandButton image="images/icn_logout.png"
+										action="#{prodet.deletePhoto(m)}"
+										onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"
+										pt:title="Sil"></h:commandButton>
+
+								</h:column>
+
+							</h:dataTable>
+
+						</div>
+					</div>
+				</article>
+			</h:panelGroup>
 		</h:form>
 
 		<h:outputScript>

@@ -1,6 +1,9 @@
 package fazlastoks.admin;
 
+import static freela.util.FaceUtils.log;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -24,24 +27,80 @@ public class ProDetail extends CrudBase implements Serializable {
 	Product pro;
 	List<ColumnModel> photoColumns, keywordColumns;
 
+	public String deleteKeyword(String rec) {
+		keywords.remove(rec);
+		String ks = "";
+		for (String s : keywords) {
+			ks += s + ",";
+		}
+		int generatedKey = Db.update(new Sql.Update("product")
+				.add("keywords", ks).where("id", pro.getId()).get());
+		if (generatedKey > 0) {
+			super.success("Anahtar Kelime Silindi.");
+		} else {
+			super.errorOccured();
+		}
+		return "";
+	}
+
+	public String deleteCat(Map<String, String> rec) {
+		categories.remove(rec);
+		int generatedKey = Db.delete(new Sql.Delete("productcategory").where(
+				"id", rec.get("id")).get());
+		if (generatedKey > 0) {
+			super.success("Kategori Silindi.");
+		} else {
+			super.errorOccured();
+		}
+		return "";
+	}
+
+	public String deleteState(Map<String, String> rec) {
+		states.remove(rec);
+		int generatedKey = Db.delete(new Sql.Delete("prostate").where("id",
+				rec.get("id")).get());
+		if (generatedKey > 0) {
+			super.success("Durum Silindi.");
+		} else {
+			super.errorOccured();
+		}
+		return "";
+	}
+
+	public String deletePhoto(Map<String, String> rec) {
+		photos.remove(rec);
+		int generatedKey = Db.delete(new Sql.Delete("productphoto").where("id",
+				rec.get("id")).get());
+		if (generatedKey > 0) {
+			super.success("Resim Silindi.");
+		} else {
+			super.errorOccured();
+		}
+		return "";
+	}
+
 	public String updatePro() {
 
 		FaceUtils.log.info("updatecalled");
 		Update sql = (Update) new Update("product")
-				.add("pname", pro.getPname()).add("content", pro.getContent())
-				.add("price", pro.getPrice()).add("pprice", pro.getPprice())
+				.add("pname", pro.getPname())
+				.add("content", pro.getContent())
+				.add("price", pro.getPrice())
+				.add("pprice", pro.getPprice())
 				.add("m3", pro.getM3())
-				.add("kg", pro.getKg()).add("kalem", pro.getKalem())
-				.add("expiredate", FaceUtils.getFormattedTime(pro.getExpiredate()))
+				.add("kg", pro.getKg())
+				.add("kalem", pro.getKalem())
+				.add("expiredate",
+						FaceUtils.getFormattedTime(pro.getExpiredate()))
 				.where("id=", pro.getId());
 		int generatedKey = Db.prepareInsert(sql.prepare().get(), sql.params());
-		FaceUtils.log.info(generatedKey+"");
-		if(generatedKey>0){
+		FaceUtils.log.info(generatedKey + "");
+		if (generatedKey > 0) {
 			super.success("Ürün Güncellendi.");
-		}else{
+		} else {
 			super.errorOccured();
 		}
-		
+
 		return null;
 
 	}
@@ -58,7 +117,17 @@ public class ProDetail extends CrudBase implements Serializable {
 				.innerJoin("category")
 				.on("category.id", "productcategory.categoryid")
 				.where("productid=", this.pro.getId()).get());
-		keywords = Arrays.asList(pro.getKeywords().split(","));
+
+		log.fine(pro.getKeywords().length() + "");
+
+		String[] split = pro.getKeywords().split(",");
+		if (split.length > 0) {
+			if (split[0].length() > 1) {
+				keywords = new ArrayList<String>(Arrays.asList(split));
+				System.out.println(keywords.size());
+			}
+		}
+
 		states = Db.selectTable(new Sql.Select().from("prostate")
 				.innerJoin("state").on("state.id", "prostate.stateid")
 				.where("productid=", this.pro.getId()).get());
