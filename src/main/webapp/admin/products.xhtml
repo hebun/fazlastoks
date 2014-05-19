@@ -10,7 +10,7 @@
 	<ui:define name="content">
 
 
-		<h4 class="alert_info">Detay sayfasi icin urun ismine tiklayin.</h4>
+		<h4 class="alert_info">Eylem açıklaması için fareyi ilgili eylemin üstüne götürün.</h4>
 
 		<h:form>
 			<h:panelGrid style="width:100%;" rendered="#{product.hasMessage}">
@@ -46,12 +46,19 @@
 							<h:column pt:style="width:20%;">
 
 								<f:facet name="header">Eylemler</f:facet>
-								<h:commandButton image="images/icn_trash.png"
+								<h:commandButton image="images/icn_logout.png"
 									action="#{product.delete(m)}"
 									onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"
 									pt:title="Sil"></h:commandButton>
 
-
+								<h:commandButton rendered="#{m['firsatid'] == 'NULL'}"
+									image="images/icn_new_article.png"
+									action="#{product.addToFirsats(m)}"
+									pt:title="Firsat Paketlerine Ekle"></h:commandButton>
+								<h:commandButton rendered="#{m['firsatid'] ne 'NULL'}"
+									image="images/icn_jump_back.png"
+									action="#{product.removeFromFirsats(m)}"
+									pt:title="Firsat Paketlerinden Cıkar"></h:commandButton>
 							</h:column>
 
 						</h:dataTable>

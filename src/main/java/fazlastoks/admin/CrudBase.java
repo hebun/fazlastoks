@@ -24,7 +24,29 @@ public class CrudBase {
 		columns = Db.select(new Sql.Select("header,name").from("gridfield")
 				.where("tableName=", this.table).and("state=", "0").get(),
 				ColumnModel.class);
-		
+
+	}
+
+	public void inform(String type, String message) {
+		hasMessage = true;
+		messageType = "alert_" + type;
+		this.message = message;
+	}
+
+	public void warn(String message) {
+		this.inform("warning", message);
+	}
+
+	public void error(String message) {
+		this.inform("error", message);
+	}
+
+	public void info(String message) {
+		this.inform("info", message);
+	}
+
+	public void success(String message) {
+		this.inform("success", message);
 	}
 
 	public List<ColumnModel> getColumns() {

@@ -11,6 +11,7 @@
 
 	</application>
 	<lifecycle>
+	
 		<phase-listener>fazlastoks.MyPhaseListener</phase-listener>
 	</lifecycle>
 </faces-config>

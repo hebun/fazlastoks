@@ -18,6 +18,32 @@ public class Products extends CrudBase implements Serializable {
 
 	List<Map<String, String>> products;
 
+	public void addToFirsats(Map<String, String> pr) {
+		int id = Db.insert(new Sql.Insert("firsatproduct").add("productid",
+				pr.get("id")).get());
+
+		pr.put("firsatid", id+"");
+
+		if (id > 0) {
+			super.success("Ürün haftanın fırsat paketlerine ekledi.");
+		} else {
+			super.warn("Hata olustu.");
+		}
+
+	}
+
+	public void removeFromFirsats(Map<String, String> pr) {
+		int id = Db.delete(new Sql.Delete("firsatproduct").where("productid",
+				pr.get("id")).get());
+		pr.put("firsatid", "NULL");
+		if (id > 0) {
+			super.success("Ürün haftanın fırsat paketlerinden çıkarıldı.");
+		} else {
+			super.warn("Hata oluştu.");
+		}
+
+	}
+
 	public void delete(Map<String, String> pr) {
 
 		int ret = Db.delete(new Sql.Delete(table).where("id", pr.get("id"))
@@ -47,11 +73,14 @@ public class Products extends CrudBase implements Serializable {
 
 	public Products() {
 		this.table = "product";
-		String sql = new Sql.Select("product.*,user.*").from(table)
-				.innerJoin("user").on("product.userid", "user.id").get();
+		String sql = new Sql.Select(
+				"product.*,user.*,firsatproduct.id as firsatid").from(table)
+				.innerJoin("user").on("product.userid", "user.id")
+				.leftJoin("firsatproduct")
+				.on("firsatproduct.productid", "product.id").get();
 
 		products = Db.selectTable(sql);
-		FaceUtils.log.info(insCount++ + "");
+
 		super.initColumns();
 
 	}

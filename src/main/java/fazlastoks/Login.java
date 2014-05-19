@@ -11,7 +11,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.Size;
 
 import model.User;
 import freela.util.App;
