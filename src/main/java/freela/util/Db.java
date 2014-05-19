@@ -263,6 +263,7 @@ public class Db {
 			if (generatedKeys.next()) {
 				return (int) generatedKeys.getLong(1);
 			}
+			return res;
 		} catch (Exception ex) {
 			FaceUtils.log.warning(ex.getMessage());
 			return 0;
@@ -275,7 +276,6 @@ public class Db {
 
 			}
 		}
-		return 0;
 	}
 
 	public static int update(String sql) {

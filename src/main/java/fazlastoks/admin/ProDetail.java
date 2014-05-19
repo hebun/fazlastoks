@@ -13,6 +13,7 @@ import model.Product;
 import freela.util.Db;
 import freela.util.FaceUtils;
 import freela.util.Sql;
+import freela.util.Sql.Update;
 
 @ViewScoped
 @ManagedBean(name = "prodet")
@@ -20,31 +21,29 @@ public class ProDetail extends CrudBase implements Serializable {
 
 	List<Map<String, String>> categories, states, photos;
 	List<String> keywords;
-	public List<String> getKeywords() {
-		return keywords;
-	}
-
-	public void setKeywords(List<String> keywords) {
-		this.keywords = keywords;
-	}
-
 	Product pro;
 	List<ColumnModel> photoColumns, keywordColumns;
 
-	public List<ColumnModel> getPhotoColumns() {
-		return photoColumns;
-	}
+	public String updatePro() {
 
-	public void setPhotoColumns(List<ColumnModel> photoColumns) {
-		this.photoColumns = photoColumns;
-	}
+		FaceUtils.log.info("updatecalled");
+		Update sql = (Update) new Update("product")
+				.add("pname", pro.getPname()).add("content", pro.getContent())
+				.add("price", pro.getPrice()).add("pprice", pro.getPprice())
+				.add("m3", pro.getM3())
+				.add("kg", pro.getKg()).add("kalem", pro.getKalem())
+				.add("expiredate", FaceUtils.getFormattedTime(pro.getExpiredate()))
+				.where("id=", pro.getId());
+		int generatedKey = Db.prepareInsert(sql.prepare().get(), sql.params());
+		FaceUtils.log.info(generatedKey+"");
+		if(generatedKey>0){
+			super.success("Ürün Güncellendi.");
+		}else{
+			super.errorOccured();
+		}
+		
+		return null;
 
-	public List<ColumnModel> getKeywordColumns() {
-		return keywordColumns;
-	}
-
-	public void setKeywordColumns(List<ColumnModel> keywordColumns) {
-		this.keywordColumns = keywordColumns;
 	}
 
 	public ProDetail() {
@@ -88,11 +87,13 @@ public class ProDetail extends CrudBase implements Serializable {
 		return categories;
 	}
 
+	public List<String> getKeywords() {
+		return keywords;
+	}
+
 	public void setCategories(List<Map<String, String>> categories) {
 		this.categories = categories;
 	}
-
-
 
 	public List<Map<String, String>> getStates() {
 		return states;
@@ -116,6 +117,26 @@ public class ProDetail extends CrudBase implements Serializable {
 
 	public void setPro(Product pro) {
 		this.pro = pro;
+	}
+
+	public List<ColumnModel> getPhotoColumns() {
+		return photoColumns;
+	}
+
+	public void setPhotoColumns(List<ColumnModel> photoColumns) {
+		this.photoColumns = photoColumns;
+	}
+
+	public List<ColumnModel> getKeywordColumns() {
+		return keywordColumns;
+	}
+
+	public void setKeywordColumns(List<ColumnModel> keywordColumns) {
+		this.keywordColumns = keywordColumns;
+	}
+
+	public void setKeywords(List<String> keywords) {
+		this.keywords = keywords;
 	}
 
 	private static final long serialVersionUID = 7897026886187758190L;

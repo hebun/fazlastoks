@@ -12,8 +12,29 @@
 
 		<link rel="stylesheet" href="css/layout.css" type="text/css"
 			media="screen" />
+
+		<link rel="stylesheet" type="text/css"
+			href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
 		<script type="text/javascript" src="../_js/jquery.min.js"></script>
-<ui:insert name="head"></ui:insert>
+		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+		<script type="text/javascript" src="../_js/client.js"></script>
+		<style>
+.error {
+	margin: 10px 0px;
+	padding: 5px 5px 5px 50px;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+	-moz-border-radius: .5em;
+	-webkit-border-radius: .5em;
+	border-radius: .5em;
+	color: #D8000C;
+	background-color: #FFBABA;
+
+	font-size: 14px;
+	font-family: Arial, Tahoma, Verdana;
+}
+</style>
+		<ui:insert name="head"></ui:insert>
 	</h:head>
 
 
@@ -32,9 +53,7 @@
 
 		<section id="secondary_bar">
 		<div class="user">
-			<p>
-				Admin
-			</p>
+			<p>Admin</p>
 		</div>
 		<div class="breadcrumbs_container"></div>
 		</section>

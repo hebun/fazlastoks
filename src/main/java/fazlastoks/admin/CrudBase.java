@@ -96,4 +96,9 @@ public class CrudBase {
 	public void toggleRead(Object m) {
 	}
 
+	public void errorOccured() {
+		this.error("Hata Oluştu.");
+
+	}
+
 }

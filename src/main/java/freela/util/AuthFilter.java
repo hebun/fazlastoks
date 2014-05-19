@@ -22,7 +22,7 @@ import model.User;
 import fazlastoks.Login;
 import freela.util.FaceUtils;
 
-@WebFilter(filterName = "AuthFilter", urlPatterns = { "/*" })
+@WebFilter(filterName = "AuthFilter", servletNames="Faces Servlet")
 public class AuthFilter implements Filter {
 
 	static boolean devStage = false;
@@ -35,21 +35,28 @@ public class AuthFilter implements Filter {
 
 	}
 
+	static int callCount = 0;
+
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
+
 		String COOKIE_NAME = "remember";
 		try {
 			HttpServletRequest req = (HttpServletRequest) request;
 			HttpServletResponse res = (HttpServletResponse) response;
 			HttpSession ses = req.getSession(false);
+			String[] split = req.getRequestURI().split("\\.");
+			
+			String reqURI = split.length == 0 ? req.getRequestURI()
+					: split[split.length - 1];
+			System.out.println(callCount++ + reqURI);
 			User user = (User) req.getSession().getAttribute("user");
 
 			if (user == null) {
 				String uuid = getCookieValue(req, COOKIE_NAME);
 
 				if (uuid != null) {
-					System.out.println();
 					List<User> users = Db.select(new Sql.Select().from("user")
 							.where("uuid", uuid).get(), User.class);
 
@@ -69,8 +76,6 @@ public class AuthFilter implements Filter {
 			if (user != null) {
 				chain.doFilter(request, response);
 			} else {
-
-				String reqURI = req.getRequestURI();
 
 				if (devStage) {
 					chain.doFilter(request, response);
@@ -129,15 +134,13 @@ public class AuthFilter implements Filter {
 		/**
 		 * admin access only
 		 */
-		
-		
-		
+
 		if (reqURI.indexOf("/admin") >= 0) {
 
 			HttpSession session = req.getSession();
 			if (session == null || session.getAttribute("user") == null) {
-				FaceUtils.log
-						.warning("not authorized attempt to access admin/"+session.getAttribute("user"));
+				FaceUtils.log.warning("not authorized attempt to access admin/"
+						+ session.getAttribute("user"));
 
 				res.sendRedirect(req.getContextPath() + "/kullanici-giris");
 				return false;

@@ -193,7 +193,7 @@ public class FaceUtils {
 		
 	}
 
-	private static String getFormattedTime(Date time) {
+	public static String getFormattedTime(Date time) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("Y-M-d H:m:s");
 
 		String formattedTime = dateFormat.format(time);

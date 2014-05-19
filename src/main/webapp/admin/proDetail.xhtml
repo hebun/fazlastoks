@@ -14,7 +14,7 @@
 			<h:panelGrid style="width:100%;" rendered="#{prodet.hasMessage}">
 				<h4 class="#{prodet.messageType}">#{prodet.message}</h4>
 			</h:panelGrid>
-
+<h:messages styleClass="error"></h:messages>
 			<h:panelGrid columns="2" columnClasses="alignRight"
 				style="margin-left:25px;" border="0" cellpadding="0" cellspacing="2">
 
@@ -22,40 +22,54 @@
 				<p class="contact">
 					<label for="pname">Paket Ismi : </label>
 				</p>
-				<h:outputText id="pname" tabindex="1" value="#{prodet.pro.pname}">
-				</h:outputText>
+				<h:inputText id="pname" tabindex="1" value="#{prodet.pro.pname}">
+				</h:inputText>
 
 				<p class="contact">
 					<label for="content">Paket icerigi : </label>
 				</p>
 
-				<h:outputText id="content" value="#{prodet.pro.content}"
-					tabindex="2"></h:outputText>
+				<h:inputText id="content" value="#{prodet.pro.content}" tabindex="2"></h:inputText>
 
 				<p class="contact">
 					<label for="quantity">Miktar : </label>
 				</p>
-
-				<h:outputText id="quantity" tabindex="4"
-					value="#{prodet.pro.quantity}">
-				</h:outputText>
+				<h:panelGroup>
+					<h:inputText value="#{prodet.pro.kalem}" style="width:50px;"
+						onkeypress="if((event.which &lt; 48 &#38;&#38; event.which &gt; 31 )  || event.which &gt; 57) return false;"></h:inputText>
+					<span style="font-size: 12px;"> Kalem </span>
+					<h:inputText value="#{prodet.pro.kg}" style="width:50px;"
+						onkeypress="if((event.which &lt; 48 &#38;&#38; event.which &gt; 31 )  || event.which &gt; 57) return false;"></h:inputText>
+					<span style="font-size: 12px;"> KG </span>
+					<h:inputText value="#{prodet.pro.m3}" style="width:50px;"
+						onkeypress="if((event.which &lt; 48 &#38;&#38; event.which &gt; 31 )  || event.which &gt; 57) return false;"></h:inputText>
+					<span style="font-size: 12px;"> M³ </span>
+				</h:panelGroup>
+				<p class="contact">
+					<label for="price">Paket Piyasa Fiyati(TL) : </label>
+				</p>
+				<h:inputText id="price" tabindex="5" value="#{prodet.pro.pprice}">
+				</h:inputText>
 
 				<p class="contact">
-					<label for="price">Paket Toplam Fiyati(TL) : </label>
+					<label for="price">Paket Firsat Fiyati(TL) : </label>
 				</p>
-				<h:outputText id="price" tabindex="5" value="#{prodet.pro.price}">
+				<h:inputText id="pprice" tabindex="6" value="#{prodet.pro.price}">
 
 
-				</h:outputText>
+				</h:inputText>
 
 				<p class="contact">
 					<label for="expiredate">Paket Geçerlik Tarihi : </label>
 				</p>
-				<h:outputText id="expiredate" styleClass="datepicker" tabindex="6"
-					value="#{prodet.pro.expiredate}">
-
-				</h:outputText>
-
+				<h:inputText id="expiredate" styleClass="datepicker"
+					pt:placeholder="Son satış tarihi " label="Tarih" required="true"
+					requiredMessage="Tarih uygun degil" tabindex="6"
+					value="#{prodet.pro.expiredate}" converterMessage="Tarih uygun degil">
+					<f:convertDateTime pattern="dd.M.yyyy"></f:convertDateTime>
+				</h:inputText>
+<div></div>
+				<h:commandButton value="Kaydet" action="#{prodet.updatePro}"></h:commandButton>
 			</h:panelGrid>
 			<article class="module width_3_quarter" style="width: 40%;">
 
@@ -142,14 +156,14 @@
 						<h:dataTable value="#{prodet.keywords}" var="m" id="dtkeywords"
 							styleClass="tablesorter"
 							columnClasses="column1,column2,column3,column4,column5">
-						
-								<h:column>
-									<f:facet name="header">Kelime</f:facet>
 
-									<h:outputText>#{m}</h:outputText>
+							<h:column>
+								<f:facet name="header">Kelime</f:facet>
 
-								</h:column>
-						
+								<h:outputText>#{m}</h:outputText>
+
+							</h:column>
+
 							<h:column pt:style="width:20%;">
 								<f:facet name="header">Eylemler</f:facet>
 								<h:commandButton image="images/icn_logout.png"
@@ -187,7 +201,7 @@
 							</c:forEach>
 							<h:column pt:style="width:20%;">
 								<f:facet name="header">Eylemler</f:facet>
-								<h:commandButton image="images/icn_logout.png" 
+								<h:commandButton image="images/icn_logout.png"
 									action="#{prodet.deletePhoto(m)}"
 									onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"
 									pt:title="Sil"></h:commandButton>
