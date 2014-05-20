@@ -19,11 +19,23 @@ public class Categories extends CrudBase implements Serializable {
 	List<Category> cats;
 
 	public Categories() {
-		this.table="category";
-		cats = Db.select(new Sql.Select().from(table).get(),
-				Category.class);
+		this.table = "category";
+		cats = Db.select(new Sql.Select().from(table).get(), Category.class);
 
 		initColumns();
+
+	}
+
+	public String updateRow(Category c) {
+
+		if (Db.update(new Sql.Update(table).add("cname", c.getCname())
+				.where("id", c.getId()).get()) > 0) {
+			super.success("Kategori Guncellendi.");
+		} else {
+			super.errorOccured();
+		}
+		this.editRowId = "0";
+		return null;
 
 	}
 
@@ -31,8 +43,7 @@ public class Categories extends CrudBase implements Serializable {
 
 		Category cat = new Category(newCat);
 
-		cat.setId(Db.insert(new Sql.Insert(table).add("cname", newCat)
-				.get()));
+		cat.setId(Db.insert(new Sql.Insert(table).add("cname", newCat).get()));
 
 		cats.add(cat);
 		hasMessage = true;

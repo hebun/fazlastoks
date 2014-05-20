@@ -25,6 +25,18 @@ public class States extends CrudBase implements Serializable {
 		initColumns();
 	}
 
+	public String updateRow(State s) {
+
+		if (Db.update(new Sql.Update(table).add("sname", s.getSname())
+				.where("id", s.getId()).get()) > 0) {
+			super.success("Durum Guncellendi.");
+		} else {
+			super.errorOccured();
+		}
+		this.editRowId = "0";
+		return null;
+
+	}
 	public void addState() {
 		State cat = new State(newCat);
 

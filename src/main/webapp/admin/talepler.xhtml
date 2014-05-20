@@ -10,7 +10,8 @@
 	<ui:define name="content">
 
 		<free:crud bean="#{talep}" list="#{talep.taleps}"
-			header="Ürün Alış Talepleri" hasInsert="false" hasToggleRead="true"  width="90"></free:crud>
+			header="Ürün Alış Talepleri" hasInsert="false" hasEditButton="false"
+			hasToggleRead="true" width="90"></free:crud>
 
 		<h:outputScript>
 		$(document).ready(function() 
@@ -24,8 +25,9 @@
 	<ui:define name="head">
 		<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
 		<style type="text/css">
-					
-			.delButton {background-image: url(images/icn_trash.png)			}
-		</style>
+.delButton {
+	background-image: url(images/icn_trash.png)
+}
+</style>
 	</ui:define>
 </ui:composition>

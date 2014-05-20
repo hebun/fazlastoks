@@ -12,8 +12,24 @@ public class CrudBase {
 	String messageType;
 	String message;
 	String newCat;
+	String editRowId = "0";
+
+	public String getEditRowId() {
+		return editRowId;
+	}
+
+	public void setEditRowId(String editRowId) {
+		this.editRowId = editRowId;
+	}
 
 	List<ColumnModel> columns;
+
+	public String editRow(String id) {
+		editRowId = id;
+		return null;
+	}
+
+	
 
 	public CrudBase() {
 

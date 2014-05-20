@@ -7,7 +7,7 @@
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:free="http://java.sun.com/jsf/composite/free">
 
-	
+
 
 	<ui:define name="content">
 
@@ -265,7 +265,7 @@
 											<h:inputFile id="file" value="#{prodet.file}" />
 
 											<h:commandButton id="submitFile"
-												style="vertical-align:middle; height:42px;" value="Yükle"
+												style="vertical-align:middle; height:22px;" value="Yükle"
 												action="#{prodet.upload}" styleClass="buttom">
 												<f:ajax execute="file" render="f:dtphotos f:msgs"></f:ajax>
 											</h:commandButton>
@@ -282,8 +282,8 @@
 
 												<h:column>
 													<f:facet name="header">#{c.header}</f:facet>
-<a href="../images/#{m[c.name]}" data-lightbox="img">#{m[c.name].substring(22)}</a>
-													<h:outputText>#{m[c.name]}</h:outputText>
+													<a href="../images/#{m[c.name]}" data-lightbox="img">#{m[c.name].substring(22)}</a>
+
 
 												</h:column>
 											</c:forEach>
