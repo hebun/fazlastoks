@@ -89,7 +89,7 @@ public class ProDetail extends CrudBase implements Serializable {
 			int insertId = updateKeywordColumn();
 			if (insertId > 0) {
 
-				super.success("Durum Eklendi");
+				super.success("Kelime Eklendi");
 			} else {
 				super.errorOccured();
 				;

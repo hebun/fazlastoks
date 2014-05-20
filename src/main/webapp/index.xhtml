@@ -25,7 +25,7 @@
 					width="32" height="30" class="imageLeft" /> &#160;&#160;Ücretsiz
 					Bülten İçin</span> <span class="emailUyelik">
 					<form action="#" method="get">
-						<input name="emailKayit" type="text"
+						<input name="emailKayit"  type="text"
 							placeholder="E-Mail adresinizi giriniz..." /> <input
 							type="submit" name="Gonder" value="Gönder" class="emailGonder" />
 					</form>
@@ -61,7 +61,7 @@
 						</div>
 						<div class="firsatFiyat">
 							<span class="baslik4">Fırsat Fiyatı</span>
-							<h:outputText styleClass="baslik3" value="#{paket.pprice}">
+							<h:outputText styleClass="baslik3" value="#{paket.price}">
 								<f:convertNumber type="currency" currencySymbol="TL"
 									locale="tr_TR" />
 							</h:outputText>

@@ -1,13 +1,14 @@
-input:focus::-webkit-input-placeholder {
-	color: transparent;
-	font-weight: bold;
+/* do not group these rules */
+*::-webkit-input-placeholder {
+  color: black;
 }
-
-input:focus:-moz-placeholder {
-	font-weight: bold;
-	color: black;
+*::-moz-placeholder {
+  color: black;
+    opacity: 1;
 }
-
+*:-ms-input-placeholder { /* IE10+ */
+  color: black;
+}
 .searchButton {
 	display: block;
 	margin-left: 5px;
