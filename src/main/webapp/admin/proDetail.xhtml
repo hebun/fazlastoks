@@ -10,10 +10,12 @@
 	<ui:define name="content">
 
 
-		<h:form>
-			<h:panelGrid style="width:100%;" rendered="#{prodet.hasMessage}">
-				<h4 class="#{prodet.messageType}">#{prodet.message}</h4>
-			</h:panelGrid>
+		<h:form id="f" enctype="multipart/form-data">
+			<h:panelGroup id="msgs">
+				<h:panelGrid style="width:100%;" rendered="#{prodet.hasMessage}">
+					<h4 class="#{prodet.messageType}">#{prodet.message}</h4>
+				</h:panelGrid>
+			</h:panelGroup>
 			<h:messages styleClass="error"></h:messages>
 			<h:panelGrid columns="2" columnClasses="alignRight"
 				style="margin-left:25px;" border="0" cellpadding="0" cellspacing="2">
@@ -73,49 +75,86 @@
 				<h:commandButton value="Kaydet" action="#{prodet.updatePro}"></h:commandButton>
 			</h:panelGrid>
 			<h:panelGroup>
-				<article class="module width_3_quarter" style="width: 40%;">
+				<h:panelGroup id="catsGrid">
+					<article id="catsGrid" class="module width_3_quarter"
+						style="width: 40%;">
 
-					<header>
-						<h3 class="tabs_involved">Urune ait kategoriler :</h3>
+						<header>
+							<ui:fragment rendered="#{!prodet.addCategory}">
+								<h3 class="tabs_involved">Urune ait kategoriler :</h3>
+								<h:commandButton style="margin-top:5px;" value="Yeni Ekle"
+									action="#{prodet.setAddCategory(true)}">
+									<f:ajax render="catsGrid"></f:ajax>
+								</h:commandButton>
+							</ui:fragment>
+							<ui:fragment id="addCat" rendered="#{prodet.addCategory}">
+								<h:selectOneMenu value="#{prodet.selectedCatId}" id="procats">
+									<f:selectItems value="#{categories.cats}" var="c"
+										itemLabel="#{c.cname}" itemValue="#{c.id}" />
+								</h:selectOneMenu>
+								<h:commandButton style="margin-top:5px;" value="Kaydet"
+									action="#{prodet.addCategoryToProduct}">
+									<f:ajax render="f:betDt1 f:msgs" execute="f:procats"></f:ajax>
+								</h:commandButton>
+							</ui:fragment>
+						</header>
 
-					</header>
+						<div class="tab_container">
 
-					<div class="tab_container">
+							<div id="tab1" class="tab_content">
+								<h:dataTable value="#{prodet.categories}" var="m" id="betDt1"
+									styleClass="tablesorter"
+									columnClasses="column1,column2,column3,column4,column5">
+									<c:forEach items="#{categories.columns}" var="c">
 
-						<div id="tab1" class="tab_content">
-							<h:dataTable value="#{prodet.categories}" var="m" id="betDt1"
-								styleClass="tablesorter"
-								columnClasses="column1,column2,column3,column4,column5">
-								<c:forEach items="#{categories.columns}" var="c">
+										<h:column>
+											<f:facet name="header">#{c.header}</f:facet>
 
-									<h:column>
-										<f:facet name="header">#{c.header}</f:facet>
+											<h:outputText>#{m[c.name]}</h:outputText>
 
-										<h:outputText>#{m[c.name]}</h:outputText>
+										</h:column>
+									</c:forEach>
+									<h:column pt:style="width:20%;">
+										<f:facet name="header">Eylemler</f:facet>
+										<h:commandButton image="images/icn_logout.png"
+											action="#{prodet.deleteCat(m)}"
+											onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"
+											pt:title="Sil"></h:commandButton>
 
 									</h:column>
-								</c:forEach>
-								<h:column pt:style="width:20%;">
-									<f:facet name="header">Eylemler</f:facet>
-									<h:commandButton image="images/icn_logout.png"
-										action="#{prodet.deleteCat(m)}"
-										onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"
-										pt:title="Sil"></h:commandButton>
 
-								</h:column>
+								</h:dataTable>
 
-							</h:dataTable>
-
+							</div>
 						</div>
-					</div>
-				</article>
-				<article class="module width_3_quarter" style="width: 40%;">
+					</article>
+				</h:panelGroup>
 
-					<header>
-						<h3 class="tabs_involved">Urune ait durumlar</h3>
+				<article id="statesGrid" class="module width_3_quarter"
+					style="width: 40%;">
+					<h:panelGroup id="statesGrid">
+						<header>
 
-					</header>
-
+							<ui:fragment rendered="#{!prodet.addState}">
+								<h3 class="tabs_involved">Urune ait durumlar</h3>
+								<h:commandButton style="margin-top:5px;" value="Yeni Ekle"
+									action="#{prodet.setAddState(true)}">
+									<f:ajax render="f:statesGrid"></f:ajax>
+								</h:commandButton>
+							</ui:fragment>
+							<ui:fragment id="addState" rendered="#{prodet.addState}">
+								<h:selectOneMenu value="#{prodet.selectedStateId}"
+									id="prostates">
+									<f:selectItems value="#{ps.states}" var="s"
+										itemLabel="#{s.sname}" itemValue="#{s.id}" />
+								</h:selectOneMenu>
+								<h:commandButton style="margin-top:5px;" value="Kaydet"
+									action="#{prodet.addStateToProduct}">
+									<f:ajax render="f:dtstates f:msgs" execute="f:prostates"></f:ajax>
+								</h:commandButton>
+							</ui:fragment>
+						</header>
+					</h:panelGroup>
 					<div class="tab_container">
 
 						<div id="tab1" class="tab_content">
@@ -147,16 +186,31 @@
 				</article>
 				<article class="module width_3_quarter" style="width: 40%;">
 
-					<header>
-						<h3 class="tabs_involved">anahtar kelimeler</h3>
+					<h:panelGroup id="keywordsGrid">
+						<header>
 
-					</header>
+							<ui:fragment rendered="#{!prodet.addKeyword}">
+								<h3 class="tabs_involved">anahtar kelimeler</h3>
+								<h:commandButton style="margin-top:5px;" value="Yeni Ekle"
+									action="#{prodet.setAddKeyword(true)}">
+									<f:ajax render="f:keywordsGrid"></f:ajax>
+								</h:commandButton>
+							</ui:fragment>
+							<ui:fragment id="addKeyword" rendered="#{prodet.addKeyword}">
+								<h:inputText id="prokeyword" value="#{prodet.selectedKeyword}"></h:inputText>
+								<h:commandButton style="margin-top:5px;" value="Kaydet"
+									action="#{prodet.addKeywordToProduct}">
+									<f:ajax render="f:dtkeywords f:msgs" execute="f:prokeyword"></f:ajax>
+								</h:commandButton>
+							</ui:fragment>
+						</header>
+					</h:panelGroup>
+
 
 					<div class="tab_container">
 
 						<div id="tab1" class="tab_content">
-							<h:dataTable value="#{prodet.keywords}"
-								rendered="#{prodet.keywords.size()>0}" var="m" id="dtkeywords"
+							<h:dataTable value="#{prodet.keywords}" var="m" id="dtkeywords"
 								styleClass="tablesorter"
 								columnClasses="column1,column2,column3,column4,column5">
 
@@ -183,10 +237,28 @@
 				</article>
 				<article class="module width_3_quarter" style="width: 40%;">
 
-					<header>
-						<h3 class="tabs_involved">Fotograflar</h3>
 
-					</header>
+					<h:panelGroup id="photosGrid">
+						<header>
+
+							<ui:fragment rendered="#{!prodet.addPhoto}">
+								<h3 class="tabs_involved">Fotograflar</h3>
+								<h:commandButton style="margin-top:5px;" value="Yeni Ekle"
+									action="#{prodet.setAddPhoto(true)}">
+									<f:ajax render="f:photosGrid"></f:ajax>
+								</h:commandButton>
+							</ui:fragment> 
+							<ui:fragment id="addPhoto" rendered="#{prodet.addPhoto}">
+								<h:inputFile id="file" value="#{prodet.file}" />
+
+								<h:commandButton id="submitFile"
+			 						style="vertical-align:middle; height:42px;" value="Yükle"
+									action="#{prodet.upload}" styleClass="buttom">
+									<f:ajax execute="file" render="f:dtphotos f:msgs"></f:ajax>
+								</h:commandButton>
+							</ui:fragment>
+						</header>
+					</h:panelGroup>
 
 					<div class="tab_container">
 
