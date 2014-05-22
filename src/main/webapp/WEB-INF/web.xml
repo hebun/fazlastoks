@@ -52,12 +52,10 @@
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>
-
-	<context-param>
-		<param-name>org.omnifaces.FACES_VIEWS_SCAN_PATHS</param-name>
-		<param-value>/*.xhtml</param-value>
-	</context-param>
-
+<context-param>
+    <param-name>org.omnifaces.FACES_VIEWS_SCAN_PATHS</param-name>
+    <param-value>/*.xhtml</param-value>
+</context-param>
 	<context-param>
 		<description>State saving method: 'client' or 'server' (=default). See
 			JSF Specification 2.5.2

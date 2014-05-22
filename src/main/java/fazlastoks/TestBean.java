@@ -2,6 +2,7 @@ package fazlastoks;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -38,16 +39,20 @@ public class TestBean {
 	}
 
 	public void dumpCompTree() {
+		
 		FacesContext context = FacesContext.getCurrentInstance();
 		UIInput input = new UIInput();
 		Map<String, Object> map = input.getAttributes();
 		map.put("id", "Myid");
 		map.put("value", "blblba my value");
 
-		map.forEach((t, u) -> {
-			System.out.println(t + ":" + u);
-			FaceUtils.log.info(t + ":" + u);
-		});
+		map.forEach( new BiConsumer<String, Object>() {
+			@Override
+			public void accept(String t, Object u) {
+				System.out.println(t + ":" + u);
+				FaceUtils.log.info(t + ":" + u);
+			}
+		} );
 
 	}
 

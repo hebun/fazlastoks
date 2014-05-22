@@ -27,6 +27,7 @@ public class MyPhaseListener implements javax.faces.event.PhaseListener {
 			try {
 				Map<String, Object> viewMap = FacesContext.getCurrentInstance()
 						.getViewRoot().getViewMap();
+				
 				for (Map.Entry<String, Object> view : viewMap.entrySet()) {
 
 					if (view.getValue() instanceof CrudBase) {
