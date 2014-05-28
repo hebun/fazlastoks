@@ -33,7 +33,7 @@
 				<span class="urunEkleAlanBaslik">Paket Tanımı* :</span>
 				<h:inputTextarea id="content" value="#{pro.pro.content}"
 					styleClass="kayitText" required="true"
-					requiredMessage="#{reqMessage}"></h:inputTextarea>
+					requiredMessage="#{reqMessage}" style="margin-bottom:2px;"></h:inputTextarea>
 				<h:message for="content" styleClass="error"></h:message>
 				<div class="clearLeft"></div>
 
@@ -45,14 +45,15 @@
 				</h:inputText>
 				<span style="font-size: 10px;"> TL </span>
 				<div class="clearLeft"></div>
-
-				<span class="urunEkleAlanBaslik">Paket Fırsat Fiyatı ( KDV
-					hariç ) :</span>
-				<h:inputText id="price"
-					onkeypress="if((event.which &lt; 48 &#38;&#38; event.which &gt; 31 )  || event.which &gt; 57) return false;"
-					label="Fırsat Fiyatı" value="#{pro.pro.price}"
-					styleClass="kayitText" style="width:100px;" />
-				<span style="font-size: 10px;"> TL </span>
+			
+					<span class="urunEkleAlanBaslik">Paket Fırsat Fiyatı ( KDV
+						hariç ) :</span>
+					<h:inputText id="price"
+						onkeypress="if((event.which &lt; 48 &#38;&#38; event.which &gt; 31 )  || event.which &gt; 57) return false;"
+						label="Fırsat Fiyatı" value="#{pro.pro.price}"
+						styleClass="kayitText" style="width:100px;" />
+					<span style="font-size: 10px;"> TL </span>
+				
 				<h:message styleClass="error" for="price"></h:message>
 				<div class="clearLeft"></div>
 
@@ -60,12 +61,14 @@
 				<h:inputText value="#{pro.pro.kalem}" style="width:50px;"
 					onkeypress="if((event.which &lt; 48 &#38;&#38; event.which &gt; 31 )  || event.which &gt; 57) return false;"></h:inputText>
 				<span style="font-size: 12px;"> Kalem </span>
+				
+				<h:inputText value="#{pro.pro.adet}" style="width:50px;"
+					onkeypress="if((event.which &lt; 48 &#38;&#38; event.which &gt; 31 )  || event.which &gt; 57) return false;"></h:inputText>
+				<span style="font-size: 12px;"> Adet </span>
 				<h:inputText value="#{pro.pro.kg}" style="width:50px;"
 					onkeypress="if((event.which &lt; 48 &#38;&#38; event.which &gt; 31 )  || event.which &gt; 57) return false;"></h:inputText>
 				<span style="font-size: 12px;"> KG </span>
-				<h:inputText value="#{pro.pro.m3}" style="width:50px;"
-					onkeypress="if((event.which &lt; 48 &#38;&#38; event.which &gt; 31 )  || event.which &gt; 57) return false;"></h:inputText>
-				<span style="font-size: 12px;"> M³ </span>
+				
 				<div class="clearLeft"></div>
 
 
@@ -85,7 +88,7 @@
 					pt:placeholder="En fazla 10 kelime"></h:inputText>
 
 				<h:commandButton id="addKeyword"
-					style="vertical-align:middle; height:32px;" value="Ekle"
+					style=" height:32px;" value="Ekle"
 					action="#{pro.addKeyword}" styleClass="buttom">
 					<f:ajax execute="keyword" render="keywords keyword mfk"></f:ajax>
 				</h:commandButton>
@@ -134,7 +137,7 @@
 				<h:inputFile id="file" value="#{pro.file}" />
 
 				<h:commandButton id="submitFile"
-					style="vertical-align:middle; height:42px;" value="Yükle"
+					style=" height:42px;" value="Yükle"
 					action="#{pro.upload}" styleClass="buttom">
 					<f:ajax execute="file" render="photos file mff"></f:ajax>
 				</h:commandButton>

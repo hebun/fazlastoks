@@ -283,7 +283,7 @@ public class ProDetail extends CrudBase implements Serializable {
 				.add("content", pro.getContent())
 				.add("price", pro.getPrice())
 				.add("pprice", pro.getPprice())
-				.add("m3", pro.getM3())
+				.add("adet", pro.getAdet())
 				.add("kg", pro.getKg())
 				.add("kalem", pro.getKalem())
 				.add("expiredate",

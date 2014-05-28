@@ -12,14 +12,27 @@ public class MyPhaseListener implements javax.faces.event.PhaseListener {
 
 	@Override
 	public void afterPhase(PhaseEvent event) {
-		System.out
-				.println("-------------------------------------------------------------");
+		long time = 0;
+		if (event.getPhaseId() == PhaseId.RENDER_RESPONSE) {
 
+			time = System.currentTimeMillis() - start;
+
+			System.out.println("--------------------  time: " + time
+					+ "  -----------------------------------------");
+		} else {
+			System.out
+					.println("-------------------------------------------------------------------------------");
+
+		}
 	}
+
+	long start = 0;
 
 	@Override
 	public void beforePhase(PhaseEvent event) {
-
+		if (event.getPhaseId() == PhaseId.RESTORE_VIEW) {
+			this.start = System.currentTimeMillis();
+		}
 		System.out.println("---------------------- " + event.getPhaseId()
 				+ " -----------------");
 
@@ -27,7 +40,7 @@ public class MyPhaseListener implements javax.faces.event.PhaseListener {
 			try {
 				Map<String, Object> viewMap = FacesContext.getCurrentInstance()
 						.getViewRoot().getViewMap();
-				
+
 				for (Map.Entry<String, Object> view : viewMap.entrySet()) {
 
 					if (view.getValue() instanceof CrudBase) {

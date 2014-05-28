@@ -9,7 +9,7 @@
 		<link rel="stylesheet" type="text/css" media="all"
 			href="_css/lightbox.css" />
 		<script type="text/javascript" src="_js/lightbox.min.js"></script>
-	<script type="text/javascript" src="_js/jquery.maskedinput.min.js"></script>
+		<script type="text/javascript" src="_js/jquery.maskedinput.min.js"></script>
 
 	</ui:define>
 	<ui:define name="content">
@@ -47,21 +47,51 @@
 				</div>
 				<div class="paketBaslikKutu">
 					<span class="detayKutuBaslik">Piyasa Fiyatı :</span>
-					<h:outputText styleClass="baslik3"	style="text-decoration:line-through" value="#{prodetail.pro.pprice}">
-						<f:convertNumber type="currency" currencySymbol="TL"
-							locale="tr_TR" />
+					<h:outputText styleClass="baslik3paketdetay"
+						style="text-decoration:line-through"
+						value="#{prodetail.pro.pprice} TL">
+						<f:convertNumber type="currency" />
 					</h:outputText>
 					<div class="clearLeft"></div>
 				</div>
 
 				<div class="paketBaslikKutu">
 					<span class="detayKutuBaslik">Fırsat Fiyat :</span>
-					<h:outputText styleClass="baslik3" value="#{prodetail.pro.price}">
-						<f:convertNumber type="currency" currencySymbol="TL"
-							locale="tr_TR" />
+					<h:outputText styleClass="baslik3paketdetay"
+						value="#{prodetail.pro.price} TL">
+						<f:convertNumber type="currency" />
 					</h:outputText>
 					<div class="clearLeft"></div>
 				</div>
+				<div class="paketBaslikKutu">
+					<span class="detayKutuBaslik">Kalem Sayısı :</span>
+					<h:outputText styleClass="detayKutuYazi"
+						value="#{prodetail.pro.kalem==0?'-':prodetail.pro.kalem}">
+
+					</h:outputText>
+					<div class="clearLeft"></div>
+				</div>
+				
+					<div class="paketBaslikKutu">
+					<span class="detayKutuBaslik">Adet :</span>
+					<h:outputText styleClass="detayKutuYazi"
+						value="#{prodetail.pro.adet==0?'-':prodetail.pro.adet}">
+
+					</h:outputText>
+					<div class="clearLeft"></div>
+				</div>
+				
+					<div class="paketBaslikKutu">
+					<span class="detayKutuBaslik">Kg :</span>
+					<h:outputText styleClass="detayKutuYazi"
+						value="#{prodetail.pro.kg==0?'-':prodetail.pro.kg}">
+
+					</h:outputText>
+					<div class="clearLeft"></div>
+				</div>
+				
+				
+				
 				<div class="paketBaslikKutu">
 					<span class="detayKutuBaslik">Ürün Durumu :</span><span
 						class="detayKutuYazi">#{prodetail.proStates}</span>
@@ -74,9 +104,10 @@
 				</div>
 			</div>
 			<div class="clearLeft"></div>
-			Bu sayfada incelediğiniz ürün ile ilgili daha fazla bilgi için aşağıdaki formu gönderin
+			Bu sayfada incelediğiniz ürün ile ilgili daha fazla bilgi için
+			aşağıdaki formu gönderin
 			<div class="urunTalepAlan">
-			<h3 style="padding-left: 40px;"> PAKET BİLGİ FORMU</h3>
+				<h3 style="padding-left: 40px;">PAKET BİLGİ FORMU</h3>
 				<h:form rendered="#{prodetail.pro.id>0}" id="f">
 					<span class="talepFormBaslik">Ad Soyad* :</span>
 					<h:inputText id="adSoyad" required="true"
@@ -116,7 +147,7 @@
 			</div>
 			<div class="clearLeft"></div>
 		</div>
-		<h:outputScript >
+		<h:outputScript>
 		
 		$("[id='f:gsm']").mask("(0999) 999 99 99");
 		</h:outputScript>

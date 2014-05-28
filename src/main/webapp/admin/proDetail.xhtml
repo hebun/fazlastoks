@@ -33,7 +33,7 @@
 					<label for="content">Paket icerigi : </label>
 				</p>
 
-				<h:inputText id="content" value="#{prodet.pro.content}" tabindex="2"></h:inputText>
+				<h:inputTextarea id="content" value="#{prodet.pro.content}" rows="5" cols="30" tabindex="2"></h:inputTextarea>
 
 				<p class="contact">
 					<label for="quantity">Miktar : </label>
@@ -45,9 +45,9 @@
 					<h:inputText value="#{prodet.pro.kg}" style="width:50px;"
 						onkeypress="if((event.which &lt; 48 &#38;&#38; event.which &gt; 31 )  || event.which &gt; 57) return false;"></h:inputText>
 					<span style="font-size: 12px;"> KG </span>
-					<h:inputText value="#{prodet.pro.m3}" style="width:50px;"
+					<h:inputText value="#{prodet.pro.adet}" style="width:50px;"
 						onkeypress="if((event.which &lt; 48 &#38;&#38; event.which &gt; 31 )  || event.which &gt; 57) return false;"></h:inputText>
-					<span style="font-size: 12px;"> M³ </span>
+					<span style="font-size: 12px;"> Adet </span>
 				</h:panelGroup>
 				<p class="contact">
 					<label for="price">Paket Piyasa Fiyati(TL) : </label>

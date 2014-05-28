@@ -78,7 +78,7 @@
 	font-size: 14px;
 	-webkit-border-radius: 5px;
 	margin-bottom: 15px;
-	vertical-align: top;
+
 }
 
 .form input:focus,textarea:focus {
@@ -194,7 +194,7 @@ table a:active,table a:hover {
 table {
 	font-family: Arial, Helvetica, sans-serif;
 	color: #000;
-	font-size: 12px;
+	font-size: 14px;
 	background-color: #ffffff;
 	margin: 5px;
 	-moz-border-radius: 3px;

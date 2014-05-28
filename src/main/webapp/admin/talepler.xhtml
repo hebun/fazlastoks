@@ -9,10 +9,66 @@
 
 	<ui:define name="content">
 
-		<free:crud bean="#{talep}" list="#{talep.taleps}"
-			header="Ürün Alış Talepleri" hasInsert="false" hasEditButton="false"
-			hasToggleRead="true" width="90"></free:crud>
+	
+		<article class="module width_3_quarter" style="width: 90">
 
+			<header>
+				<h3 class="tabs_involved">Ürün Alış Talepleri</h3>
+
+			</header>
+
+			<div class="tab_container">
+
+				<div id="tab1" class="tab_content">
+					<h:dataTable value="#{talep.taleps}" var="m" id="betDt1"
+						styleClass="tablesorter"
+						columnClasses="column1,column2,column3,column4,column5">
+						<c:forEach items="#{talep.columns}" var="c">
+
+							<h:column>
+								<f:facet name="header">#{c.header}</f:facet>
+
+								<h:outputLink rendered="#{c.name=='pname'}"
+									value="proDetail?id=#{m.productid}">#{m[c.name]}</h:outputLink>
+
+								<h:outputText rendered="#{talep.editRowId!=m.id and c.name!='pname'}"
+									value="#{m[c.name]}"></h:outputText>
+
+								<h:inputText rendered="#{talep.editRowId==m.id}"
+									value="#{m[c.name]}"></h:inputText>
+
+							</h:column>
+						</c:forEach>
+						<h:column pt:style="width:20%;">
+
+							<f:facet name="header">Eylemler</f:facet>
+
+							<ui:fragment rendered="#{talep.editRowId==m.id}">
+								<h:commandButton action="#{talep.updateRow(m)}" value="Kaydet"
+									pt:title="Düzenle"></h:commandButton>
+
+							</ui:fragment>
+							<ui:fragment rendered="#{talep.editRowId!=m.id}">
+								<h:commandButton image="images/icn_logout.png"
+									action="#{talep.delete(m)}"
+									onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"
+									pt:title="Sil"></h:commandButton>
+								<h:commandButton image="images/icn_edit.png"
+									action="#{talep.editRow(m.id)}"
+									rendered="#{cc.attrs.hasEditButton}" pt:title="Düzenle"></h:commandButton>
+
+								<h:commandButton rendered="#{cc.attrs.hasToggleRead}"
+									image="images/icn_jump_back.png"
+									action="#{talep.toggleRead(m)}"
+									pt:title="Okundu Olarak isaretle"></h:commandButton>
+							</ui:fragment>
+						</h:column>
+
+					</h:dataTable>
+
+				</div>
+			</div>
+		</article>
 		<h:outputScript>
 		$(document).ready(function() 
     		{ 
