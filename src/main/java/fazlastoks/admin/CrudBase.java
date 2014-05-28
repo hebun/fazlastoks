@@ -1,6 +1,7 @@
 package fazlastoks.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import model.ColumnModel;
 import freela.util.Db;
@@ -13,6 +14,28 @@ public class CrudBase {
 	String message;
 	String newCat;
 	String editRowId = "0";
+	protected List<Map<String, String>> data;
+	protected Map<String, String> record;
+
+	public List<Map<String, String>> getData() {
+		return data;
+	}
+
+	public void setData(List<Map<String, String>> data) {
+		this.data = data;
+	}
+
+	public Map<String, String> getRecord() {
+		return record;
+	}
+
+	public void setRecord(Map<String, String> record) {
+		this.record = record;
+	}
+
+	public void setTable(String table) {
+		this.table = table;
+	}
 
 	public String getEditRowId() {
 		return editRowId;
@@ -28,8 +51,6 @@ public class CrudBase {
 		editRowId = id;
 		return null;
 	}
-
-	
 
 	public CrudBase() {
 

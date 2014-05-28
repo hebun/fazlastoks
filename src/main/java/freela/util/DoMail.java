@@ -24,8 +24,14 @@ public class DoMail {
 		System.out.println("Sucessfully Sent mail to All Users");
 	}
 
-	public static void postMail(String recipients[], String subject, String message,
-			String from) throws MessagingException,
+	public static void postMail(String recipient, String subject,
+			String message, String from) throws MessagingException,
+			AuthenticationFailedException {
+		postMail(new String[] { recipient }, subject, message, from);
+	}
+
+	public static void postMail(String recipients[], String subject,
+			String message, String from) throws MessagingException,
 			AuthenticationFailedException {
 
 		boolean debug = false;

@@ -9,6 +9,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Email;
 
 import freela.util.Db;
 import freela.util.FaceUtils;
@@ -20,6 +23,27 @@ import model.Productphoto;
 @ManagedBean(name = "hom")
 public class Home implements Serializable {
 
+	@Pattern(regexp = "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)", message = "{emailNotValid}")
+	private String bultenEmail;
+
+	private String messageClass="error";
+	
+	public String getMessageClass() {
+		return messageClass;
+	}
+
+	public void setMessageClass(String messageClass) {
+		this.messageClass = messageClass;
+	}
+
+	public String getBultenEmail() {
+		return bultenEmail;
+	}
+
+	public void setBultenEmail(String bultenEmail) {
+		this.bultenEmail = bultenEmail;
+	}
+
 	public Map<Integer, String> getPhotos() {
 		return photos;
 	}
@@ -30,8 +54,6 @@ public class Home implements Serializable {
 
 	List<Product> firsatPakets;
 
-
-	
 	private Map<Integer, String> photos;
 
 	public Home() {
@@ -39,11 +61,9 @@ public class Home implements Serializable {
 		loadPhotos();
 	}
 
-
-
 	@PostConstruct
 	public void init() {
-	
+
 	}
 
 	public void loadFirsats() {
@@ -70,6 +90,30 @@ public class Home implements Serializable {
 
 			photos.put(pp.getProductid(), pp.getFile());
 		}
+	}
+
+	public String addToBulten() {
+		try {
+			List<Map<String, String>> emails = Db.selectTable(new Sql.Select()
+					.from("bulten").where("email", bultenEmail).get());
+			if (emails.size() > 0) {
+				messageClass="error";
+				FaceUtils
+						.addError("bultenForm:emailKayit", "Bu E-Mail adresi  zaten kayıtlı.");
+				return null;
+			}
+			Db.insert(new Sql.Insert("bulten").add("email", bultenEmail).get());
+			messageClass="info";
+			FaceUtils.addError("bultenForm:emailKayit",
+					"Talebiniz alinmistir, teşekkür ederiz.");
+			bultenEmail="";
+			return null;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 
 	public List<Product> getFirsatPakets() {

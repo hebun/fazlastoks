@@ -4,9 +4,8 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	>
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 	<ui:define name="content">
 		<div class="sliderDestek">
 			<div class="sliderAlan">
@@ -25,12 +24,23 @@
 					src="_images/onlineDestek.jpg" width="172" height="141" /></span> <span
 					class="emailUyelikBaslik"><img src="_images/email-icon.png"
 					width="32" height="30" class="imageLeft" /> &#160;&#160;Ücretsiz
-					Bülten İçin</span> <span class="emailUyelik">
-					<form action="#" method="get">
-						<input name="emailKayit"  type="text"
-							placeholder="E-Mail adresinizi giriniz..." /> <input
-							type="submit" name="Gonder" value="Gönder" class="emailGonder" />
-					</form>
+					Bülten İçin</span> <span class="emailUyelik"> <h:form
+						id="bultenForm">
+						<h:inputText name="emailKayit" label="E-Mail" id="emailKayit"
+							value="#{hom.bultenEmail}"
+							pt:placeholder="E-Mail adresinizi giriniz..."></h:inputText>
+
+
+						<h:commandButton id="gonder" value="Gönder"
+							action="#{hom.addToBulten}">
+							<f:ajax execute="emailKayit" render="bultenForm"></f:ajax>
+						</h:commandButton>
+						<div class="clearLeft"></div>
+					
+						<h:outputScript rendered="#{facesContext.getMessages().hasNext()}">
+    						alert('#{facesContext.getMessages().next().getSummary()}');
+						</h:outputScript>
+					</h:form>
 				</span>
 				<div class="clearLeft"></div>
 			</div>
@@ -50,20 +60,23 @@
 								src="#{hom.photos[paket.id] == null ?'_images/fs-(42).jpg':'images/'.concat(hom.photos[paket.id]) }"
 								width="200" height="100" />
 						</div>
-						<div class="paketTanim"><b>#{paket.pname}</b></div>
-						
-						<div class="paketTanim" style="height: 30px;">
-						
-						  #{fn:substring(paket.content,0,100)}
-						  <h:outputText rendered="#{paket.content.length()>100}" value="..."></h:outputText>
-						
+						<div class="paketTanim">
+							<b>#{paket.pname}</b>
 						</div>
-						
+
+						<div class="paketTanim" style="height: 30px;">
+
+							#{fn:substring(paket.content,0,100)}
+							<h:outputText rendered="#{paket.content.length()>100}"
+								value="..."></h:outputText>
+
+						</div>
+
 						<div class="paketFiyat">
 							<span class="baslik1">Piyasa Fiyatı</span>
 							<h:outputText styleClass="baslik3"
 								style="text-decoration:line-through" value="#{paket.pprice} TL">
-								<f:convertNumber type="currency"  />
+								<f:convertNumber type="currency" />
 							</h:outputText>
 
 							<div class="clearLeft"></div>
@@ -71,7 +84,7 @@
 						<div class="firsatFiyat">
 							<span class="baslik4">Fırsat Fiyatı</span>
 							<h:outputText styleClass="baslik3" value="#{paket.price} TL">
-								<f:convertNumber type="currency"  	 />
+								<f:convertNumber type="currency" />
 							</h:outputText>
 							<div class="clearLeft"></div>
 						</div>

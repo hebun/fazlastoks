@@ -171,7 +171,7 @@ public class FaceUtils {
 		if (col != null) {
 
 			try {
-				Sql prepare = new Sql.Select().from(table).where("code", col)
+				Sql prepare = new Sql.Select().from(table).where(param, col)
 						.prepare();
 				List<Map<String, String>> result = Db.preparedSelect(
 						prepare.get(), ((Select) prepare).params());

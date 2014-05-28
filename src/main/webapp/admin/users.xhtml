@@ -47,8 +47,9 @@
 								<h:commandButton image="images/icn_logout.png"
 									action="#{users.delete(m)}" pt:title="Sil"
 									onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"></h:commandButton>
-
-
+								<h:outputLink 
+										value="userDetail?id=#{m.id}"><img src="images/icn_edit.png"/> </h:outputLink>
+							
 							</h:column>
 
 						</h:dataTable>
