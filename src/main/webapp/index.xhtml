@@ -20,20 +20,14 @@
 				</ul>
 			</div>
 			<div class="onlineDestek">
-				<span class="onlineDestekImage">
-				<!-- Web 2 Navi Code -->
-<iframe frameborder="0" src="http://web2navi.com/embed/call/e9WxZVy5p" width="183" height="40"></iframe>
-<!-- /Web 2 Navi Code -->
-				<img
-					src="_images/onlineDestek.jpg" width="172" height="141" /></span> 
-					<BR />
-				<BR />
-				<span	class="emailUyelikBaslik">
-				&#160;	&#160;	&#160;	
-				<img src="_images/email-icon.png"
-					width="32" height="30" class="imageLeft" /> &#160;&#160;Ücretsiz
-					Bülten İçin</span> <span class="emailUyelik"> <h:form
-						id="bultenForm">
+				<span class="onlineDestekImage"> <!-- Web 2 Navi Code --> <iframe
+						frameborder="0" src="http://web2navi.com/embed/call/e9WxZVy5p"
+						width="183" height="40"></iframe> <!-- /Web 2 Navi Code --> <img
+					src="_images/onlineDestek.jpg" width="172" height="141" /></span> <BR />
+				<BR /> <span class="emailUyelikBaslik"> &#160; &#160; &#160;
+					<img src="_images/email-icon.png" width="32" height="30"
+					class="imageLeft" /> &#160;&#160;Ücretsiz Bülten İçin
+				</span> <span class="emailUyelik"> <h:form id="bultenForm">
 						<h:inputText name="emailKayit" label="E-Mail" id="emailKayit"
 							value="#{hom.bultenEmail}"
 							pt:placeholder="E-Mail adresinizi giriniz..."></h:inputText>
@@ -44,7 +38,7 @@
 							<f:ajax execute="emailKayit" render="bultenForm"></f:ajax>
 						</h:commandButton>
 						<div class="clearLeft"></div>
-					
+
 						<h:outputScript rendered="#{facesContext.getMessages().hasNext()}">
     						alert('#{facesContext.getMessages().next().getSummary()}');
 						</h:outputScript>

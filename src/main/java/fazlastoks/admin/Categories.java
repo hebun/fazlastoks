@@ -11,15 +11,26 @@ import model.Category;
 import model.ColumnModel;
 import freela.util.Db;
 import freela.util.Sql;
+import freela.util.Sql.Update;
 
 @ViewScoped
 @ManagedBean
 public class Categories extends CrudBase implements Serializable {
 
 	List<Category> cats;
+	Category cat;
+
+	public Category getCat() {
+		return cat;
+	}
+
+	public void setCat(Category cat) {
+		this.cat = cat;
+	}
 
 	public Categories() {
 		this.table = "category";
+		this.cat = new Category();
 		cats = Db.select(new Sql.Select().from(table).get(), Category.class);
 
 		initColumns();
@@ -28,27 +39,50 @@ public class Categories extends CrudBase implements Serializable {
 
 	public String updateRow(Category c) {
 
-		if (Db.update(new Sql.Update(table).add("cname", c.getCname())
-				.where("id", c.getId()).get()) > 0) {
-			super.success("Kategori Guncellendi.");
-		} else {
-			super.errorOccured();
+		try {
+			Update update = new Sql.Update(table).add("cname", c.getCname());
+
+			if (c.getDescription() != null)
+				update.add("description", c.getDescription());
+
+			if (c.getKeywords() != null)
+				update.add("keywords", c.getKeywords());
+			if (c.getTitle() != null)
+				update.add("title", c.getTitle());
+			update.where("id", c.getId());
+
+			if (Db.update(update.get()) > 0) {
+				super.success("Kategori Guncellendi.");
+			} else {
+				super.errorOccured();
+			}
+			this.editRowId = "0";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		this.editRowId = "0";
 		return null;
 
 	}
 
 	public void addCat() {
 
-		Category cat = new Category(newCat);
+		try {
+			cat.setId(Db.insert(new Sql.Insert(table)
+					.add("cname", cat.getCname())
+					.add("description", cat.getDescription())
+					.add("keywords", cat.getKeywords())
+					.add("title", cat.getTitle()).get()));
 
-		cat.setId(Db.insert(new Sql.Insert(table).add("cname", newCat).get()));
-
-		cats.add(cat);
-		hasMessage = true;
-		messageType = "alert_success";
-		message = "Yeni kategori başarıyla eklendi.";
+			cats.add(cat);
+			hasMessage = true;
+			messageType = "alert_success";
+			message = "Yeni kategori başarıyla eklendi.";
+			this.cat = new Category();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void delete(Category cat) {

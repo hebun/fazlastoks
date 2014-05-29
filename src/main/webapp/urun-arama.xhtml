@@ -5,8 +5,16 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	>
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<ui:define name="head">
+		<ui:fragment rendered="#{search.catSearch}">
+			<title>#{search.category.title}</title>
+			<meta name="description" content="#{search.category.description}">
+			</meta>
+
+			<meta name="keywords" content="#{search.category.keywords}"></meta>
+		</ui:fragment>
+	</ui:define>
 	<ui:define name="content">
 		<div class="sagContentAlan">
 			<div class="baslikKutu">ÜRÜN ARAMA</div>

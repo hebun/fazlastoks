@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+import model.Category;
 import model.Product;
 import model.Productphoto;
 import freela.util.Db;
@@ -27,8 +28,28 @@ public class Search implements Serializable {
 
 	private Map<Integer, String> photos;
 
-	public Search(String testing) {
+	private boolean catSearch;
 
+	private Category category;
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public boolean isCatSearch() {
+		return catSearch;
+	}
+
+	public void setCatSearch(boolean catSearch) {
+		this.catSearch = catSearch;
+	}
+
+	public Search(String testing) {
+		catSearch = false;
 	}
 
 	public Search() {
@@ -55,12 +76,21 @@ public class Search implements Serializable {
 	}
 
 	public void initWithCat() {
+
 		Sql.Select sql = (Select) new Sql.Select().from("product").as("p")
 				.innerJoin("productcategory").as("pc")
 				.on("p.id", "pc.productid").where("pc.categoryid", catId)
 				.prepare();
 
 		list = Db.preparedSelect(sql.get(), sql.params(), Product.class);
+
+		List<Category> cates = Db.select(new Sql.Select().from("category")
+				.where("id", catId).get(), Category.class);
+		if (cates.size() > 0) {
+			this.catSearch = true;
+			this.category = cates.get(0);
+		}
+
 		loadPhotos();
 	}
 
