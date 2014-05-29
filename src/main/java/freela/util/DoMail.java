@@ -9,11 +9,11 @@ public class DoMail {
 	public static String SMTP_HOST_NAME = "localhost"; // or
 														// simply
 														// "localhost"
-	public static String SMTP_AUTH_USER = "ismet@freela.jvmhost.net";
+	public static String SMTP_AUTH_USER = "info@fazlastoklar.com";
 	public static String SMTP_AUTH_PWD = "ZMA8~~3vu~iu";
 	public static String emailMsgTxt = "Body";
 	public static String emailSubjectTxt = "Subject";
-	public static String emailFromAddress = "ismet@freela.jvmhost.net";
+	public static String emailFromAddress = "info@fazlastoklar.com";
 
 	// Add List of Email address to who email needs to be sent to
 	public static String[] emailList = { "ismettung@gmail.com" };

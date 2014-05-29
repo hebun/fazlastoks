@@ -17,10 +17,11 @@
 				</h:panelGrid>
 			</h:panelGroup>
 			<h:messages styleClass="error"></h:messages>
+			<table cellpadding="20"><tr><td>
 			<h:panelGrid columns="2" columnClasses="alignRight"
 				style="margin-left:25px;" border="0" cellpadding="0" cellspacing="2">
 
-				<c:forEach items="#{userDet.columns}" var="col">
+				<c:forEach items="#{userDet.allColumns}" var="col">
 
 					<c:if test="#{col.name!='productCount'}">
 						<p class="contact">
@@ -34,7 +35,9 @@
 				<div></div>
 				<h:commandButton value="Güncelle" action="#{userDet.updateUser}"></h:commandButton>
 			</h:panelGrid>
-
+			</td><td valign="top">
+			<h:commandButton style="margin-top:10px" value="Kullanıcıyı Banla" action="#{userDet.banUser}"></h:commandButton>
+			</td> </tr> </table>
 		</h:form>
 
 		<h:outputScript>

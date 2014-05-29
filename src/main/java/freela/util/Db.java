@@ -376,7 +376,7 @@ public class Db {
 				Map<String, String> hash = new HashMap<String, String>();
 				for (int i = 1; i <= colCount; i++) {
 
-					String value = rs.getString(i) == null ? "NULL" : rs
+					String value = rs.getString(i) == null ? null : rs
 							.getString(i);
 					String columnLabel = data.getColumnLabel(i);
 					if (hash.containsKey(columnLabel)) {

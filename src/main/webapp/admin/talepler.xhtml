@@ -9,7 +9,7 @@
 
 	<ui:define name="content">
 
-	
+
 		<article class="module width_3_quarter" style="width: 90">
 
 			<header>
@@ -27,15 +27,15 @@
 
 							<h:column>
 								<f:facet name="header">#{c.header}</f:facet>
+								
+								<h:outputLink rendered="#{c.name=='uname'}"
+									value="userDetail?id=#{m.userid}">#{m[c.name]}</h:outputLink>
 
 								<h:outputLink rendered="#{c.name=='pname'}"
 									value="proDetail?id=#{m.productid}">#{m[c.name]}</h:outputLink>
 
-								<h:outputText rendered="#{talep.editRowId!=m.id and c.name!='pname'}"
-									value="#{m[c.name]}"></h:outputText>
+								<h:outputText rendered="#{c.name!='pname' and c.name!='uname'}" value="#{m[c.name]}"></h:outputText>
 
-								<h:inputText rendered="#{talep.editRowId==m.id}"
-									value="#{m[c.name]}"></h:inputText>
 
 							</h:column>
 						</c:forEach>
@@ -53,14 +53,7 @@
 									action="#{talep.delete(m)}"
 									onclick="if (! confirm('Bu kaydı gerçekten silmek istiyor musunuz?')) return false"
 									pt:title="Sil"></h:commandButton>
-								<h:commandButton image="images/icn_edit.png"
-									action="#{talep.editRow(m.id)}"
-									rendered="#{cc.attrs.hasEditButton}" pt:title="Düzenle"></h:commandButton>
 
-								<h:commandButton rendered="#{cc.attrs.hasToggleRead}"
-									image="images/icn_jump_back.png"
-									action="#{talep.toggleRead(m)}"
-									pt:title="Okundu Olarak isaretle"></h:commandButton>
 							</ui:fragment>
 						</h:column>
 

@@ -116,7 +116,7 @@ public class ProDetail extends CrudBase implements Serializable {
 
 		if (fail) {
 
-			FaceUtils.addError("f:msgs", msg);
+			super.error( msg);
 		}
 		log.info(fail + "");
 		return fail;
