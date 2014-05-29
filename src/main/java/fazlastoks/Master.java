@@ -62,6 +62,11 @@ public class Master implements Serializable {
 		return "";
 	}
 
+	public String replaceSpace(String catName) {
+		return catName.replaceAll(" ", "-");
+
+	}
+
 	private static final long serialVersionUID = 4790738744214962785L;
 
 }
