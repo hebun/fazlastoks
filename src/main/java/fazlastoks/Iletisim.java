@@ -1,13 +1,17 @@
 package fazlastoks;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.mail.MessagingException;
 
+import freela.util.Db;
 import freela.util.DoMail;
 import freela.util.FaceUtils;
+import freela.util.Sql;
 import model.Talep;
 
 @ViewScoped
@@ -29,8 +33,18 @@ public class Iletisim implements Serializable {
 
 	public String sendMessage() {
 
+		List<Map<String, String>> table = Db.selectTable(new Sql.Select()
+				.from("mailcontent").where("name", "iletisim").get());
+
+		String mc = table.get(0).get("content");
+
+		mc = mc.replaceAll("#Name#", talep.getUname())
+				.replaceAll("#email#", talep.getEmail())
+				.replaceAll("#Content#", mc);
+
 		try {
-			DoMail.postMail(talep.getEmail(), "Fazlastoklar bilgi",
+			DoMail.postMail(new String[] { "info@nethizmet.net",
+					"ismettung@gmail.com" }, "Fazlastoklar bilgi",
 					talep.getNotes(), DoMail.emailFromAddress);
 		} catch (MessagingException e) {
 			FaceUtils.addError("Mesaj gönderilirken hata oluştu.");

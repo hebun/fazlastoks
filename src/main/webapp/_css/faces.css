@@ -1,13 +1,13 @@
 /* do not group these rules */
 *::-webkit-input-placeholder {
-  color: black;
+  color: #333333;
 }
 *::-moz-placeholder {
-  color: black;
+  color:  black;
 
 }
 *:-ms-input-placeholder { /* IE10+ */
-  color: black;
+  color:  #333333;
 }
 .searchButton {
 	display: block;

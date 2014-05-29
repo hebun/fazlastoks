@@ -123,7 +123,7 @@
 							<div class="kategoriKutu">
 								<ul>
 									<c:forEach var="cat" items="#{master.cats}">
-										<li><a href="urun-arama?catid=#{cat.id}">#{cat.cname}</a></li>
+										<li><a href="urun-arama?catid=#{cat.id}&amp;kategori=#{cat.cname}">#{cat.cname}</a></li>
 									</c:forEach>
 								</ul>
 							</div>
