@@ -7,6 +7,7 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 
 import fazlastoks.admin.CrudBase;
+import freela.util.Db;
 
 public class MyPhaseListener implements javax.faces.event.PhaseListener {
 
@@ -16,12 +17,13 @@ public class MyPhaseListener implements javax.faces.event.PhaseListener {
 		if (event.getPhaseId() == PhaseId.RENDER_RESPONSE) {
 
 			time = System.currentTimeMillis() - start;
-
-			System.out.println("--------------------  time: " + time
-					+ "  -----------------------------------------");
+			if (Db.debug)
+				System.out.println("--------------------  time: " + time
+						+ "  -----------------------------------------");
 		} else {
-			System.out
-					.println("-------------------------------------------------------------------------------");
+			if (Db.debug)
+				System.out
+						.println("-------------------------------------------------------------------------------");
 
 		}
 	}
@@ -33,8 +35,9 @@ public class MyPhaseListener implements javax.faces.event.PhaseListener {
 		if (event.getPhaseId() == PhaseId.RESTORE_VIEW) {
 			this.start = System.currentTimeMillis();
 		}
-		System.out.println("---------------------- " + event.getPhaseId()
-				+ " -----------------");
+		if (Db.debug)
+			System.out.println("---------------------- " + event.getPhaseId()
+					+ " -----------------");
 
 		if (event.getPhaseId() == PhaseId.PROCESS_VALIDATIONS) {
 			try {
@@ -51,7 +54,7 @@ public class MyPhaseListener implements javax.faces.event.PhaseListener {
 
 				}
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				System.out.println("phoase listener:" + e.getMessage());
 			}
 		}
 	}

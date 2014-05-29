@@ -50,7 +50,7 @@ public class AuthFilter implements Filter {
 			
 			String reqURI = split.length == 0 ? req.getRequestURI()
 					: split[split.length - 1];
-			System.out.println(callCount++ + reqURI);
+			
 			User user = (User) req.getSession().getAttribute("user");
 
 			if (user == null) {

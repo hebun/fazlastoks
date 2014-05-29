@@ -99,7 +99,7 @@ public class Register implements Serializable {
 		log.fine(mc);
 
 		DoMail.postMail(
-				new String[] { "ismettung@gmail.com", user.getEmail() },
+				new String[] { "info@fazlastoklar.com", user.getEmail() },
 				"fazlastoklar.com aktivasyon", mc, "");
 
 	}

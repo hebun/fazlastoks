@@ -44,7 +44,7 @@ public class Iletisim implements Serializable {
 
 		try {
 			DoMail.postMail(new String[] { "info@nethizmet.net",
-					"ismettung@gmail.com" }, "Fazlastoklar bilgi",
+					"info@fazlastoklar.com" }, "Fazlastoklar bilgi",
 					mc, DoMail.emailFromAddress);
 		} catch (MessagingException e) {
 			FaceUtils.addError("Mesaj gönderilirken hata oluştu.");
