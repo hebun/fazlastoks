@@ -10,7 +10,8 @@
 	<ui:define name="content">
 
 
-		<h4 class="alert_info">Eylem açıklaması için fareyi ilgili eylemin üstüne götürün.</h4>
+		<h4 class="alert_info">Eylem açıklaması için fareyi ilgili
+			eylemin üstüne götürün.</h4>
 
 		<h:form>
 			<h:panelGrid style="width:100%;" rendered="#{product.hasMessage}">
@@ -38,8 +39,10 @@
 
 									<h:outputLink rendered="#{c.name=='pname'}"
 										value="proDetail?id=#{m.id}">#{m[c.name]}</h:outputLink>
+									<h:outputLink rendered="#{c.name=='uname'}"
+										value="userDetail?id=#{m.userid}">#{m[c.name]}</h:outputLink>
 
-									<h:outputText rendered="#{c.name!='pname'}">#{m[c.name]}</h:outputText>
+									<h:outputText rendered="#{c.name!='pname' and c.name!='uname'}">#{m[c.name]}</h:outputText>
 
 								</h:column>
 							</c:forEach>
@@ -84,9 +87,9 @@ $(document).ready(function()
 .delButton {
 	background-image: url(images/icn_trash.png)
 }
-.column1{
-width:20%;
 
+.column1 {
+	width: 20%;
 }
 </style>
 	</ui:define>

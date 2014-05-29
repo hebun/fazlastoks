@@ -38,14 +38,14 @@ public class Iletisim implements Serializable {
 
 		String mc = table.get(0).get("content");
 
-		mc = mc.replaceAll("#Name#", talep.getUname())
+		mc = mc.replaceAll("#Name#", talep.getName())
 				.replaceAll("#email#", talep.getEmail())
-				.replaceAll("#Content#", mc);
+				.replaceAll("#Content#", talep.getNotes());
 
 		try {
 			DoMail.postMail(new String[] { "info@nethizmet.net",
 					"ismettung@gmail.com" }, "Fazlastoklar bilgi",
-					talep.getNotes(), DoMail.emailFromAddress);
+					mc, DoMail.emailFromAddress);
 		} catch (MessagingException e) {
 			FaceUtils.addError("Mesaj gönderilirken hata oluştu.");
 			FaceUtils.log.warning(e.getMessage());

@@ -1,0 +1,55 @@
+1 paket isimleri sayfada paketlerde goruntulensin. Yani paket altindapaket ismi olmali oncelikle .
+ Sonra alt satirda paket tanimi olmali3 satir ile sinirlandirilabilir. Tasarim duzeni acisindan.[OK]
+ 
+2 piyasa fiyati ve firsat fiyati formati duzenli olmali yani TL birimi alt alta gelmeli.
+Kurusu iptal edelim gerek yok ona.[OK]
+
+3 urun paket girisinde zaten kurus yok. Ayrica TL ifadesi giris islemlerinde bir satir altta olsun 
+tasarim goruntusu acisindan giriste.[OK]
+
+4 miktarin giris oldugu kisimda kalem, adet, kg yeterli m3 gerek yok.
+Bu bilgiler paket detayinda ve hicbir yerde gorunmuyor paket detayinda olmali ziyaretciler gorebilmeli.
+
+Bir de herhangi bir bilgi girilmez ise kalem, adet veya kg kismina o zaman paket detayinda ya - olablir veya ? 
+Konabilir. Ne dersin.[OK. - konuldu]
+
+5 paket detayini gormek isteyen ziyaretciler sunlari gorsunler
+
+paket adi
+Paket tanimi
+kalem sayisi
+Adet
+Kg
+Urunun durumu
+Piyasa fiyati
+Firsat fiyati
+[OK]
+6 admin panelinde urun alis taleplerinde urun adi gorunuyor ama ona tiklanamiyor, 
+biz tiklayinca o urunun detayi acilsin ki rahatca anlyalim ve islem yapabilelim.
+[OK]
+
+7 ucretsiz bulten icin ziyaretci giris yapinca bir mesaj olmali. Talebiniz alinmistir,
+ tesekkur ederiz gibi.
+Ayrica adminde hicbir yerde yok ucretsiz bulten talepleri icin email adresleri
+Adminden bulten mesaj yollanabilmeli elbette.[OK]
+
+8 kullanicilarla ilgili biz adminden tum edit islemlerini yapabilmeliyiz. 
+Hatali girisler yapabilirler. Duzeltmemiz gerekebilir.
+[OK]
+9 iletisim sayfasina bizim net hizmetteki ayni bilgileri ve ayni formatta kullanabiliriz.[OK]
+
+10 canli destek. [supertrafikteki canlı destegi buraya aktarayım mı?]
+
+11 talepler ve urunlerde kullanici detay linki [OK]
+
+12 kategori urlde isim de olsun [OK]
+
+13 kategori eklenirken description,keywords, title eklenebilsin..[17.maddeden sonrasina ertelendi]
+
+14 ana menulerin desc,keywords ve title'lari eklensin . seo acisindan ...
+
+15 placeholder(kutularin icindeki bilgi mesajlari) cok koyu olmus[OK]
+
+16 mail smtp blgileri güncelle.[OK]
+
+17 Sayflarin description,keywords, title bilgileri. adminden girilebilsin.

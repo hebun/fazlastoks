@@ -6,31 +6,27 @@ margin-right:auto;
 }
 
 .logo{
-	width: 215px;
-	height: 75px;
-	margin-left: 15px;
-	margin-top: 11px;
+	width: 300px;
+	height: 60px;
+	margin-top: 21px;
 	float: left;
-	background-image: url(../_images/logoBG.png);
-	background-repeat: no-repeat;
-	background-position: left center;
+	background-position: center center;
 	font-family: Arial, Tahoma, Verdana;
 	font-size: 24px;
 	font-weight: bold;
 	color: #003;
 	text-decoration: none;
 	text-align: center;
-	line-height: 70px;
 
 }
 
 .urunArama{
-	width: 498px;
+	width: 428px;
 	float: left;
 	margin-top: 36px;
 	margin-left: 10px;
 	height: 35px;
-	padding:5px;
+	padding: 5px;
 	border: 2px solid #eaeaea;
 	position: relative;
 	-moz-border-radius: 5px;

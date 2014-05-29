@@ -5,18 +5,36 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:define name="head">
+
+		<title>"Fazla Stoklar İletişim, Fazla Stoklar Firması, Fazla
+			Stoklar Adresi, Stok Fazlası Firması, Stok Fazlası Adresi, İkinci El
+			Adresi "</title>
+
+		<meta name="description"
+			content="Türkiye'nin İlk ve tek Fazla Stok Sistemi adresi fazlastoklar.com .">
+		</meta>
+		<meta name="keywords"
+			content="Fazla Stoklar İletişim, Fazla Stoklar Firması, Fazla Stoklar Adresi, Stok Fazlası Firması, Stok Fazlası Adresi, İkinci El Adresi ">
+		</meta>
+	</ui:define>
 	<ui:define name="content">
 		<style>
 table tr:hover td {
 	background: #ffffff;
-	border-left:0px;
+	border-left: 0px;
 }
-table td{
-	border-left:0px;
+
+table td {
+	border-left: 0px;
 }
 </style>
 		<div class="sagContentAlan">
 			<div class="baslikKutu">İLETİŞİM</div>
+			<!-- Web 2 Navi Code -->
+			<iframe frameborder="0" src="http://web2navi.com/embed/e9WxZVy5p"
+				width="440" height="293"></iframe>
+			<!-- /Web 2 Navi Code -->
 			<table>
 				<tr>
 					<td>
@@ -59,17 +77,18 @@ table td{
 						src="http://nethizmet.net/resimler/dap-royal-center.png"></img></td>
 				</tr>
 			</table>
-			&#160;&#160; <iframe marginheight="0" marginwidth="0"
+			&#160;&#160;
+			<iframe marginheight="0" marginwidth="0"
 				src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=tr&amp;geocode=&amp;q=Altay%C3%A7e%C5%9Fme+Mh.,+Dap+Royal+Center&amp;aq=&amp;sll=40.941673,29.13336&amp;sspn=0.009482,0.01929&amp;t=h&amp;ie=UTF8&amp;hq=Dap+Royal+Center&amp;hnear=Altay%C3%A7e%C5%9Fme+Mh.,+Maltepe%2F%C4%B0stanbul,+T%C3%BCrkiye&amp;ll=40.938836,29.134755&amp;spn=0.011347,0.027895&amp;z=15&amp;iwloc=A&amp;output=embed"
 				frameborder="0" height="350" scrolling="no" width="650"></iframe>
-				
-				
-				<H4>Aşağıdaki Formu Doldurarak Bizimle İletişim Kurun !</H4>
-				<div class="urunTalepAlan">
-	
+
+
+			<H4>Aşağıdaki Formu Doldurarak Bizimle İletişim Kurun !</H4>
+			<div class="urunTalepAlan">
+
 				<h:form id="f">
 					<ui:param name="reqMessage" value="Lütfen bu alanı doldurun."></ui:param>
-				<h:messages globalOnly="true" styleClass="error"></h:messages>
+					<h:messages globalOnly="true" styleClass="error"></h:messages>
 					<span class="talepFormBaslik">Ad Soyad* :</span>
 					<h:inputText id="adSoyad" required="true"
 						requiredMessage="#{reqMessage}" value="#{iletisim.talep.name}"
@@ -105,8 +124,8 @@ table td{
 					<div></div>
 					<div></div>
 				</h:form>
-			</div>	
-				
+			</div>
+
 		</div>
 	</ui:define>
 </ui:composition>
