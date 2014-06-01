@@ -22,7 +22,7 @@ import model.User;
 import fazlastoks.Login;
 import freela.util.FaceUtils;
 
-@WebFilter(filterName = "AuthFilter", servletNames="Faces Servlet")
+@WebFilter(filterName = "AuthFilter", servletNames = "Faces Servlet")
 public class AuthFilter implements Filter {
 
 	static boolean devStage = false;
@@ -47,12 +47,16 @@ public class AuthFilter implements Filter {
 			HttpServletResponse res = (HttpServletResponse) response;
 			HttpSession ses = req.getSession(false);
 			String[] split = req.getRequestURI().split("\\.");
-			
-			String reqURI = split.length == 0 ? req.getRequestURI()
-					: split[split.length - 1];
+
+			String reqURI =  req.getRequestURI()
+					;
+
+			if (!adminControle(req, res, ses, reqURI)) return;
 			
 			User user = (User) req.getSession().getAttribute("user");
 
+			
+			
 			if (user == null) {
 				String uuid = getCookieValue(req, COOKIE_NAME);
 
@@ -72,16 +76,15 @@ public class AuthFilter implements Filter {
 					}
 				}
 			}
-
-			if (user != null) {
-				chain.doFilter(request, response);
-			} else {
-
-				if (devStage) {
+			
+			
+				if (user != null) {
 					chain.doFilter(request, response);
 				} else {
 
-					if (adminControle(req, res, ses, reqURI)) {
+					if (devStage) {
+						chain.doFilter(request, response);
+					} else {
 
 						if (memberControle(req, res, ses, reqURI)) {
 
@@ -89,7 +92,7 @@ public class AuthFilter implements Filter {
 						}
 					}
 				}
-			}
+			
 		} catch (Throwable t) {
 			FaceUtils.log.info(t.getMessage());
 			t.printStackTrace();
@@ -135,8 +138,9 @@ public class AuthFilter implements Filter {
 		 * admin access only
 		 */
 
+	
 		if (reqURI.indexOf("/admin") >= 0) {
-
+	
 			HttpSession session = req.getSession();
 			if (session == null || session.getAttribute("user") == null) {
 				FaceUtils.log.warning("not authorized attempt to access admin/"
@@ -149,7 +153,7 @@ public class AuthFilter implements Filter {
 				System.out.println(user);
 				if (!user.getState().equals("ADMIN")) {
 					FaceUtils.log
-							.warning("Not authorized attempt to access admin/");
+							.warning("Not authorized attempt to access admin");
 
 					res.sendRedirect(req.getContextPath() + "/kullanici-giris");
 					return false;

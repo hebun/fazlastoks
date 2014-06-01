@@ -33,7 +33,8 @@
 					<label for="content">Paket icerigi : </label>
 				</p>
 
-				<h:inputTextarea id="content" value="#{prodet.pro.content}" rows="5" cols="30" tabindex="2"></h:inputTextarea>
+				<h:inputTextarea id="content" value="#{prodet.pro.content}" rows="5"
+					cols="30" tabindex="2"></h:inputTextarea>
 
 				<p class="contact">
 					<label for="quantity">Miktar : </label>
@@ -110,13 +111,17 @@
 												styleClass="tablesorter"
 												columnClasses="column1,column2,column3,column4,column5">
 												<c:forEach items="#{categories.columns}" var="c">
+												
+													
+														<h:column rendered="#{c.name=='cname'}">
 
-													<h:column>
-														<f:facet name="header">#{c.header}</f:facet>
 
-														<h:outputText>#{m[c.name]}</h:outputText>
+															<f:facet name="header">#{c.header}</f:facet>
 
-													</h:column>
+															<h:outputText>#{m[c.name]}</h:outputText>
+
+														</h:column>
+													
 												</c:forEach>
 												<h:column pt:style="width:20%;">
 													<f:facet name="header">Eylemler</f:facet>

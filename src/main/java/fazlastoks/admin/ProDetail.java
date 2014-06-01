@@ -273,7 +273,7 @@ public class ProDetail extends CrudBase implements Serializable {
 
 	public String updatePro() {
 
-		FaceUtils.log.info("updatecalled");
+
 		Update sql = (Update) new Update("product")
 				.add("pname", pro.getPname())
 				.add("content", pro.getContent())
@@ -286,7 +286,7 @@ public class ProDetail extends CrudBase implements Serializable {
 						FaceUtils.getFormattedTime(pro.getExpiredate()))
 				.where("id=", pro.getId());
 		int generatedKey = Db.prepareInsert(sql.prepare().get(), sql.params());
-		FaceUtils.log.info(generatedKey + "");
+
 		if (generatedKey > 0) {
 			super.success("Ürün Güncellendi.");
 		} else {
@@ -315,7 +315,7 @@ public class ProDetail extends CrudBase implements Serializable {
 				.on("category.id", "productcategory.categoryid")
 				.where("productid=", this.pro.getId()).get());
 
-		log.fine(pro.getKeywords().length() + "");
+		//log.fine(pro.getKeywords().length() + "");
 
 		String[] split = pro.getKeywords().split(",");
 		if (split.length > 0) {
