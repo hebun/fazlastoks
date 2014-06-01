@@ -29,12 +29,11 @@
 	border-radius: .5em;
 	color: #D8000C;
 	background-color: #FFBABA;
-
 	font-size: 14px;
 	font-family: Arial, Tahoma, Verdana;
 }
 </style>
-	<link rel="stylesheet" type="text/css" media="all"
+		<link rel="stylesheet" type="text/css" media="all"
 			href="../_css/lightbox.css" />
 		<script type="text/javascript" src="../_js/lightbox.min.js"></script>
 
@@ -59,7 +58,13 @@
 		<div class="user">
 			<p>Admin</p>
 		</div>
-		<div class="breadcrumbs_container"></div>
+		<div class="breadcrumbs_container">
+
+			<article class="breadcrumbs"> <a href="index.xhtml">
+				Admin</a>
+			<div class="breadcrumb_divider"></div>
+			<a >#{adminMaster.getCurrentPageName()}</a> </article>
+		</div>
 		</section>
 		<!-- end of secondary bar -->
 
@@ -73,9 +78,10 @@
 			<li class="icn_new_article"><a href="states.xhtml">Ürün
 					Durumları</a></li>
 			<li class="icn_categories"><a href="talepler.xhtml">Talepler</a></li>
-			<li class="icn_view_users"><a href="users.xhtml">Kullanıcılar</a></li>
+			<li class="icn_view_users"><a href="users.xhtml">Satıcılar</a></li>
 			<li class="icn_edit_article"><a href="products.xhtml">Ürünler</a></li>
-			<li class="icn_edit_article"><a href="bulten.xhtml">Bülten Aboneleri</a></li>
+			<li class="icn_edit_article"><a href="bulten.xhtml">Bülten
+					Aboneleri</a></li>
 			<li class="icn_jump_back"><a href="logout.xhtml">Çıkış</a></li>
 		</ul>
 

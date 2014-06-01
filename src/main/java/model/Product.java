@@ -4,7 +4,6 @@ package model;
 import java.util.Date;
 
 import javax.validation.constraints.Future;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 public class Product implements java.io.Serializable {
@@ -12,40 +11,40 @@ public class Product implements java.io.Serializable {
 	public Product() {
 	}
 
-	private int id = 0;
-	private int userid;
+	private Integer id = 0;
+	private Integer userid;
 	private String pname;
 	private String content;
 	private String pstate;
 	private String quantity;
 
 	@Min(value = 1000, message = "{priceTooLow}")
-	private int price;
+	private Integer price;
 	@Future(message = "{dateFuture}")
 	private Date expiredate;
 
 	private String keywords;
 	private String file;
-	private int adet;
-	private int kg;
-	private int m3;
-	private int kalem;
+	private Integer adet;
+	private Integer kg;
+	private Integer m3;
+	private Integer kalem;
 
-	private int pprice;
+	private Integer pprice;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int value) {
+	public void setId(Integer value) {
 		id = value;
 	}
 
-	public int getUserid() {
+	public Integer getUserid() {
 		return userid;
 	}
 
-	public void setUserid(int value) {
+	public void setUserid(Integer value) {
 		userid = value;
 	}
 
@@ -81,11 +80,11 @@ public class Product implements java.io.Serializable {
 		quantity = value;
 	}
 
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(int value) {
+	public void setPrice(Integer value) {
 		price = value;
 	}
 
@@ -113,43 +112,44 @@ public class Product implements java.io.Serializable {
 		file = value;
 	}
 
-	public int getAdet() {
+	public Integer getAdet() {
 		return adet;
 	}
 
-	public void setAdet(int value) {
+	public void setAdet(Integer value) {
 		adet = value;
 	}
 
-	public int getKg() {
+	public Integer getKg() {
 		return kg;
 	}
 
-	public void setKg(int value) {
+	public void setKg(Integer value) {
 		kg = value;
 	}
 
-	public int getM3() {
+	public Integer getM3() {
 		return m3;
 	}
 
-	public void setM3(int value) {
+	public void setM3(Integer value) {
 		m3 = value;
 	}
 
-	public int getKalem() {
+	public Integer getKalem() {
 		return kalem;
 	}
 
-	public void setKalem(int value) {
+	public void setKalem(Integer value) {
 		kalem = value;
 	}
 
-	public int getPprice() {
+	public Integer getPprice() {
+		System.out.println("pprice:"+pprice);
 		return pprice;
 	}
 
-	public void setPprice(int value) {
+	public void setPprice(Integer value) {
 		pprice = value;
 	}
 }

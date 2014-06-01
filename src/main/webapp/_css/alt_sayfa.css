@@ -61,8 +61,6 @@ padding:10px;
 }
 
 
-
-
 .gizliBilgi{
 	width: 140px;
 	float: right;
@@ -71,7 +69,7 @@ padding:10px;
 }
 
 .sosyalMedya{
-	width: 400px;
+	width: 300px;
 	float: left;
 	margin-left: 10px;
 	padding: 10px;
@@ -151,9 +149,9 @@ text-align: right;
 }
 
 .altHakkimizda{
-	width: 510px;
+	width: 410px;
 	float: left;
-	margin-left: 10px;
+	margin-left: 190px;
 	font-family: Arial, Tahoma, Verdana;
 	font-size: 12px;
 	font-weight: normal;

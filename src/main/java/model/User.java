@@ -30,6 +30,14 @@ public class User implements java.io.Serializable {
 	private String vergino;
 	private Object productCount;
 	private String state;
+private String aciklama;
+	public String getAciklama() {
+	return aciklama;
+}
+
+public void setAciklama(String aciklama) {
+	this.aciklama = aciklama;
+}
 
 	private String uuid;
 	

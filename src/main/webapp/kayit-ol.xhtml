@@ -5,6 +5,13 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:define name="head">
+		<link rel="stylesheet" type="text/css" media="all"
+			href="_css/lightbox.css" />
+		<script type="text/javascript" src="_js/lightbox.min.js"></script>
+		<script type="text/javascript" src="_js/jquery.maskedinput.min.js"></script>
+
+	</ui:define>
 	<ui:define name="content">
 <!-- ğüşçöÖÇŞĞÜİı -->
 		<div class="sagContentAlan">
@@ -70,5 +77,10 @@
 				</div>
 			</h:form>
 		</div>
+		<h:outputScript>
+		
+		$("[id='registerForm:CepTel']").mask("(0999) 999 99 99");
+		$("[id='registerForm:SabitTel']").mask("(0999) 999 99 99");
+		</h:outputScript>
 	</ui:define>
 </ui:composition>

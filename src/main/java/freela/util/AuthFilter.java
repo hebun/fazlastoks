@@ -48,15 +48,10 @@ public class AuthFilter implements Filter {
 			HttpSession ses = req.getSession(false);
 			String[] split = req.getRequestURI().split("\\.");
 
-			String reqURI =  req.getRequestURI()
-					;
+			String reqURI = req.getRequestURI();
 
-			if (!adminControle(req, res, ses, reqURI)) return;
-			
 			User user = (User) req.getSession().getAttribute("user");
 
-			
-			
 			if (user == null) {
 				String uuid = getCookieValue(req, COOKIE_NAME);
 
@@ -76,23 +71,23 @@ public class AuthFilter implements Filter {
 					}
 				}
 			}
-			
-			
-				if (user != null) {
+			if (!adminControle(req, res, ses, reqURI))
+				return;
+			if (user != null) {
+				chain.doFilter(request, response);
+			} else {
+
+				if (devStage) {
 					chain.doFilter(request, response);
 				} else {
 
-					if (devStage) {
+					if (memberControle(req, res, ses, reqURI)) {
+
 						chain.doFilter(request, response);
-					} else {
-
-						if (memberControle(req, res, ses, reqURI)) {
-
-							chain.doFilter(request, response);
-						}
 					}
 				}
-			
+			}
+
 		} catch (Throwable t) {
 			FaceUtils.log.info(t.getMessage());
 			t.printStackTrace();
@@ -138,9 +133,8 @@ public class AuthFilter implements Filter {
 		 * admin access only
 		 */
 
-	
 		if (reqURI.indexOf("/admin") >= 0) {
-	
+
 			HttpSession session = req.getSession();
 			if (session == null || session.getAttribute("user") == null) {
 				FaceUtils.log.warning("not authorized attempt to access admin/"
