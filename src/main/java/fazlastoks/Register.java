@@ -1,29 +1,24 @@
 package fazlastoks;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-import javax.enterprise.inject.New;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
 
+import model.User;
 import freela.util.App;
 import freela.util.Db;
 import freela.util.DoMail;
 import freela.util.FaceUtils;
 import freela.util.Sql;
 import freela.util.Sql.Insert;
-import model.User;
 
 @ViewScoped
 @ManagedBean

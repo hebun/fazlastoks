@@ -148,7 +148,7 @@
 								<ul>
 									<c:forEach var="cat" items="#{master.cats}">
 										<li><a
-											href="urun-arama?catid=#{cat.id}&amp;kategori=#{master.replaceSpace(cat.cname)}">#{cat.cname}</a></li>
+											href="urun-arama?catid=#{cat.id}&amp;kategori=#{master.replaceSpace(cat.cname)}">#{cat.cname}(#{cat.catCount})</a></li>
 									</c:forEach>
 								</ul>
 							</div>

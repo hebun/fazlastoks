@@ -11,6 +11,7 @@ import freela.util.FaceUtils;
 import freela.util.Sql;
 
 import java.util.List;
+import java.util.Map;
 
 @ViewScoped
 @ManagedBean
@@ -18,15 +19,15 @@ public class Master implements Serializable {
 
 	String searchText;
 
-	List<Category> cats;
+	List<Map<String,String>> cats;
 
 	public Master() {
-		cats = Db.select(new Sql.Select().from("catcount").get(),
-				Category.class);
+		cats = Db.selectTable(new Sql.Select().from("catcount").get()
+				);
 
-	}
+	} 
 
-	public String search() {
+	public String search() { 
 
 		FaceUtils.log.fine("searchtext:" + searchText);
 		if (searchText != null && !searchText.equals("")
@@ -38,11 +39,11 @@ public class Master implements Serializable {
 
 	}
 
-	public List<Category> getCats() {
+	public List<Map<String,String>> getCats() {
 		return cats;
 	}
 
-	public void setCats(List<Category> cats) {
+	public void setCats(List<Map<String,String>> cats) {
 		this.cats = cats;
 	}
 

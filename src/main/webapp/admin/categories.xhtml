@@ -29,6 +29,7 @@
 				</h:panelGrid>
 			</h:form>
 		</div>
+	<a href="editTable?iframe" class="fancybox fancybox.iframe">This goes to iframe</a>
 		<free:crud bean="#{categories}" showOrderInfo="false"
 			addLabel="Kategori Ekle" header="Kategoriler" hasInsert="false"
 			list="#{categories.cats}" width="80"></free:crud>
@@ -36,6 +37,7 @@
 $(document).ready(function() 
     	{ 
       	  $(".tablesorter").tablesorter(); 
+      	  $("a.fancybox").fancybox();
    	 } 
 	);
 	</h:outputScript>

@@ -93,7 +93,7 @@ public class SearchTest {
 
 		Master master = new Master();
 
-		int id = master.getCats().get(0).getId();
+		int id =Integer.parseInt(master.getCats().get(0).get("id"));
 
 		search.setCatId(id);
 		search.initWithCat();

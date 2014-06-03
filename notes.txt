@@ -46,7 +46,7 @@ Hatali girisler yapabilirler. Duzeltmemiz gerekebilir.
 
 13 kategori eklenirken description,keywords, title eklenebilsin..[17.maddeden sonrasina ertelendi]
 
-14 ana menulerin desc,keywords ve title'lari eklensin . seo acisindan ...
+14 ana menulerin desc,keywords ve title'lari eklensin . seo acisindan ...[OK]
 
 15 placeholder(kutularin icindeki bilgi mesajlari) cok koyu olmus[OK]
 
